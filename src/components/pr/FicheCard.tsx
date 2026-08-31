@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { BadgeDeplacement, BadgeType, PhotoFiche } from "@/components/pr/bits";
-import { poigneeOuDomaine, type Categorie, type Prestataire } from "@/lib/pages-roses";
+import { libelleLien, type Categorie, type Prestataire } from "@/lib/pages-roses";
 
 export function FicheCard({
   fiche,
@@ -61,14 +61,14 @@ export function FicheCard({
               rel="noopener noreferrer"
               className="oeil border-b border-rose pb-0.5 text-bordeaux"
             >
-              {poigneeOuDomaine(lien)}
+              {libelleLien(lien)}
             </a>
           ) : fiche.telephone ? (
             <a
               href={`tel:${fiche.telephone.replace(/\s/g, "")}`}
               className="oeil border-b border-rose pb-0.5 text-bordeaux"
             >
-              {fiche.telephone}
+              {`Tél. ${fiche.telephone}`}
             </a>
           ) : null}
           {fiche.lien_reservation ? (
