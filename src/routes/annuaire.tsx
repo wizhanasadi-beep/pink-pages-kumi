@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { NumeroDePage, Rubrique } from "@/components/pr/bits";
