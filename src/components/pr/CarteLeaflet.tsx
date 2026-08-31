@@ -78,5 +78,5 @@ export default function CarteLeaflet({
     }
   }, [fiches, centre]);
 
-  return <div ref={ref} className="h-[60vh] min-h-80 w-full border-2 border-encre" />;
+  return <div ref={ref} className="h-[60vh] min-h-80 w-full border border-border" />;
 }

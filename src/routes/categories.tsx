@@ -59,7 +59,7 @@ function Categories() {
                     <Link
                       to="/annuaire"
                       search={{ q: s, cat: c.slug, dep: "", ville: "" }}
-                      className="label-annonce inline-block border-2 border-encre bg-papier px-2.5 py-1.5"
+                      className="label-annonce inline-block border border-border bg-papier px-2.5 py-1.5"
                     >
                       ✦ {s}
                     </Link>
@@ -70,7 +70,7 @@ function Categories() {
               <Link
                 to="/annuaire"
                 search={{ q: "", cat: c.slug, dep: "", ville: "" }}
-                className="rubrique mt-4 inline-block border-2 border-encre bg-jaune px-3 py-2 shadow-[3px_3px_0_0_var(--encre)]"
+                className="rubrique mt-4 inline-block border border-border bg-jaune px-3 py-2 shadow-sm"
               >
                 Feuilleter la rubrique →
               </Link>

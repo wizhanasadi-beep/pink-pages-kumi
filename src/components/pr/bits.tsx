@@ -48,7 +48,7 @@ export function BadgeDeplacement({
   return (
     <span
       className={cn(
-        "label-annonce inline-flex items-center gap-1 border-2 border-encre px-2 py-1",
+        "label-annonce inline-flex items-center gap-1 border border-border px-2 py-1",
         styles[mode],
         className,
       )}
@@ -76,7 +76,7 @@ export function Etiquette({
   return (
     <span
       className={cn(
-        "label-annonce inline-block border border-encre px-2 py-0.5",
+        "label-annonce inline-block border border-border px-2 py-0.5",
         tons[ton],
         className,
       )}
@@ -101,7 +101,7 @@ export function PhotoFiche({
   return (
     <div
       className={cn(
-        "relative overflow-hidden border-2 border-encre bg-poudre",
+        "relative overflow-hidden border border-border bg-poudre",
         ratio,
         className,
       )}
@@ -115,7 +115,7 @@ export function PhotoFiche({
         />
       ) : (
         <div className="rayures-jaunes flex h-full w-full items-center justify-center">
-          <span className="logo-pages-roses flex h-16 w-16 items-center justify-center rounded-full border-2 border-encre bg-papier text-2xl">
+          <span className="logo-pages-roses flex h-16 w-16 items-center justify-center rounded-full border border-border bg-papier text-2xl">
             {initiales(nom)}
           </span>
         </div>
