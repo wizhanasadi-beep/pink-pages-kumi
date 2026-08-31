@@ -30,7 +30,7 @@ export function Masthead() {
           ))}
           <Link
             to="/referencer"
-            className="oeil bg-encre px-4 py-2.5 text-background transition-opacity hover:opacity-85"
+            className="oeil bg-encre px-4 py-2.5 text-background transition-opacity hover:opacity-85 rounded-full"
           >
             Référencer
           </Link>

@@ -45,7 +45,7 @@ export function BadgeDeplacement({
   return (
     <span
       className={cn(
-        "oeil inline-flex items-center gap-1.5 border border-border px-2.5 py-1 text-muted-foreground",
+        "oeil inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-muted-foreground",
         className,
       )}
     >
@@ -72,7 +72,7 @@ export function Etiquette({
   } as const;
   return (
     <span
-      className={cn("oeil inline-block border px-2.5 py-1", tons[ton], className)}
+      className={cn("oeil inline-block rounded-full border px-2.5 py-1", tons[ton], className)}
     >
       {children}
     </span>
@@ -92,7 +92,7 @@ export function PhotoFiche({
   ratio?: string;
 }) {
   return (
-    <div className={cn("relative overflow-hidden bg-poudre", ratio, className)}>
+    <div className={cn("relative overflow-hidden rounded-2xl bg-poudre", ratio, className)}>
       {url ? (
         <img
           src={url}

@@ -34,7 +34,7 @@ export function FicheCard({
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="oeil border border-border px-2.5 py-1 text-muted-foreground">
+          <span className="oeil border border-border px-2.5 py-1 text-muted-foreground rounded-full">
             {fiche.ville}
             {fiche.quartier ? ` · ${fiche.quartier}` : ""}
           </span>
@@ -45,7 +45,7 @@ export function FicheCard({
           <Link
             to="/prestataire/$id"
             params={{ id: fiche.id }}
-            className="oeil bg-encre px-5 py-3 text-background transition-opacity hover:opacity-85"
+            className="oeil bg-encre px-5 py-3 text-background transition-opacity hover:opacity-85 rounded-full"
           >
             Consulter
           </Link>

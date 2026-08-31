@@ -45,7 +45,7 @@ function Fiche() {
           <Link
             to="/annuaire"
             search={{ q: "", cat: "", dep: "", ville: "" }}
-            className="rubrique mt-4 inline-block border border-border bg-rose px-4 py-2 text-rose-foreground shadow-sm"
+            className="rubrique mt-4 inline-block border border-border bg-rose px-4 py-2 text-rose-foreground shadow-sm rounded-full"
           >
             Retour à l'annuaire
           </Link>

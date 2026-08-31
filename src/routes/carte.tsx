@@ -73,7 +73,7 @@ function Carte() {
             <select
               value={cat}
               onChange={(e) => setCat(e.target.value)}
-              className="w-full border border-border bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm rounded-full"
             >
               <option value="">Toutes</option>
               {categories.map((c) => (
@@ -88,7 +88,7 @@ function Carte() {
             <select
               value={dep}
               onChange={(e) => setDep(e.target.value)}
-              className="w-full border border-border bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm rounded-full"
             >
               <option value="">Peu importe</option>
               <option value="se_deplace">🩷 Se déplace</option>
@@ -114,14 +114,14 @@ function Carte() {
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button
             onClick={autourDeMoi}
-            className="rubrique border border-border bg-rose px-3 py-2 text-rose-foreground shadow-sm"
+            className="rubrique border border-border bg-rose px-3 py-2 text-rose-foreground shadow-sm rounded-full"
           >
             📍 Autour de moi
           </button>
           {position ? (
             <button
               onClick={() => setPosition(null)}
-              className="label-annonce border border-border bg-papier px-3 py-2"
+              className="label-annonce border border-border bg-papier px-3 py-2 rounded-full"
             >
               ✕ Toute la France
             </button>
