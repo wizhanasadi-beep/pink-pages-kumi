@@ -34,18 +34,21 @@ function Accueil() {
   const navigate = useNavigate();
   const [couverture, setCouverture] = useState(true);
   const [besoin, setBesoin] = useState("");
+  const [ville, setVille] = useState("");
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
+  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
   const compte = (slug: string) => fiches.filter((f) => f.categorie_slug === slug).length;
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
     navigate({
       to: "/annuaire",
-      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville: "" },
+      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
     });
   };
+
 
 
   return (
