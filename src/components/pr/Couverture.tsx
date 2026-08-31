@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { LogoVertical } from "@/components/pr/Logo";
 import { Etoile } from "@/components/pr/ornements";
+import { jouerJingle } from "@/lib/jingle";
 
 /**
  * Couverture plein écran affichée à l'arrivée sur l'accueil.
- * Au clic, la page pivote et révèle le site.
+ * Au clic, le rideau se lève (translation verticale) et révèle le site,
+ * accompagné du jingle de la marque.
  */
 export function Couverture({ onFin }: { onFin: () => void }) {
   const [ouvre, setOuvre] = useState(false);
+  const [son, setSon] = useState(true);
 
   const ouvrir = () => {
     if (ouvre) return;
+    if (son) jouerJingle();
     setOuvre(true);
   };
 
   useEffect(() => {
     if (!ouvre) return;
     const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t = window.setTimeout(onFin, reduit ? 260 : 760);
+    const t = window.setTimeout(onFin, reduit ? 260 : 880);
     return () => window.clearTimeout(t);
   }, [ouvre, onFin]);
 
@@ -27,13 +31,26 @@ export function Couverture({ onFin }: { onFin: () => void }) {
       role="dialog"
       aria-label="Couverture Les Pages Roses"
     >
-      <button
-        type="button"
-        onClick={ouvrir}
-        className="oeil absolute right-5 top-6 z-10 text-encre/60 transition-colors hover:text-encre"
-      >
-        Passer
-      </button>
+      <div className="absolute right-5 top-6 z-10 flex items-center gap-4">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setSon((s) => !s);
+          }}
+          aria-pressed={son}
+          className="oeil text-encre/60 transition-colors hover:text-encre"
+        >
+          {son ? "Son activé" : "Son coupé"}
+        </button>
+        <button
+          type="button"
+          onClick={ouvrir}
+          className="oeil text-encre/60 transition-colors hover:text-encre"
+        >
+          Passer
+        </button>
+      </div>
 
       <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose/30" />
 
