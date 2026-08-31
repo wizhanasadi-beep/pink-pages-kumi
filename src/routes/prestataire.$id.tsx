@@ -68,12 +68,15 @@ function Fiche() {
   }
 
   const liens = [
-    fiche.instagram ? { label: "Instagram", href: fiche.instagram, ton: "rose" } : null,
-    fiche.site_web ? { label: "Site web", href: fiche.site_web, ton: "papier" } : null,
+    fiche.instagram
+      ? { label: poigneeOuDomaine(fiche.instagram), href: fiche.instagram, ton: "rose" }
+      : null,
+    fiche.site_web
+      ? { label: poigneeOuDomaine(fiche.site_web), href: fiche.site_web, ton: "papier" }
+      : null,
     fiche.lien_reservation
       ? { label: "Prendre rendez-vous", href: fiche.lien_reservation, ton: "jaune" }
       : null,
-    fiche.telephone ? { label: "Appeler", href: `tel:${fiche.telephone}`, ton: "poudre" } : null,
   ].filter(Boolean) as { label: string; href: string; ton: string }[];
 
   const tons: Record<string, string> = {
