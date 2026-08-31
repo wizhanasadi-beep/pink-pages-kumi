@@ -34,20 +34,19 @@ function Accueil() {
   const navigate = useNavigate();
   const [couverture, setCouverture] = useState(true);
   const [besoin, setBesoin] = useState("");
-  const [ville, setVille] = useState("");
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
-  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
   const compte = (slug: string) => fiches.filter((f) => f.categorie_slug === slug).length;
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
     navigate({
       to: "/annuaire",
-      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
+      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville: "" },
     });
   };
+
 
   return (
     <>
@@ -70,86 +69,47 @@ function Accueil() {
             </p>
 
 
-            {/* Recherche guidée en 2 clics */}
+            {/* Barre de recherche simple */}
             <form
-              className="encart mt-7 max-w-3xl p-4 sm:mt-9 sm:p-6"
+              className="mt-7 flex w-full max-w-md items-center gap-2 sm:mt-9"
               onSubmit={(e) => {
                 e.preventDefault();
                 lancer();
               }}
             >
-              <p className="oeil text-rose">Recherche guidée</p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
-                <div>
-                  <label htmlFor="besoin" className="oeil mb-2 block text-muted-foreground">
-                    Je cherche…
-                  </label>
-                  <input
-                    id="besoin"
-                    list="suggestions"
-                    value={besoin}
-                    onChange={(e) => setBesoin(e.target.value)}
-                    placeholder="MUA, coiffeuse, photographe…"
-                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose rounded-full"
-                  />
-                  <datalist id="suggestions">
-                    {categories.map((c) => (
-                      <option key={c.slug} value={c.slug}>
-                        {c.nom}
-                      </option>
-                    ))}
-                    {Object.values(SOUS_RUBRIQUES)
-                      .flat()
-                      .map((s) => (
-                        <option key={s} value={s} />
-                      ))}
-                  </datalist>
-                </div>
-                <div>
-                  <label htmlFor="ville" className="oeil mb-2 block text-muted-foreground">
-                    à…
-                  </label>
-                  <select
-                    id="ville"
-                    value={ville}
-                    onChange={(e) => setVille(e.target.value)}
-                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose rounded-full"
-                  >
-                    <option value="">Partout</option>
-                    {villes.map((v) => (
-                      <option key={v} value={v}>
-                        {v}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="oeil w-full bg-encre px-6 py-4 text-background transition-transform hover:-translate-y-0.5 sm:w-auto sm:py-3.5 rounded-full"
-                >
-                  C'est parti
-                </button>
-              </div>
-
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                <span className="oeil text-muted-foreground">Populaire</span>
-                {["MUA", "Coiffure", "Nails", "Pâtisserie", "Photographie"].map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() =>
-                      navigate({
-                        to: "/annuaire",
-                        search: { q: s, cat: "", dep: "", ville: "" },
-                      })
-                    }
-                    className="rounded-full border border-border px-3.5 py-1.5 text-sm transition-colors hover:border-rose hover:text-rose"
-                  >
-                    {s}
-                  </button>
+              <input
+                id="besoin"
+                list="suggestions"
+                value={besoin}
+                onChange={(e) => setBesoin(e.target.value)}
+                placeholder="MUA, coiffeuse, photographe…"
+                aria-label="Rechercher une prestataire"
+                className="w-full rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none placeholder:text-muted-foreground focus:border-rose"
+              />
+              <datalist id="suggestions">
+                {categories.map((c) => (
+                  <option key={c.slug} value={c.slug}>
+                    {c.nom}
+                  </option>
                 ))}
-              </div>
+                {Object.values(SOUS_RUBRIQUES)
+                  .flat()
+                  .map((s) => (
+                    <option key={s} value={s} />
+                  ))}
+              </datalist>
+              <button
+                type="submit"
+                aria-label="Rechercher"
+                className="shrink-0 rounded-full bg-encre px-5 py-3 text-background transition-transform hover:-translate-y-0.5"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                  <path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </button>
             </form>
+
 
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
               <Link
