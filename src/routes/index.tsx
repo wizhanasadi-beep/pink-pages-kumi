@@ -72,7 +72,7 @@ function Accueil() {
 
             {/* Recherche guidée en 2 clics */}
             <form
-              className="encart mt-9 max-w-3xl p-5 sm:p-6"
+              className="encart mt-7 max-w-3xl p-4 sm:mt-9 sm:p-6"
               onSubmit={(e) => {
                 e.preventDefault();
                 lancer();
@@ -125,7 +125,7 @@ function Accueil() {
                 </div>
                 <button
                   type="submit"
-                  className="oeil bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5"
+                  className="oeil w-full bg-encre px-6 py-4 text-background transition-transform hover:-translate-y-0.5 sm:w-auto sm:py-3.5"
                 >
                   C'est parti
                 </button>
@@ -168,11 +168,11 @@ function Accueil() {
         </section>
 
         {/* —— RUBRIQUES EN PAVÉS —— */}
-        <section className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
+        <section className="mx-auto max-w-6xl px-5 py-12 sm:py-24">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="oeil text-rose">Sommaire</p>
-              <h2 className="mt-3 text-4xl leading-none sm:text-5xl">Les rubriques</h2>
+              <h2 className="mt-3 text-3xl leading-none sm:text-5xl">Les rubriques</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
               Six rubriques, une seule adresse. Beauté, mode, événementiel, création, food et le
@@ -212,9 +212,9 @@ function Accueil() {
 
         {/* —— CITATION —— */}
         <section className="aplat-poudre relative overflow-hidden">
-          <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:py-24">
+          <div className="mx-auto max-w-4xl px-5 py-14 text-center sm:py-24">
             <Etoile className="mx-auto w-10 text-rose" />
-            <p className="mt-8 font-display text-3xl leading-tight sm:text-5xl">
+            <p className="mt-6 font-display text-2xl leading-tight sm:text-5xl">
               « Une coiffure pour ton prochain événement&nbsp;? On a ce qu'il te faut. »
             </p>
             <Link
@@ -228,11 +228,11 @@ function Accueil() {
         </section>
 
         {/* —— À LA UNE —— */}
-        <section className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
+        <section className="mx-auto max-w-6xl px-5 py-12 sm:py-24">
           <div className="flex items-end justify-between">
             <div>
               <p className="oeil text-rose">À la une</p>
-              <h2 className="mt-3 text-4xl leading-none sm:text-5xl">Elles ouvrent le bal</h2>
+              <h2 className="mt-3 text-3xl leading-none sm:text-5xl">Elles ouvrent le bal</h2>
             </div>
             <Link
               to="/annuaire"
@@ -256,7 +256,7 @@ function Accueil() {
 
         {/* —— APPEL PRESTATAIRES —— */}
         <section className="aplat-encre">
-          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-20 sm:flex-row sm:items-end sm:justify-between sm:py-24">
+          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-14 sm:flex-row sm:items-end sm:justify-between sm:py-24">
             <div className="max-w-xl">
               <p className="oeil text-rose">Tu es prestataire ?</p>
               <h2 className="mt-3 text-4xl leading-none text-background sm:text-5xl">
