@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Petite fleur girly, tracé plein. */
-export function Fleur({ className }: { className?: string }) {
+export function Fleur({ className }: { className?: string | undefined }) {
   return (
     <svg viewBox="0 0 100 100" className={cn("h-auto w-full", className)} aria-hidden>
       {[0, 60, 120, 180, 240, 300].map((a) => (
@@ -21,7 +21,7 @@ export function Fleur({ className }: { className?: string }) {
 }
 
 /** Étoile à quatre branches, style sparkle. */
-export function Etoile({ className }: { className?: string }) {
+export function Etoile({ className }: { className?: string | undefined }) {
   return (
     <svg viewBox="0 0 100 100" className={cn("h-auto w-full", className)} aria-hidden>
       <path
@@ -33,7 +33,7 @@ export function Etoile({ className }: { className?: string }) {
 }
 
 /** Arche : forme de base des pavés et des vignettes. */
-export function Arche({ className }: { className?: string }) {
+export function Arche({ className }: { className?: string | undefined }) {
   return (
     <svg viewBox="0 0 100 120" className={cn("h-auto w-full", className)} aria-hidden>
       <path d="M50 4c25 0 46 20 46 46v70H4V50C4 24 25 4 50 4Z" fill="currentColor" />
@@ -42,7 +42,7 @@ export function Arche({ className }: { className?: string }) {
 }
 
 /** Ruban ondulé pour marquer une bascule d'aplat. */
-export function Vague({ className }: { className?: string }) {
+export function Vague({ className }: { className?: string | undefined }) {
   return (
     <svg
       viewBox="0 0 1200 40"
@@ -67,7 +67,7 @@ const PICTOS: Record<string, "fleur" | "etoile" | "combine" | "coeur" | "arche" 
   autres: "combine",
 };
 
-export function PictoRubrique({ slug, className }: { slug: string; className?: string }) {
+export function PictoRubrique({ slug, className }: { slug: string; className?: string | undefined }) {
   const kind = PICTOS[slug] ?? "etoile";
   if (kind === "fleur") return <Fleur className={className} />;
   if (kind === "arche") return <Arche className={className} />;
