@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
-import { categoriesQuery, normalise, prestatairesQuery } from "@/lib/pages-roses";
+import { categoriesQuery, normalise, prestatairesQuery, texteRecherchable } from "@/lib/pages-roses";
 
 type Recherche = { q?: string; cat?: string; dep?: string; ville?: string; type?: string };
 
