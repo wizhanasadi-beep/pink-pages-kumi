@@ -66,43 +66,46 @@ function Annuaire() {
   return (
     <PageMagazine>
       <Rubrique
-        sur="Pages 12 à 48"
-        titre="L'annuaire"
-        sous="Toutes les prestataires des Kumi, réunies au même endroit."
+        sur="Annuaire"
+        titre="Toutes les prestataires"
+        sous="Recherche par nom, activité, rubrique, ville ou zone de déplacement."
       />
 
-      {/* Bloc de recherche façon encart Pages Jaunes */}
-      <section className="encart-jaune p-4">
-        <label className="label-annonce mb-2 block">🔎 Que recherchez-vous ?</label>
+      {/* Barre de recherche & filtres */}
+      <section className="border-y border-border py-6">
+        <label htmlFor="q" className="oeil block text-muted-foreground">
+          Rechercher
+        </label>
         <input
+          id="q"
           value={search.q}
           onChange={(e) => set({ q: e.target.value })}
           placeholder="MUA, coiffeuse, photographe…"
-          className="w-full border border-border bg-papier px-3 py-3 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
+          className="mt-2 w-full border-0 border-b border-border bg-transparent pb-2 font-display text-2xl outline-none placeholder:text-muted-foreground/60 focus:border-rose sm:text-3xl"
         />
 
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
           <div>
-            <label className="label-annonce mb-1 block">Rubrique</label>
+            <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
             <select
               value={search.cat}
               onChange={(e) => set({ cat: e.target.value })}
-              className="w-full border border-border bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
             >
               <option value="">Toutes</option>
               {categories.map((c) => (
                 <option key={c.slug} value={c.slug}>
-                  {c.icone} {c.nom}
+                  {c.nom}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <label className="label-annonce mb-1 block">Localisation</label>
+            <label className="oeil mb-2 block text-muted-foreground">Localisation</label>
             <select
               value={search.ville}
               onChange={(e) => set({ ville: e.target.value })}
-              className="w-full border border-border bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
             >
               <option value="">Partout</option>
               {villes.map((v) => (
@@ -113,16 +116,16 @@ function Annuaire() {
             </select>
           </div>
           <div>
-            <label className="label-annonce mb-1 block">Déplacement</label>
+            <label className="oeil mb-2 block text-muted-foreground">Déplacement</label>
             <select
               value={search.dep}
               onChange={(e) => set({ dep: e.target.value })}
-              className="w-full border border-border bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
             >
               <option value="">Peu importe</option>
-              <option value="se_deplace">🩷 Se déplace</option>
-              <option value="sur_place">🏠 Sur place</option>
-              <option value="sur_demande">🟡 Sur demande</option>
+              <option value="se_deplace">Se déplace</option>
+              <option value="sur_place">Sur place</option>
+              <option value="sur_demande">Sur demande</option>
             </select>
           </div>
         </div>
@@ -130,41 +133,42 @@ function Annuaire() {
         {search.q || search.cat || search.ville || search.dep ? (
           <button
             onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
-            className="label-annonce mt-3 border border-border bg-papier px-3 py-1.5"
+            className="oeil mt-5 border-b border-rose pb-0.5"
           >
-            ✕ Effacer les filtres
+            Effacer les filtres
           </button>
         ) : null}
       </section>
 
-      <div className="mt-6 flex items-center justify-between">
-        <Etiquette ton="encre">
-          {isLoading ? "Chargement…" : `${resultats.length} prestataire${resultats.length > 1 ? "s" : ""}`}
-        </Etiquette>
-        <p className="label-annonce text-muted-foreground">Classées par ordre alphabétique</p>
+      <div className="mt-8 flex items-center justify-between">
+        <p className="oeil text-muted-foreground">
+          {isLoading
+            ? "Chargement…"
+            : `${resultats.length} prestataire${resultats.length > 1 ? "s" : ""}`}
+        </p>
+        <p className="oeil text-muted-foreground">Ordre alphabétique</p>
       </div>
 
-      <div className="mt-5 grid gap-6">
-        {resultats.map((f, i) => (
+      <div className="mt-6 grid gap-6">
+        {resultats.map((f) => (
           <FicheCard
             key={f.id}
             fiche={f}
-            numero={i + 1}
             categorie={categories.find((c) => c.slug === f.categorie_slug)}
           />
         ))}
       </div>
 
       {!isLoading && resultats.length === 0 ? (
-        <div className="encart mt-6 p-6 text-center">
-          <p className="font-display text-xl">Aucune fiche pour cette recherche.</p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Essaie un autre mot-clé, ou élargis la rubrique. 💗
+        <div className="fiche mt-8 p-10 text-center">
+          <p className="font-display text-2xl">Aucune fiche pour cette recherche.</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Essaie un autre mot-clé, ou élargis la rubrique.
           </p>
         </div>
       ) : null}
 
-      <NumeroDePage n={12} mention="L'annuaire" />
+      <NumeroDePage mention="L'annuaire" />
     </PageMagazine>
   );
 }
