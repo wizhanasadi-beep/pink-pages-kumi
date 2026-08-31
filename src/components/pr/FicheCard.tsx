@@ -11,13 +11,14 @@ export function FicheCard({
   numero?: number | undefined;
 }) {
   return (
-    <article className="fiche group grid gap-5 p-5 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-7 sm:p-7">
+    <article className="fiche group grid grid-cols-[5.5rem_minmax(0,1fr)] gap-4 p-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-7 sm:p-7">
       <PhotoFiche
         nom={fiche.nom}
         url={fiche.photo_url}
-        ratio="aspect-[4/3] sm:aspect-[4/5]"
-        className="sm:w-40"
+        ratio="aspect-square sm:aspect-[4/5]"
+        className="w-[5.5rem] sm:w-40"
       />
+
 
       <div className="flex min-w-0 flex-col">
         <p className="oeil text-rose">
@@ -25,7 +26,7 @@ export function FicheCard({
           {fiche.sous_categorie ? ` · ${fiche.sous_categorie}` : ""}
         </p>
 
-        <h3 className="mt-2 text-3xl leading-none">{fiche.nom}</h3>
+        <h3 className="mt-2 text-2xl leading-none sm:text-3xl">{fiche.nom}</h3>
         <p className="mt-1.5 text-base text-bordeaux">{fiche.activite}</p>
 
         <p className="mt-3 line-clamp-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -40,7 +41,7 @@ export function FicheCard({
           <BadgeDeplacement mode={fiche.deplacement} />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-4">
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
           <Link
             to="/prestataire/$id"
             params={{ id: fiche.id }}

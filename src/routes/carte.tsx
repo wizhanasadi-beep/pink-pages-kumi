@@ -78,7 +78,7 @@ function Carte() {
               <option value="">Toutes</option>
               {categories.map((c) => (
                 <option key={c.slug} value={c.slug}>
-                  {c.icone} {c.nom}
+                  {c.nom}
                 </option>
               ))}
             </select>

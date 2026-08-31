@@ -1,110 +1,91 @@
 import { cn } from "@/lib/utils";
+import annuaireImg from "@/assets/annuaire-logo.png";
 
 /**
- * Combiné téléphonique stylisé : tracé graphique, sans skeuomorphisme.
+ * Combiné téléphonique plein (glyphe de secours, très petites tailles).
  */
-export function Combine({
+export function Combine({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 120" className={cn("h-auto w-full", className)} aria-hidden fill="none">
+      <path
+        d="M31 20c6-6 15-6 20 1l9 12c4 6 3 13-3 17l-6 4c3 9 11 17 20 20l4-6c4-6 11-7 17-3l12 9c7 5 7 14 1 20l-6 6c-8 8-21 8-33 2C46 94 26 74 19 55c-5-12-4-25 4-33l8-2z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+/** L'annuaire rose : illustration de marque. */
+export function AnnuaireImage({
   className,
-  strokeWidth = 6,
+  priority = false,
 }: {
   className?: string;
-  strokeWidth?: number;
+  priority?: boolean;
 }) {
   return (
-    <svg
-      viewBox="0 0 120 72"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      className={cn("h-auto w-full", className)}
-      aria-hidden
-    >
-      <path d="M22 46C22 24 38 10 60 10s38 14 38 36" />
-      <rect x="6" y="40" width="32" height="24" rx="12" />
-      <rect x="82" y="40" width="32" height="24" rx="12" />
-    </svg>
+    <img
+      src={annuaireImg}
+      alt="Annuaire Les Pages Roses"
+      width={1024}
+      height={1024}
+      {...(priority ? {} : { loading: "lazy" as const })}
+      className={cn("h-auto w-full select-none drop-shadow-[0_18px_30px_rgba(84,20,36,0.22)]", className)}
+    />
   );
 }
 
-/**
- * Logo principal : carnet d'annuaire à spirales, combiné au centre de la page.
- * Lisible de 16 px (favicon) à 400 px (couverture).
- */
-export function CarnetLogo({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 120 120"
-      className={cn("h-auto w-full", className)}
-      aria-hidden
-      fill="none"
-    >
-      {/* page */}
-      <rect
-        x="28"
-        y="12"
-        width="84"
-        height="96"
-        rx="12"
-        fill="var(--papier)"
-        stroke="var(--encre)"
-        strokeWidth="5"
-      />
-      {/* dos */}
-      <rect x="10" y="12" width="26" height="96" rx="12" fill="var(--rose)" stroke="var(--encre)" strokeWidth="5" />
-      {/* anneaux */}
-      {[30, 52, 74, 96].map((y) => (
-        <rect
-          key={y}
-          x="5"
-          y={y - 6}
-          width="30"
-          height="14"
-          rx="7"
-          fill="var(--papier)"
-          stroke="var(--encre)"
-          strokeWidth="5"
-        />
-      ))}
-      {/* combiné */}
-      <g
-        transform="translate(70 60) rotate(-32) scale(0.62) translate(-60 -36)"
-        stroke="var(--encre)"
-        strokeWidth="9"
-        strokeLinecap="round"
-        fill="none"
-      >
-        <path d="M22 46C22 24 38 10 60 10s38 14 38 36" />
-        <rect x="6" y="40" width="32" height="24" rx="12" fill="var(--rose)" />
-        <rect x="82" y="40" width="32" height="24" rx="12" fill="var(--rose)" />
-      </g>
-    </svg>
-  );
-}
+/** Alias conservé pour la couverture. */
+export const CarnetLogo = AnnuaireImage;
 
-/** Version compacte pour la navbar, les puces et les fiches. */
+/** Version compacte (footer, puces). */
 export function Glyphe({ className }: { className?: string }) {
-  return <Combine className={cn("w-6", className)} strokeWidth={8} />;
+  return <Combine className={cn("w-6", className)} />;
 }
 
-/** Logo horizontal (navbar, footer). */
+/** Wordmark sur une seule ligne. */
+export function Wordmark({ className }: { className?: string }) {
+  return (
+    <span className={cn("logo-pages-roses whitespace-nowrap", className)}>
+      Les Pages <span className="mot-roses text-rose">Roses</span>
+    </span>
+  );
+}
+
+/** Logo horizontal (navbar) : annuaire + nom sur une ligne. */
 export function LogoHorizontal({
   className,
-  baseline = true,
+  baseline = false,
 }: {
   className?: string;
   baseline?: boolean;
 }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
-      <CarnetLogo className="w-8 shrink-0" />
-      <span className="flex flex-col leading-none">
-        <span className="logo-pages-roses text-lg">
-          Les Pages <span className="mot-roses text-rose">Roses</span>
-        </span>
+    <span className={cn("flex min-w-0 items-center gap-2.5", className)}>
+      <AnnuaireImage className="w-8 shrink-0 sm:w-9" priority />
+      <span className="flex min-w-0 flex-col leading-none">
+        <Wordmark className="text-xl sm:text-2xl" />
         {baseline ? (
           <span className="oeil mt-1 text-muted-foreground">L'annuaire des Kumi</span>
         ) : null}
+      </span>
+    </span>
+  );
+}
+
+/** Logo vertical : image d'annuaire puis nom sur une seule ligne. */
+export function LogoVertical({
+  className,
+  tailleImage = "w-40 sm:w-48",
+}: {
+  className?: string;
+  tailleImage?: string;
+}) {
+  return (
+    <span className={cn("flex flex-col items-center gap-5 text-center", className)}>
+      <AnnuaireImage className={cn("couverture-carnet", tailleImage)} priority />
+      <span className="logo-pages-roses whitespace-nowrap text-[8vw] leading-none text-papier sm:text-5xl">
+        Les Pages Roses
       </span>
     </span>
   );
@@ -114,10 +95,12 @@ export function LogoHorizontal({
 export function LettrageHero({ className }: { className?: string }) {
   return (
     <div className={cn("select-none", className)}>
-      <p className="titre-geant text-[15vw] sm:text-[11vw] lg:text-[8rem]">Les Pages</p>
-      <div className="-mt-[0.08em] flex items-end gap-[0.22em]">
-        <p className="mot-roses text-papier text-[16vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">Roses</p>
-        <CarnetLogo className="mb-[0.12em] w-[18vw] max-w-[9rem] shrink-0 sm:w-[13vw]" />
+      <p className="titre-geant text-[13.5vw] sm:text-[11vw] lg:text-[8rem]">Les Pages</p>
+      <div className="-mt-[0.06em] flex items-end gap-[0.15em]">
+        <p className="mot-roses text-papier text-[14vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">
+          Roses
+        </p>
+        <AnnuaireImage className="mb-[0.1em] w-[17vw] max-w-[8rem] shrink-0 sm:w-[11vw]" priority />
       </div>
     </div>
   );

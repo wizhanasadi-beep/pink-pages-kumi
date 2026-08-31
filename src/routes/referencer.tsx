@@ -115,7 +115,7 @@ function Referencer() {
               <select name="categorie" required className={champ} defaultValue="beaute">
                 {categories.map((c) => (
                   <option key={c.slug} value={c.slug}>
-                    {c.icone} {c.nom}
+                    {c.nom}
                   </option>
                 ))}
               </select>

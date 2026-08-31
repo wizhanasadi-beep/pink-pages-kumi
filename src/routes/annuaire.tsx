@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { NumeroDePage, Rubrique } from "@/components/pr/bits";
@@ -63,6 +64,10 @@ function Annuaire() {
         .every((mot) => hay.includes(mot));
     });
 
+  const nbFiltres = [search.cat, search.ville, search.dep].filter(Boolean).length;
+  const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);
+
+
   return (
     <PageMagazine>
       <Rubrique
@@ -72,7 +77,7 @@ function Annuaire() {
       />
 
       {/* Barre de recherche & filtres */}
-      <section className="border-y border-border py-6">
+      <section className="border-y border-border py-5">
         <label htmlFor="q" className="oeil block text-muted-foreground">
           Rechercher
         </label>
@@ -81,64 +86,78 @@ function Annuaire() {
           value={search.q}
           onChange={(e) => set({ q: e.target.value })}
           placeholder="MUA, coiffeuse, photographe…"
-          className="mt-2 w-full border-0 border-b border-border bg-transparent pb-2 font-display text-2xl outline-none placeholder:text-muted-foreground/60 focus:border-rose sm:text-3xl"
+          className="mt-2 w-full rounded-none border-0 border-b border-border bg-transparent pb-2.5 font-display text-xl outline-none placeholder:text-muted-foreground/60 focus:border-rose sm:text-3xl"
         />
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-3">
-          <div>
-            <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
-            <select
-              value={search.cat}
-              onChange={(e) => set({ cat: e.target.value })}
-              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
-            >
-              <option value="">Toutes</option>
-              {categories.map((c) => (
-                <option key={c.slug} value={c.slug}>
-                  {c.nom}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="oeil mb-2 block text-muted-foreground">Localisation</label>
-            <select
-              value={search.ville}
-              onChange={(e) => set({ ville: e.target.value })}
-              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
-            >
-              <option value="">Partout</option>
-              {villes.map((v) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="oeil mb-2 block text-muted-foreground">Déplacement</label>
-            <select
-              value={search.dep}
-              onChange={(e) => set({ dep: e.target.value })}
-              className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
-            >
-              <option value="">Peu importe</option>
-              <option value="se_deplace">Se déplace</option>
-              <option value="sur_place">Sur place</option>
-              <option value="sur_demande">Sur demande</option>
-            </select>
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={() => setFiltresOuverts((v) => !v)}
+          className="oeil mt-4 flex w-full items-center justify-between py-2 text-bordeaux sm:hidden"
+          aria-expanded={filtresOuverts}
+        >
+          <span>Filtrer{nbFiltres ? ` · ${nbFiltres}` : ""}</span>
+          <span className={filtresOuverts ? "rotate-180" : ""}>▾</span>
+        </button>
 
-        {search.q || search.cat || search.ville || search.dep ? (
-          <button
-            onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
-            className="oeil mt-5 border-b border-rose pb-0.5"
-          >
-            Effacer les filtres
-          </button>
-        ) : null}
+        <div className={filtresOuverts ? "block" : "hidden sm:block"}>
+          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+
+            <div>
+              <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
+              <select
+                value={search.cat}
+                onChange={(e) => set({ cat: e.target.value })}
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+              >
+                <option value="">Toutes</option>
+                {categories.map((c) => (
+                  <option key={c.slug} value={c.slug}>
+                    {c.nom}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="oeil mb-2 block text-muted-foreground">Localisation</label>
+              <select
+                value={search.ville}
+                onChange={(e) => set({ ville: e.target.value })}
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+              >
+                <option value="">Partout</option>
+                {villes.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="oeil mb-2 block text-muted-foreground">Déplacement</label>
+              <select
+                value={search.dep}
+                onChange={(e) => set({ dep: e.target.value })}
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+              >
+                <option value="">Peu importe</option>
+                <option value="se_deplace">Se déplace</option>
+                <option value="sur_place">Sur place</option>
+                <option value="sur_demande">Sur demande</option>
+              </select>
+            </div>
+          </div>
+
+          {search.q || search.cat || search.ville || search.dep ? (
+            <button
+              onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
+              className="oeil mt-4 border-b border-rose pb-0.5"
+            >
+              Effacer les filtres
+            </button>
+          ) : null}
+        </div>
       </section>
+
 
       <div className="mt-8 flex items-center justify-between">
         <p className="oeil text-muted-foreground">

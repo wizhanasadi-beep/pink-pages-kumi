@@ -42,15 +42,15 @@ export function Masthead() {
 
 export function BottomNav() {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-papier sm:hidden">
+    <nav className="nav-safe fixed inset-x-0 bottom-0 z-40 border-t border-border bg-papier/97 backdrop-blur sm:hidden">
       <ul className="mx-auto flex max-w-lg items-stretch">
         {LIENS.map((l) => (
           <li key={l.to} className="flex-1">
             <Link
               to={l.to}
               activeOptions={{ exact: l.to === "/" }}
-              className="oeil flex flex-col items-center gap-1 py-3.5 text-muted-foreground"
-              activeProps={{ className: "text-bordeaux" }}
+              className="oeil flex min-h-[3rem] flex-col items-center justify-center gap-1 py-3 text-[0.6rem] text-muted-foreground"
+              activeProps={{ className: "text-bordeaux bg-poudre/70" }}
             >
               {l.label}
             </Link>
@@ -65,12 +65,13 @@ export function FabReferencer() {
   return (
     <Link
       to="/referencer"
-      className="oeil fixed bottom-20 right-4 z-40 bg-encre px-4 py-3 text-background sm:hidden"
+      className="oeil fixed bottom-[5.25rem] right-4 z-40 rounded-full bg-encre px-5 py-3.5 text-background shadow-[0_10px_24px_rgba(84,20,36,0.28)] sm:hidden"
     >
       Référencer
     </Link>
   );
 }
+
 
 export function PiedDePage() {
   return (
@@ -122,14 +123,15 @@ export function PageMagazine({
   return (
     <div className="flex min-h-screen flex-col">
       <Masthead />
-      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-28 pt-10 sm:pb-16", className)}>
+      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-32 pt-8 sm:pb-16 sm:pt-10", className)}>
         {children}
       </main>
       <PiedDePage />
-      <div className="h-14 sm:hidden" />
+      <div className="h-16 sm:hidden" />
       <BottomNav />
       <FabReferencer />
     </div>
+
   );
 }
 
@@ -140,7 +142,7 @@ export function PageAplats({ children }: { children: React.ReactNode }) {
       <Masthead />
       <main className="flex-1 pb-24 sm:pb-0">{children}</main>
       <PiedDePage />
-      <div className="h-14 sm:hidden" />
+      <div className="h-16 sm:hidden" />
       <BottomNav />
       <FabReferencer />
     </div>
