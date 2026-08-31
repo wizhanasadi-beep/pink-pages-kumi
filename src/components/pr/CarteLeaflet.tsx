@@ -55,9 +55,11 @@ export default function CarteLeaflet({
         .join("");
       L.marker([f.latitude, f.longitude], { icon: marqueurRose(init) })
         .bindPopup(
-          `<strong>${f.nom}</strong><br/>${f.activite}<br/>📍 ${f.ville}${
-            f.quartier ? ` · ${f.quartier}` : ""
-          }<br/>${DEPLACEMENT_LABEL[f.deplacement].emoji} ${DEPLACEMENT_LABEL[f.deplacement].texte}<br/><a href="/prestataire/${f.id}">Voir la fiche →</a>`,
+          `<strong>${f.nom}</strong>${f.prenom ? `<br/>par ${f.prenom}` : ""}<br/>${f.activite}<br/>${
+            TYPE_OFFRE_LABEL[f.type_offre]
+          } · ${f.ville}${f.quartier ? ` · ${f.quartier}` : ""}<br/>${
+            DEPLACEMENT_LABEL[f.deplacement].texte
+          }<br/><a href="/prestataire/${f.id}">Voir la fiche →</a>`,
         )
         .addTo(group);
     }
