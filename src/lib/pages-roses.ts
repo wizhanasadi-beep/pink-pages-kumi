@@ -162,6 +162,32 @@ export function normalise(s: string) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
+/** Synonymes de recherche : chaque groupe est interchangeable (fr/en, métier/spécialité). */
+export const SYNONYMES: string[][] = [
+  ["maquillage", "makeup", "make up", "mua", "maquilleuse", "makeup artist"],
+  ["coiffure", "coiffeuse", "hair", "hairstylist", "tresses", "braids", "locks", "twist"],
+  ["cils", "lash", "lashes", "lash tech", "extensions de cils"],
+  ["ongles", "onglerie", "nails", "nail art", "manucure", "prothesiste ongulaire"],
+  ["photographe", "photographie", "photo", "shooting"],
+  ["video", "videaste", "audiovisuel", "reels", "film"],
+  ["patisserie", "patissiere", "cake", "cake design", "gateau", "cupcakes"],
+  ["esthetique", "estheticienne", "soins", "spa", "beaute"],
+  ["couture", "sewing", "retouches", "crochet"],
+  ["decoration", "deco", "decoratrice", "event", "evenementiel"],
+  ["site web", "web", "webdesign", "graphisme", "design"],
+];
+
+/** Texte de recherche enrichi des synonymes correspondants. */
+export function texteRecherchable(champs: (string | null | undefined)[]) {
+  const base = normalise(champs.filter(Boolean).join(" "));
+  const extra = SYNONYMES.filter((groupe) => groupe.some((mot) => base.includes(normalise(mot))))
+    .flat()
+    .map(normalise)
+    .join(" ");
+  return `${base} ${extra}`;
+}
+
+
 export type Avis = {
   id: string;
   prestataire_id: string;
