@@ -142,7 +142,7 @@ export function PageAplats({ children }: { children: React.ReactNode }) {
       <Masthead />
       <main className="flex-1 pb-24 sm:pb-0">{children}</main>
       <PiedDePage />
-      <div className="h-14 sm:hidden" />
+      <div className="h-16 sm:hidden" />
       <BottomNav />
       <FabReferencer />
     </div>
