@@ -321,7 +321,7 @@
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ——— Couverture : rideau qui se lève ——— */
+/* ——— Couverture : fondu-zoom + logo 3D ——— */
 
 .couverture {
   position: fixed;
@@ -333,16 +333,32 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  perspective: 1600px;
   transition:
-    transform 0.85s cubic-bezier(0.76, 0, 0.24, 1),
-    opacity 0.5s ease 0.25s;
+    transform 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+    opacity 0.6s ease;
+}
+
+/* Effet 3D du logo annuaire */
+.couverture-carnet {
+  transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+  transform: rotateY(-8deg) rotateX(3deg);
+}
+
+.couverture:hover .couverture-carnet {
+  transform: rotateY(-18deg) rotateX(4deg) scale(1.03);
 }
 
 .couverture-ouverte {
-  transform: translateY(-101%);
+  transform: scale(1.12);
   opacity: 0;
   pointer-events: none;
 }
+
+.couverture-ouverte .couverture-carnet {
+  transform: rotateY(-24deg) scale(1.1);
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .couverture {
