@@ -101,14 +101,27 @@ function Referencer() {
         }}
       >
         <fieldset className="space-y-3">
-          <legend className="label-annonce text-bordeaux">Ton identité</legend>
+          <legend className="label-annonce text-bordeaux">Ton activité</legend>
           <div>
-            <label className="label-annonce mb-1 block">Prénom / Nom *</label>
-            <input name="nom" required className={champ} placeholder="Amina D." />
+            <label className="label-annonce mb-1 block">Nom de l'activité / marque *</label>
+            <input name="nom" required className={champ} placeholder="Glow by Amina" />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="label-annonce mb-1 block">Ton prénom</label>
+              <input name="prenom" className={champ} placeholder="Amina" />
+            </div>
+            <div>
+              <label className="label-annonce mb-1 block">Tu proposes *</label>
+              <select name="type_offre" required className={champ} defaultValue="service">
+                <option value="service">Un service</option>
+                <option value="produit">Des produits</option>
+              </select>
+            </div>
           </div>
           <div>
-            <label className="label-annonce mb-1 block">Nom de l'activité *</label>
-            <input name="activite" required className={champ} placeholder="Glow by Amina" />
+            <label className="label-annonce mb-1 block">Activité / métier *</label>
+            <input name="activite" required className={champ} placeholder="Maquilleuse pro" />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
