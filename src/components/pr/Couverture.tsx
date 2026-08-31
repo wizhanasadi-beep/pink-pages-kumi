@@ -48,7 +48,7 @@ export function Couverture({ onFin }: { onFin: () => void }) {
         <h1 className="titre-geant mt-5 text-[15vw] leading-[0.85] sm:text-7xl lg:text-8xl">
           Les Pages
           <br />
-          <span className="mot-roses">Roses</span>
+          <span className="mot-roses text-papier">Roses</span>
         </h1>
         <p className="oeil mt-5 text-rose-foreground/80">L'annuaire des Kumi</p>
 

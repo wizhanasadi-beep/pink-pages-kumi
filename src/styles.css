@@ -235,7 +235,6 @@
 @utility mot-roses {
   font-family: var(--font-display);
   font-weight: 400;
-  color: var(--rose);
   letter-spacing: -0.01em;
 }
 

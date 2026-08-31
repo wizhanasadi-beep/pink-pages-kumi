@@ -56,9 +56,9 @@ export function CarnetLogo({ className }: { className?: string }) {
       {[30, 52, 74, 96].map((y) => (
         <rect
           key={y}
-          x="3"
-          y={y - 7}
-          width="34"
+          x="5"
+          y={y - 6}
+          width="30"
           height="14"
           rx="7"
           fill="var(--papier)"
@@ -100,7 +100,7 @@ export function LogoHorizontal({
       <CarnetLogo className="w-8 shrink-0" />
       <span className="flex flex-col leading-none">
         <span className="logo-pages-roses text-lg">
-          Les Pages <span className="mot-roses">Roses</span>
+          Les Pages <span className="mot-roses text-rose">Roses</span>
         </span>
         {baseline ? (
           <span className="oeil mt-1 text-muted-foreground">L'annuaire des Kumi</span>
@@ -116,7 +116,7 @@ export function LettrageHero({ className }: { className?: string }) {
     <div className={cn("select-none", className)}>
       <p className="titre-geant text-[15vw] sm:text-[11vw] lg:text-[8rem]">Les Pages</p>
       <div className="-mt-[0.08em] flex items-end gap-[0.1em]">
-        <p className="mot-roses text-[16vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">Roses</p>
+        <p className="mot-roses text-papier text-[16vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">Roses</p>
         <CarnetLogo className="mb-[0.12em] w-[18vw] max-w-[9rem] shrink-0 sm:w-[13vw]" />
       </div>
     </div>
