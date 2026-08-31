@@ -41,6 +41,7 @@ function Annuaire() {
     cat: raw.cat ?? "",
     dep: raw.dep ?? "",
     ville: raw.ville ?? "",
+    type: raw.type ?? "",
   };
   const navigate = useNavigate({ from: Route.fullPath });
   const { data: categories = [] } = useQuery(categoriesQuery);
@@ -55,17 +56,20 @@ function Annuaire() {
     .filter((f) => (search.cat ? f.categorie_slug === search.cat : true))
     .filter((f) => (search.ville ? f.ville === search.ville : true))
     .filter((f) => (search.dep ? f.deplacement === search.dep : true))
+    .filter((f) => (search.type ? f.type_offre === search.type : true))
     .filter((f) => {
       if (!search.q) return true;
       const hay = normalise(
-        [f.nom, f.activite, f.sous_categorie, f.description, f.ville, f.quartier].join(" "),
+        [f.nom, f.prenom, f.activite, f.sous_categorie, f.description, f.ville, f.quartier].join(
+          " ",
+        ),
       );
       return normalise(search.q)
         .split(/\s+/)
         .every((mot) => hay.includes(mot));
     });
 
-  const nbFiltres = [search.cat, search.ville, search.dep].filter(Boolean).length;
+  const nbFiltres = [search.cat, search.ville, search.dep, search.type].filter(Boolean).length;
   const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);
 
 
