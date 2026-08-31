@@ -154,7 +154,7 @@ function Annuaire() {
               Effacer les filtres
             </button>
           ) : null}
-        </details>
+        </div>
       </section>
 
 
