@@ -23,7 +23,7 @@ export function Couverture({ onFin }: { onFin: () => void }) {
 
   return (
     <div
-      className={`couverture bg-papier ${ouvre ? "couverture-ouverte" : ""}`}
+      className={`couverture bg-background ${ouvre ? "couverture-ouverte" : ""}`}
       role="dialog"
       aria-label="Couverture Les Pages Roses"
     >
@@ -35,7 +35,7 @@ export function Couverture({ onFin }: { onFin: () => void }) {
         Passer
       </button>
 
-      <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose/20" />
+      <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose/30" />
 
       <button
         type="button"
