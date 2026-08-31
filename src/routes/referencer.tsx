@@ -40,7 +40,9 @@ function Referencer() {
       };
       const { error } = await supabase.from("prestataires").insert({
         nom: String(form.get("nom") ?? "").trim(),
+        prenom: v("prenom"),
         activite: String(form.get("activite") ?? "").trim(),
+        type_offre: String(form.get("type_offre") ?? "service") as "service" | "produit",
         categorie_slug: String(form.get("categorie") ?? "autres"),
         sous_categorie: v("sous_categorie"),
         description: String(form.get("description") ?? "").trim(),
@@ -48,7 +50,6 @@ function Referencer() {
         instagram: v("instagram"),
         site_web: v("site_web"),
         lien_reservation: v("lien_reservation"),
-        telephone: v("telephone"),
         ville: String(form.get("ville") ?? "").trim(),
         quartier: v("quartier"),
         deplacement: (String(form.get("deplacement") ?? "sur_place") as "se_deplace" | "sur_place" | "sur_demande"),
