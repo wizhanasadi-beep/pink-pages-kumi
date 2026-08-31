@@ -78,7 +78,7 @@ function Accueil() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="MUA, coiffeuse, photographe…"
-              className="flex-1 border border-border bg-background px-3 py-3 text-base outline-none placeholder:text-muted-foreground focus: shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
+              className="flex-1 border border-border bg-background px-3 py-3 text-base outline-none placeholder:text-muted-foreground focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
             />
             <button
               type="submit"

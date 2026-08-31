@@ -78,7 +78,7 @@ function Annuaire() {
           value={search.q}
           onChange={(e) => set({ q: e.target.value })}
           placeholder="MUA, coiffeuse, photographe…"
-          className="w-full border border-border bg-papier px-3 py-3 text-base outline-none focus: shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
+          className="w-full border border-border bg-papier px-3 py-3 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
         />
 
         <div className="mt-3 grid gap-3 sm:grid-cols-3">

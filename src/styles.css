@@ -102,6 +102,13 @@
     font-family: var(--font-sans);
   }
 
+  input,
+  select,
+  textarea,
+  button {
+    border-radius: calc(var(--radius) - 4px);
+  }
+
   h1,
   h2,
   h3 {
