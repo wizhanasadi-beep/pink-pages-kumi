@@ -5,7 +5,7 @@ import { PageAplats } from "@/components/pr/layout";
 import { LettrageHero } from "@/components/pr/Logo";
 import { Couverture } from "@/components/pr/Couverture";
 import { Reveal } from "@/components/pr/Reveal";
-import { Etoile, Fleur, PictoRubrique, Vague } from "@/components/pr/ornements";
+import { Etoile, PictoRubrique, Vague } from "@/components/pr/ornements";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, prestatairesQuery, SOUS_RUBRIQUES } from "@/lib/pages-roses";
 
@@ -56,7 +56,7 @@ function Accueil() {
       <PageAplats>
         {/* —— HERO —— */}
         <section className="aplat-rose relative overflow-hidden">
-          <Fleur className="pointer-events-none absolute -right-10 top-6 w-40 text-rose-foreground/12 sm:w-56" />
+
           <div className="mx-auto max-w-6xl px-5 pb-12 pt-8 sm:pb-20 sm:pt-16">
             <div className="flex items-center justify-between">
               <p className="oeil">Édition n° 01</p>
