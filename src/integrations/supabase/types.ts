@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      avis: {
+        Row: {
+          autrice: string
+          commentaire: string
+          created_at: string
+          id: string
+          note: number
+          prestataire_id: string
+        }
+        Insert: {
+          autrice: string
+          commentaire?: string
+          created_at?: string
+          id?: string
+          note: number
+          prestataire_id: string
+        }
+        Update: {
+          autrice?: string
+          commentaire?: string
+          created_at?: string
+          id?: string
+          note?: number
+          prestataire_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "avis_prestataire_id_fkey"
+            columns: ["prestataire_id"]
+            isOneToOne: false
+            referencedRelation: "prestataires"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
