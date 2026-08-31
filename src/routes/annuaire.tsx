@@ -6,7 +6,7 @@ import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, normalise, prestatairesQuery } from "@/lib/pages-roses";
 
-type Recherche = { q?: string; cat?: string; dep?: string; ville?: string };
+type Recherche = { q?: string; cat?: string; dep?: string; ville?: string; type?: string };
 
 export const Route = createFileRoute("/annuaire")({
   validateSearch: (s: Record<string, unknown>): Recherche => ({
@@ -14,6 +14,7 @@ export const Route = createFileRoute("/annuaire")({
     cat: typeof s["cat"] === "string" ? (s["cat"] as string) : "",
     dep: typeof s["dep"] === "string" ? (s["dep"] as string) : "",
     ville: typeof s["ville"] === "string" ? (s["ville"] as string) : "",
+    type: typeof s["type"] === "string" ? (s["type"] as string) : "",
   }),
   head: () => ({
     meta: [
@@ -40,6 +41,7 @@ function Annuaire() {
     cat: raw.cat ?? "",
     dep: raw.dep ?? "",
     ville: raw.ville ?? "",
+    type: raw.type ?? "",
   };
   const navigate = useNavigate({ from: Route.fullPath });
   const { data: categories = [] } = useQuery(categoriesQuery);
@@ -54,17 +56,20 @@ function Annuaire() {
     .filter((f) => (search.cat ? f.categorie_slug === search.cat : true))
     .filter((f) => (search.ville ? f.ville === search.ville : true))
     .filter((f) => (search.dep ? f.deplacement === search.dep : true))
+    .filter((f) => (search.type ? f.type_offre === search.type : true))
     .filter((f) => {
       if (!search.q) return true;
       const hay = normalise(
-        [f.nom, f.activite, f.sous_categorie, f.description, f.ville, f.quartier].join(" "),
+        [f.nom, f.prenom, f.activite, f.sous_categorie, f.description, f.ville, f.quartier].join(
+          " ",
+        ),
       );
       return normalise(search.q)
         .split(/\s+/)
         .every((mot) => hay.includes(mot));
     });
 
-  const nbFiltres = [search.cat, search.ville, search.dep].filter(Boolean).length;
+  const nbFiltres = [search.cat, search.ville, search.dep, search.type].filter(Boolean).length;
   const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);
 
 
@@ -100,7 +105,20 @@ function Annuaire() {
         </button>
 
         <div className={filtresOuverts ? "block" : "hidden sm:block"}>
-          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-4 sm:gap-5">
+            <div>
+              <label className="oeil mb-2 block text-muted-foreground">Offre</label>
+              <select
+                value={search.type}
+                onChange={(e) => set({ type: e.target.value })}
+                className="w-full rounded-full border border-border bg-papier px-3 py-2.5 text-sm"
+              >
+                <option value="">Tout</option>
+                <option value="service">Services</option>
+                <option value="produit">Produits</option>
+              </select>
+            </div>
+
 
             <div>
               <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
@@ -147,9 +165,11 @@ function Annuaire() {
             </div>
           </div>
 
-          {search.q || search.cat || search.ville || search.dep ? (
+          {search.q || search.cat || search.ville || search.dep || search.type ? (
             <button
-              onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
+              onClick={() =>
+                navigate({ search: { q: "", cat: "", dep: "", ville: "", type: "" } })
+              }
               className="oeil mt-4 border-b border-rose pb-0.5"
             >
               Effacer les filtres

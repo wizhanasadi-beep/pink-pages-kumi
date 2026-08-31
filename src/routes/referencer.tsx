@@ -40,7 +40,9 @@ function Referencer() {
       };
       const { error } = await supabase.from("prestataires").insert({
         nom: String(form.get("nom") ?? "").trim(),
+        prenom: v("prenom"),
         activite: String(form.get("activite") ?? "").trim(),
+        type_offre: String(form.get("type_offre") ?? "service") as "service" | "produit",
         categorie_slug: String(form.get("categorie") ?? "autres"),
         sous_categorie: v("sous_categorie"),
         description: String(form.get("description") ?? "").trim(),
@@ -48,7 +50,6 @@ function Referencer() {
         instagram: v("instagram"),
         site_web: v("site_web"),
         lien_reservation: v("lien_reservation"),
-        telephone: v("telephone"),
         ville: String(form.get("ville") ?? "").trim(),
         quartier: v("quartier"),
         deplacement: (String(form.get("deplacement") ?? "sur_place") as "se_deplace" | "sur_place" | "sur_demande"),
@@ -100,14 +101,27 @@ function Referencer() {
         }}
       >
         <fieldset className="space-y-3">
-          <legend className="label-annonce text-bordeaux">Ton identité</legend>
+          <legend className="label-annonce text-bordeaux">Ton activité</legend>
           <div>
-            <label className="label-annonce mb-1 block">Prénom / Nom *</label>
-            <input name="nom" required className={champ} placeholder="Amina D." />
+            <label className="label-annonce mb-1 block">Nom de l'activité / marque *</label>
+            <input name="nom" required className={champ} placeholder="Glow by Amina" />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="label-annonce mb-1 block">Ton prénom</label>
+              <input name="prenom" className={champ} placeholder="Amina" />
+            </div>
+            <div>
+              <label className="label-annonce mb-1 block">Tu proposes *</label>
+              <select name="type_offre" required className={champ} defaultValue="service">
+                <option value="service">Un service</option>
+                <option value="produit">Des produits</option>
+              </select>
+            </div>
           </div>
           <div>
-            <label className="label-annonce mb-1 block">Nom de l'activité *</label>
-            <input name="activite" required className={champ} placeholder="Glow by Amina" />
+            <label className="label-annonce mb-1 block">Activité / métier *</label>
+            <input name="activite" required className={champ} placeholder="Maquilleuse pro" />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
@@ -157,10 +171,6 @@ function Referencer() {
             <div>
               <label className="label-annonce mb-1 block">Lien de réservation</label>
               <input name="lien_reservation" type="url" className={champ} placeholder="https://…" />
-            </div>
-            <div>
-              <label className="label-annonce mb-1 block">Téléphone</label>
-              <input name="telephone" className={champ} placeholder="+33 6 …" />
             </div>
           </div>
         </fieldset>

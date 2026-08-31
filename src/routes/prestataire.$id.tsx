@@ -1,8 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
-import { BadgeDeplacement, Etiquette, Filet, NumeroDePage, PhotoFiche } from "@/components/pr/bits";
-import { categoriesQuery, DEPLACEMENT_LABEL, prestataireQuery } from "@/lib/pages-roses";
+import {
+  BadgeDeplacement,
+  BadgeType,
+  Etiquette,
+  Filet,
+  NumeroDePage,
+  PhotoFiche,
+} from "@/components/pr/bits";
+import {
+  categoriesQuery,
+  DEPLACEMENT_LABEL,
+  poigneeOuDomaine,
+  prestataireQuery,
+} from "@/lib/pages-roses";
 import { NoteMoyenne, SectionAvis } from "@/components/pr/Avis";
 
 export const Route = createFileRoute("/prestataire/$id")({
@@ -56,12 +68,15 @@ function Fiche() {
   }
 
   const liens = [
-    fiche.instagram ? { label: "Instagram", href: fiche.instagram, ton: "rose" } : null,
-    fiche.site_web ? { label: "Site web", href: fiche.site_web, ton: "papier" } : null,
+    fiche.instagram
+      ? { label: poigneeOuDomaine(fiche.instagram), href: fiche.instagram, ton: "rose" }
+      : null,
+    fiche.site_web
+      ? { label: poigneeOuDomaine(fiche.site_web), href: fiche.site_web, ton: "papier" }
+      : null,
     fiche.lien_reservation
       ? { label: "Prendre rendez-vous", href: fiche.lien_reservation, ton: "jaune" }
       : null,
-    fiche.telephone ? { label: "Appeler", href: `tel:${fiche.telephone}`, ton: "poudre" } : null,
   ].filter(Boolean) as { label: string; href: string; ton: string }[];
 
   const tons: Record<string, string> = {
@@ -89,9 +104,13 @@ function Fiche() {
           {fiche.sous_categorie ? ` · ${fiche.sous_categorie}` : ""}
         </p>
         <h1 className="logo-pages-roses mt-1 text-4xl sm:text-5xl">{fiche.nom}</h1>
-        <p className="rubrique text-2xl text-rose">{fiche.activite}</p>
+        {fiche.prenom ? (
+          <p className="rubrique text-2xl text-rose">par {fiche.prenom}</p>
+        ) : null}
+        <p className="mt-1 font-display text-lg text-bordeaux">{fiche.activite}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <BadgeType type={fiche.type_offre} />
           <BadgeDeplacement mode={fiche.deplacement} className="text-sm" />
           <NoteMoyenne prestataireId={fiche.id} />
         </div>

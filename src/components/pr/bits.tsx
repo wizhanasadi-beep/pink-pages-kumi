@@ -1,6 +1,32 @@
-import { DEPLACEMENT_LABEL, initiales, type Deplacement } from "@/lib/pages-roses";
+import {
+  DEPLACEMENT_LABEL,
+  TYPE_OFFRE_LABEL,
+  initiales,
+  type Deplacement,
+  type TypeOffre,
+} from "@/lib/pages-roses";
 import { cn } from "@/lib/utils";
 import { Glyphe } from "@/components/pr/Logo";
+
+export function BadgeType({
+  type,
+  className,
+}: {
+  type: TypeOffre;
+  className?: string | undefined;
+}) {
+  return (
+    <span
+      className={cn(
+        "oeil inline-block rounded-full px-2.5 py-1",
+        type === "produit" ? "bg-poudre text-encre" : "bg-rose text-rose-foreground",
+        className,
+      )}
+    >
+      {TYPE_OFFRE_LABEL[type]}
+    </span>
+  );
+}
 
 export function Filet({ className }: { className?: string }) {
   return (

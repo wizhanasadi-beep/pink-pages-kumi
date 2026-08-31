@@ -2,11 +2,14 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type Deplacement = "se_deplace" | "sur_place" | "sur_demande";
 export type Statut = "en_attente" | "publiee" | "refusee";
+export type TypeOffre = "service" | "produit";
 
 export type Prestataire = {
   id: string;
   nom: string;
+  prenom: string | null;
   activite: string;
+  type_offre: TypeOffre;
   categorie_slug: string;
   sous_categorie: string | null;
   description: string;
@@ -24,6 +27,25 @@ export type Prestataire = {
   statut: Statut;
   created_at: string;
 };
+
+export const TYPE_OFFRE_LABEL: Record<TypeOffre, string> = {
+  service: "Service",
+  produit: "Produit",
+};
+
+/** Affiche le @ d'un lien Instagram / TikTok, sinon le domaine du site. */
+export function poigneeOuDomaine(url: string) {
+  try {
+    const u = new URL(url);
+    const seg = u.pathname.split("/").filter(Boolean)[0] ?? "";
+    if (/instagram\.com|tiktok\.com/.test(u.hostname)) {
+      return seg.startsWith("@") ? seg : `@${seg}`;
+    }
+    return u.hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
 
 export type Categorie = {
   id: string;
