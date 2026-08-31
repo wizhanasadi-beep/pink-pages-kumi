@@ -73,56 +73,59 @@ function Accueil() {
 
 
             {/* Recherche épurée : quoi + où */}
-            <form
-              className="mt-7 flex w-full max-w-xl flex-col gap-2 sm:mt-9 sm:flex-row sm:items-center"
-              onSubmit={(e) => {
-                e.preventDefault();
-                lancer();
-              }}
-            >
-              <input
-                id="besoin"
-                list="suggestions"
-                value={besoin}
-                onChange={(e) => setBesoin(e.target.value)}
-                placeholder="Je cherche… MUA, coiffeuse, makeup"
-                aria-label="Que cherches-tu ?"
-                className="min-w-0 flex-1 rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none placeholder:text-muted-foreground focus:border-rose"
-              />
-              <datalist id="suggestions">
-                {categories.map((c) => (
-                  <option key={c.slug} value={c.slug}>
-                    {c.nom}
-                  </option>
-                ))}
-                {Object.values(SOUS_RUBRIQUES)
-                  .flat()
-                  .map((s) => (
-                    <option key={s} value={s} />
+            <div className="mt-7 w-full max-w-2xl rounded-[2rem] bg-background p-3 shadow-[0_18px_50px_-20px_oklch(0.44_0.16_12/35%)] sm:mt-9 sm:p-4">
+              <p className="oeil px-2 pt-1 text-encre/70 sm:px-3">Trouver une prestataire</p>
+              <form
+                className="mt-2 flex w-full flex-col gap-2 sm:flex-row sm:items-center"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  lancer();
+                }}
+              >
+                <input
+                  id="besoin"
+                  list="suggestions"
+                  value={besoin}
+                  onChange={(e) => setBesoin(e.target.value)}
+                  placeholder="Je cherche… MUA, coiffeuse, makeup"
+                  aria-label="Que cherches-tu ?"
+                  className="min-w-0 flex-1 rounded-full border border-encre/20 bg-papier px-5 py-3.5 text-base outline-none placeholder:text-muted-foreground focus:border-rose focus:ring-2 focus:ring-rose/20"
+                />
+                <datalist id="suggestions">
+                  {categories.map((c) => (
+                    <option key={c.slug} value={c.slug}>
+                      {c.nom}
+                    </option>
                   ))}
-              </datalist>
+                  {Object.values(SOUS_RUBRIQUES)
+                    .flat()
+                    .map((s) => (
+                      <option key={s} value={s} />
+                    ))}
+                </datalist>
 
-              <select
-                value={ville}
-                onChange={(e) => setVille(e.target.value)}
-                aria-label="Où ?"
-                className="rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none focus:border-rose sm:w-44"
-              >
-                <option value="">Partout</option>
-                {villes.map((v) => (
-                  <option key={v} value={v}>
-                    {v}
-                  </option>
-                ))}
-              </select>
+                <select
+                  value={ville}
+                  onChange={(e) => setVille(e.target.value)}
+                  aria-label="Où ?"
+                  className="rounded-full border border-encre/20 bg-papier px-5 py-3.5 text-base outline-none focus:border-rose focus:ring-2 focus:ring-rose/20 sm:w-44"
+                >
+                  <option value="">Partout</option>
+                  {villes.map((v) => (
+                    <option key={v} value={v}>
+                      {v}
+                    </option>
+                  ))}
+                </select>
 
-              <button
-                type="submit"
-                className="oeil shrink-0 rounded-full bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5"
-              >
-                Chercher
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  className="oeil shrink-0 rounded-full bg-encre px-7 py-3.5 text-background shadow-sm transition-transform hover:-translate-y-0.5"
+                >
+                  Chercher
+                </button>
+              </form>
+            </div>
 
 
 
