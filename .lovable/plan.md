@@ -1,13 +1,15 @@
-# Mobile premium + vrai combiné dans le logo
+# Mobile premium + logo « vrai annuaire »
 
-## 1. Le logo : un vrai téléphone
+## 1. Le logo : une vraie image d'annuaire rose
 
-Remplacement du tracé abstrait actuel par un **combiné téléphonique plein avec fil spiralé**, dessiné proprement en SVG :
+Abandon du dessin SVG plat au profit d'une **illustration réaliste et premium d'un annuaire rose** :
 
-- Silhouette pleine (pas un simple trait) : écouteur, manche, micro, en bordeaux sur fond crème.
-- Petit fil qui s'enroule sous le combiné, clin d'œil rétro assumé mais fin.
-- Toujours posé au centre de la page du carnet à spirales, avec des proportions revues pour rester lisible à 16 px (favicon) comme à 400 px (couverture).
-- Décliné partout : favicon, navbar, couverture, footer.
+- Image générée (rendu produit 3D doux) : annuaire rose fermé, tranche de pages crème, spirales, combiné téléphonique posé dessus en relief, **ombre portée douce** sous le livre, fond transparent.
+- Palette respectée : rose signature, crème, bordeaux profond.
+- Sous l'illustration : **LES PAGES ROSES sur une seule ligne**, centré, lettrage resserré en typo titre.
+- Ce couple image + wordmark devient le logo unique : couverture d'intro (grand format), navbar (image réduite + texte sur une ligne), footer.
+- Favicon dérivé de la même image, recadrée carré sur le livre.
+
 
 ## 2. Couverture d'intro
 
