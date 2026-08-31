@@ -88,13 +88,19 @@ function Annuaire() {
           className="mt-2 w-full rounded-none border-0 border-b border-border bg-transparent pb-2.5 font-display text-xl outline-none placeholder:text-muted-foreground/60 focus:border-rose sm:text-3xl"
         />
 
-        <details className="group mt-4 sm:mt-6 sm:open:mt-6" open={ouvertParDefaut}>
-          <summary className="oeil flex cursor-pointer list-none items-center justify-between py-2 text-bordeaux sm:hidden">
-            <span>Filtrer{nbFiltres ? ` · ${nbFiltres}` : ""}</span>
-            <span className="transition-transform group-open:rotate-180">▾</span>
-          </summary>
+        <button
+          type="button"
+          onClick={() => setFiltresOuverts((v) => !v)}
+          className="oeil mt-4 flex w-full items-center justify-between py-2 text-bordeaux sm:hidden"
+          aria-expanded={filtresOuverts}
+        >
+          <span>Filtrer{nbFiltres ? ` · ${nbFiltres}` : ""}</span>
+          <span className={filtresOuverts ? "rotate-180" : ""}>▾</span>
+        </button>
 
-          <div className="mt-3 grid gap-4 sm:mt-0 sm:grid-cols-3 sm:gap-5">
+        <div className={filtresOuverts ? "block" : "hidden sm:block"}>
+          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+
             <div>
               <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
               <select
