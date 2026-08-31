@@ -14,6 +14,7 @@ export type Prestataire = {
   sous_categorie: string | null;
   description: string;
   photo_url: string | null;
+  photos: string[] | null;
   ville: string;
   quartier: string | null;
   telephone: string | null;
