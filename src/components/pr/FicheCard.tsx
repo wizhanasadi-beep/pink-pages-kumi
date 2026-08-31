@@ -63,6 +63,13 @@ export function FicheCard({
             >
               {poigneeOuDomaine(lien)}
             </a>
+          ) : fiche.telephone ? (
+            <a
+              href={`tel:${fiche.telephone.replace(/\s/g, "")}`}
+              className="oeil border-b border-rose pb-0.5 text-bordeaux"
+            >
+              {fiche.telephone}
+            </a>
           ) : null}
           {fiche.lien_reservation ? (
             <a
