@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { BadgeDeplacement, Etiquette, Filet, NumeroDePage, PhotoFiche } from "@/components/pr/bits";
 import { categoriesQuery, DEPLACEMENT_LABEL, prestataireQuery } from "@/lib/pages-roses";
+import { NoteMoyenne, SectionAvis } from "@/components/pr/Avis";
 
 export const Route = createFileRoute("/prestataire/$id")({
   head: () => ({
@@ -90,8 +91,9 @@ function Fiche() {
         <h1 className="logo-pages-roses mt-1 text-4xl sm:text-5xl">{fiche.nom}</h1>
         <p className="rubrique text-2xl text-rose">{fiche.activite}</p>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
           <BadgeDeplacement mode={fiche.deplacement} className="text-sm" />
+          <NoteMoyenne prestataireId={fiche.id} />
         </div>
 
         <Filet className="my-6" />
@@ -151,6 +153,10 @@ function Fiche() {
           <Etiquette ton="jaune">{DEPLACEMENT_LABEL[fiche.deplacement].texte}</Etiquette>
           <Etiquette>Fiche vérifiée par la rédaction</Etiquette>
         </div>
+
+        <Filet className="my-8" />
+
+        <SectionAvis prestataireId={fiche.id} />
       </article>
 
       <NumeroDePage n={24} mention={fiche.activite} />

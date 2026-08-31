@@ -124,3 +124,40 @@ export function normalise(s: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
+
+export type Avis = {
+  id: string;
+  prestataire_id: string;
+  autrice: string;
+  note: number;
+  commentaire: string;
+  created_at: string;
+};
+
+export const avisQuery = (prestataireId: string) => ({
+  queryKey: ["avis", prestataireId],
+  queryFn: async (): Promise<Avis[]> => {
+    const { data, error } = await supabase
+      .from("avis")
+      .select("*")
+      .eq("prestataire_id", prestataireId)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return data as Avis[];
+  },
+});
+
+export async function envoyerAvis(input: {
+  prestataire_id: string;
+  autrice: string;
+  note: number;
+  commentaire: string;
+}) {
+  const { error } = await supabase.from("avis").insert(input);
+  if (error) throw error;
+}
+
+export function moyenne(avis: Avis[]) {
+  if (avis.length === 0) return null;
+  return avis.reduce((s, a) => s + a.note, 0) / avis.length;
+}
