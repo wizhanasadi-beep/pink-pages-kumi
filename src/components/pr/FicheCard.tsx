@@ -1,63 +1,59 @@
 import { Link } from "@tanstack/react-router";
-import { BadgeDeplacement, Etiquette, PhotoFiche } from "@/components/pr/bits";
+import { BadgeDeplacement, PhotoFiche } from "@/components/pr/bits";
 import type { Categorie, Prestataire } from "@/lib/pages-roses";
 
 export function FicheCard({
   fiche,
   categorie,
-  numero,
 }: {
   fiche: Prestataire;
   categorie?: Categorie | undefined;
   numero?: number | undefined;
 }) {
   return (
-    <article className="encart relative flex flex-col p-3 transition-transform hover:-translate-y-0.5 sm:flex-row sm:gap-4 sm:p-4">
-      {numero !== undefined ? (
-        <span className="label-annonce absolute -top-2.5 left-3 border border-border bg-jaune px-1.5">
-          n° {String(numero).padStart(2, "0")}
-        </span>
-      ) : null}
-
+    <article className="fiche group grid gap-5 p-5 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-7 sm:p-7">
       <PhotoFiche
         nom={fiche.nom}
         url={fiche.photo_url}
-        ratio="aspect-[4/3] sm:aspect-[3/4]"
-        className="sm:w-32 sm:shrink-0"
+        ratio="aspect-[4/3] sm:aspect-[4/5]"
+        className="sm:w-40"
       />
 
-      <div className="mt-3 flex flex-1 flex-col sm:mt-0">
-        <p className="label-annonce text-bordeaux">
-          {categorie ? `${categorie.icone} ${categorie.nom}` : "✦ Annuaire"}
+      <div className="flex min-w-0 flex-col">
+        <p className="oeil text-rose">
+          {categorie ? categorie.nom : "Annuaire"}
           {fiche.sous_categorie ? ` · ${fiche.sous_categorie}` : ""}
         </p>
-        <h3 className="mt-1 text-xl leading-tight font-bold">{fiche.nom}</h3>
-        <p className="rubrique text-rose text-lg">{fiche.activite}</p>
 
-        <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{fiche.description}</p>
+        <h3 className="mt-2 text-3xl leading-none">{fiche.nom}</h3>
+        <p className="mt-1.5 text-base text-bordeaux">{fiche.activite}</p>
 
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <Etiquette>
-            📍 {fiche.ville}
+        <p className="mt-3 line-clamp-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          {fiche.description}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="oeil border border-border px-2.5 py-1 text-muted-foreground">
+            {fiche.ville}
             {fiche.quartier ? ` · ${fiche.quartier}` : ""}
-          </Etiquette>
+          </span>
           <BadgeDeplacement mode={fiche.deplacement} />
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
+        <div className="mt-6 flex flex-wrap items-center gap-4">
           <Link
             to="/prestataire/$id"
             params={{ id: fiche.id }}
-            className="label-annonce border border-border bg-rose px-2.5 py-1.5 text-rose-foreground shadow-sm"
+            className="oeil bg-encre px-5 py-3 text-background transition-opacity hover:opacity-85"
           >
-            Voir la fiche
+            Consulter
           </Link>
           {fiche.instagram ? (
             <a
               href={fiche.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border border-border bg-papier px-2.5 py-1.5"
+              className="oeil border-b border-rose pb-0.5 text-bordeaux"
             >
               Instagram
             </a>
@@ -67,7 +63,7 @@ export function FicheCard({
               href={fiche.lien_reservation}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border border-border bg-jaune px-2.5 py-1.5"
+              className="oeil border-b border-rose pb-0.5 text-bordeaux"
             >
               Rendez-vous
             </a>
@@ -77,7 +73,7 @@ export function FicheCard({
               href={fiche.site_web}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border border-border bg-papier px-2.5 py-1.5"
+              className="oeil border-b border-rose pb-0.5 text-bordeaux"
             >
               Site web
             </a>
