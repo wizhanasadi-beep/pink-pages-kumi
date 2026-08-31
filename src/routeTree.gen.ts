@@ -10,33 +10,135 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AnnuaireRouteImport } from './routes/annuaire'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CarteRouteImport } from './routes/carte'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as ReferencerRouteImport } from './routes/referencer'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as PrestataireIdRouteImport } from './routes/prestataire.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnuaireRoute = AnnuaireRouteImport.update({
+  id: '/annuaire',
+  path: '/annuaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarteRoute = CarteRouteImport.update({
+  id: '/carte',
+  path: '/carte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferencerRoute = ReferencerRouteImport.update({
+  id: '/referencer',
+  path: '/referencer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const PrestataireIdRoute = PrestataireIdRouteImport.update({
+  id: '/prestataire/$id',
+  path: '/prestataire/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/annuaire': typeof AnnuaireRoute
+  '/auth': typeof AuthRoute
+  '/carte': typeof CarteRoute
+  '/categories': typeof CategoriesRoute
+  '/referencer': typeof ReferencerRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/prestataire/$id': typeof PrestataireIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/annuaire': typeof AnnuaireRoute
+  '/auth': typeof AuthRoute
+  '/carte': typeof CarteRoute
+  '/categories': typeof CategoriesRoute
+  '/referencer': typeof ReferencerRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/prestataire/$id': typeof PrestataireIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/annuaire': typeof AnnuaireRoute
+  '/auth': typeof AuthRoute
+  '/carte': typeof CarteRoute
+  '/categories': typeof CategoriesRoute
+  '/referencer': typeof ReferencerRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/prestataire/$id': typeof PrestataireIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/annuaire'
+    | '/auth'
+    | '/carte'
+    | '/categories'
+    | '/referencer'
+    | '/admin'
+    | '/prestataire/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/annuaire'
+    | '/auth'
+    | '/carte'
+    | '/categories'
+    | '/referencer'
+    | '/admin'
+    | '/prestataire/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/annuaire'
+    | '/auth'
+    | '/carte'
+    | '/categories'
+    | '/referencer'
+    | '/_authenticated/admin'
+    | '/prestataire/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AnnuaireRoute: typeof AnnuaireRoute
+  AuthRoute: typeof AuthRoute
+  CarteRoute: typeof CarteRoute
+  CategoriesRoute: typeof CategoriesRoute
+  ReferencerRoute: typeof ReferencerRoute
+  PrestataireIdRoute: typeof PrestataireIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +150,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annuaire': {
+      id: '/annuaire'
+      path: '/annuaire'
+      fullPath: '/annuaire'
+      preLoaderRoute: typeof AnnuaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carte': {
+      id: '/carte'
+      path: '/carte'
+      fullPath: '/carte'
+      preLoaderRoute: typeof CarteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referencer': {
+      id: '/referencer'
+      path: '/referencer'
+      fullPath: '/referencer'
+      preLoaderRoute: typeof ReferencerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/prestataire/$id': {
+      id: '/prestataire/$id'
+      path: '/prestataire/$id'
+      fullPath: '/prestataire/$id'
+      preLoaderRoute: typeof PrestataireIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AnnuaireRoute: AnnuaireRoute,
+  AuthRoute: AuthRoute,
+  CarteRoute: CarteRoute,
+  CategoriesRoute: CategoriesRoute,
+  ReferencerRoute: ReferencerRoute,
+  PrestataireIdRoute: PrestataireIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

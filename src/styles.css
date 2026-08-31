@@ -5,17 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * LES PAGES ROSES — design system
+ * Magazine féminin rétro + Pages Jaunes 90's + girly contemporain.
+ * Fond crème/ivoire, structures roses & jaunes, encre noire.
  */
 
 @theme inline {
@@ -24,8 +16,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -46,90 +36,58 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* tokens éditoriaux */
+  --color-rose: var(--rose);
+  --color-rose-foreground: var(--rose-foreground);
+  --color-poudre: var(--poudre);
+  --color-jaune: var(--jaune);
+  --color-jaune-foreground: var(--jaune-foreground);
+  --color-bordeaux: var(--bordeaux);
+  --color-encre: var(--encre);
+  --color-papier: var(--papier);
+
+  --font-display: "Bodoni Moda", "Playfair Display", Georgia, serif;
+  --font-titre: "Bebas Neue", "Archivo Black", Impact, sans-serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-encart: 4px 4px 0 0 var(--encre);
+  --shadow-encart-rose: 5px 5px 0 0 var(--rose);
+  --shadow-encart-jaune: 5px 5px 0 0 var(--jaune);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-}
+  --radius: 0.25rem;
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: oklch(0.972 0.021 92);
+  --foreground: oklch(0.18 0.012 40);
+  --papier: oklch(0.99 0.014 95);
+  --card: oklch(0.99 0.014 95);
+  --card-foreground: oklch(0.18 0.012 40);
+  --popover: oklch(0.99 0.014 95);
+  --popover-foreground: oklch(0.18 0.012 40);
+
+  --rose: oklch(0.645 0.207 3);
+  --rose-foreground: oklch(0.99 0.012 95);
+  --poudre: oklch(0.888 0.055 5);
+  --jaune: oklch(0.888 0.155 90);
+  --jaune-foreground: oklch(0.18 0.012 40);
+  --bordeaux: oklch(0.395 0.13 15);
+  --encre: oklch(0.18 0.012 40);
+
+  --primary: oklch(0.645 0.207 3);
+  --primary-foreground: oklch(0.99 0.012 95);
+  --secondary: oklch(0.888 0.055 5);
+  --secondary-foreground: oklch(0.18 0.012 40);
+  --muted: oklch(0.945 0.024 92);
+  --muted-foreground: oklch(0.44 0.02 40);
+  --accent: oklch(0.888 0.155 90);
+  --accent-foreground: oklch(0.18 0.012 40);
+  --destructive: oklch(0.5 0.19 22);
+  --destructive-foreground: oklch(0.99 0.012 95);
+  --border: oklch(0.18 0.012 40);
+  --input: oklch(0.18 0.012 40 / 35%);
+  --ring: oklch(0.645 0.207 3);
 }
 
 @layer base {
@@ -140,5 +98,88 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    /* grain papier très subtil */
+    background-image:
+      radial-gradient(oklch(0.18 0.012 40 / 4%) 0.5px, transparent 0.5px),
+      radial-gradient(oklch(0.645 0.207 3 / 3%) 0.5px, transparent 0.5px);
+    background-size:
+      3px 3px,
+      7px 7px;
+    background-position:
+      0 0,
+      2px 3px;
   }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+}
+
+/* ——— Utilities éditoriales ——— */
+
+@utility logo-pages-roses {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+@utility rubrique {
+  font-family: var(--font-titre);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+@utility label-annonce {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  font-size: 0.65rem;
+}
+
+/* Encart type petite annonce, cadre encre + décalage imprimé */
+@utility encart {
+  background-color: var(--papier);
+  border: 2px solid var(--encre);
+  box-shadow: 4px 4px 0 0 var(--encre);
+}
+
+@utility encart-rose {
+  background-color: var(--papier);
+  border: 2px solid var(--encre);
+  box-shadow: 5px 5px 0 0 var(--rose);
+}
+
+@utility encart-jaune {
+  background-color: var(--jaune);
+  border: 2px solid var(--encre);
+  box-shadow: 5px 5px 0 0 var(--encre);
+}
+
+/* Cadre double, façon annuaire papier */
+@utility cadre-double {
+  border: 2px solid var(--encre);
+  outline: 2px solid var(--encre);
+  outline-offset: 4px;
+}
+
+/* Séparateur éditorial ✦ */
+@utility filet {
+  border-top: 2px solid var(--encre);
+  border-bottom: 1px solid var(--encre);
+  height: 5px;
+}
+
+@utility rayures-jaunes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--jaune) 0 8px,
+    oklch(0.94 0.09 92) 8px 16px
+  );
 }
