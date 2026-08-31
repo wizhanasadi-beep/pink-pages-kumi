@@ -23,20 +23,19 @@ export function Couverture({ onFin }: { onFin: () => void }) {
 
   return (
     <div
-      className={`couverture aplat-rose ${ouvre ? "couverture-ouverte" : ""}`}
+      className={`couverture bg-papier ${ouvre ? "couverture-ouverte" : ""}`}
       role="dialog"
       aria-label="Couverture Les Pages Roses"
     >
       <button
         type="button"
         onClick={ouvrir}
-        className="oeil absolute right-5 top-6 z-10 text-rose-foreground/70 transition-colors hover:text-rose-foreground"
+        className="oeil absolute right-5 top-6 z-10 text-encre/60 transition-colors hover:text-encre"
       >
         Passer
       </button>
 
-      <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose-foreground/18" />
-
+      <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose/20" />
 
       <button
         type="button"
@@ -44,11 +43,11 @@ export function Couverture({ onFin }: { onFin: () => void }) {
         aria-label="Ouvrir l'annuaire"
         className="group flex w-full max-w-md flex-col items-center gap-8 px-7 text-center"
       >
-        <p className="oeil text-rose-foreground/70">Édition n° 01 · L'annuaire des Kumi</p>
+        <p className="oeil text-encre/60">Édition n° 01 · L'annuaire des Kumi</p>
 
         <LogoVertical tailleImage="w-[46vw] max-w-[15rem] sm:w-56" />
 
-        <span className="oeil inline-block w-full max-w-xs bg-encre px-6 py-4 text-background transition-transform group-hover:-translate-y-0.5 rounded-full">
+        <span className="oeil inline-block w-full max-w-xs bg-rose px-6 py-4 text-rose-foreground transition-transform group-hover:-translate-y-0.5 rounded-full">
           Ouvrir l'annuaire
         </span>
       </button>
