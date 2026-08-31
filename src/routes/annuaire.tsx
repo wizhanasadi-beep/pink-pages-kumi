@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
-import { Etiquette, NumeroDePage, Rubrique } from "@/components/pr/bits";
+import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, normalise, prestatairesQuery } from "@/lib/pages-roses";
 
