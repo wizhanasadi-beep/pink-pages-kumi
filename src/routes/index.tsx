@@ -56,18 +56,19 @@ function Accueil() {
       <PageAplats>
         {/* —— HERO —— */}
         <section className="aplat-rose relative overflow-hidden">
-          <Fleur className="pointer-events-none absolute -right-10 top-6 w-56 text-rose-foreground/12" />
-          <div className="mx-auto max-w-6xl px-5 pb-16 pt-12 sm:pb-20 sm:pt-16">
+          <Fleur className="pointer-events-none absolute -right-10 top-6 w-40 text-rose-foreground/12 sm:w-56" />
+          <div className="mx-auto max-w-6xl px-5 pb-12 pt-8 sm:pb-20 sm:pt-16">
             <div className="flex items-center justify-between">
               <p className="oeil">Édition n° 01</p>
               <p className="oeil">L'annuaire des Kumi</p>
             </div>
 
-            <LettrageHero className="mt-8" />
+            <LettrageHero className="mt-6 sm:mt-8" />
 
-            <p className="mt-8 max-w-lg text-2xl leading-snug sm:text-3xl">
+            <p className="mt-6 max-w-lg text-xl leading-snug sm:mt-8 sm:text-3xl">
               À la recherche d'une prestataire&nbsp;? On sait où chercher.
             </p>
+
 
             {/* Recherche guidée en 2 clics */}
             <form
