@@ -93,11 +93,13 @@ export type Database = {
           longitude: number | null
           nom: string
           photo_url: string | null
+          prenom: string | null
           quartier: string | null
           site_web: string | null
           sous_categorie: string | null
           statut: Database["public"]["Enums"]["statut_fiche"]
           telephone: string | null
+          type_offre: string
           updated_at: string
           ville: string
           zone_deplacement: string | null
@@ -115,11 +117,13 @@ export type Database = {
           longitude?: number | null
           nom: string
           photo_url?: string | null
+          prenom?: string | null
           quartier?: string | null
           site_web?: string | null
           sous_categorie?: string | null
           statut?: Database["public"]["Enums"]["statut_fiche"]
           telephone?: string | null
+          type_offre?: string
           updated_at?: string
           ville?: string
           zone_deplacement?: string | null
@@ -137,11 +141,13 @@ export type Database = {
           longitude?: number | null
           nom?: string
           photo_url?: string | null
+          prenom?: string | null
           quartier?: string | null
           site_web?: string | null
           sous_categorie?: string | null
           statut?: Database["public"]["Enums"]["statut_fiche"]
           telephone?: string | null
+          type_offre?: string
           updated_at?: string
           ville?: string
           zone_deplacement?: string | null
