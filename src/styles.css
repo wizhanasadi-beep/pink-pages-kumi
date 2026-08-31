@@ -321,7 +321,7 @@
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ——— Couverture animée ——— */
+/* ——— Couverture : rideau qui se lève ——— */
 
 .couverture {
   position: fixed;
@@ -333,38 +333,23 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  transform-origin: left center;
-  perspective: 1600px;
   transition:
-    transform 0.72s cubic-bezier(0.65, 0, 0.35, 1),
-    opacity 0.72s ease;
-}
-
-.couverture-carnet {
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.couverture:hover .couverture-carnet {
-  transform: rotateY(-18deg);
+    transform 0.85s cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 0.5s ease 0.25s;
 }
 
 .couverture-ouverte {
-  transform: perspective(1600px) rotateY(-105deg);
+  transform: translateY(-101%);
   opacity: 0;
   pointer-events: none;
 }
 
-.couverture-ouverte .couverture-carnet {
-  transform: rotateY(-80deg);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .couverture,
-  .couverture-carnet {
+  .couverture {
     transition: opacity 0.25s ease;
   }
   .couverture-ouverte {
     transform: none;
   }
 }
+
