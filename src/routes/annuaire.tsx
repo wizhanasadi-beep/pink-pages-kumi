@@ -6,7 +6,7 @@ import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, normalise, prestatairesQuery } from "@/lib/pages-roses";
 
-type Recherche = { q?: string; cat?: string; dep?: string; ville?: string };
+type Recherche = { q?: string; cat?: string; dep?: string; ville?: string; type?: string };
 
 export const Route = createFileRoute("/annuaire")({
   validateSearch: (s: Record<string, unknown>): Recherche => ({
@@ -14,6 +14,7 @@ export const Route = createFileRoute("/annuaire")({
     cat: typeof s["cat"] === "string" ? (s["cat"] as string) : "",
     dep: typeof s["dep"] === "string" ? (s["dep"] as string) : "",
     ville: typeof s["ville"] === "string" ? (s["ville"] as string) : "",
+    type: typeof s["type"] === "string" ? (s["type"] as string) : "",
   }),
   head: () => ({
     meta: [
