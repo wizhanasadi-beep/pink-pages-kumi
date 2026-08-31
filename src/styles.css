@@ -120,27 +120,8 @@
 
 /* ——— Typographie de marque ——— */
 
-@utility logo-pages-roses {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 0.88;
-}
 
-@utility titre-geant {
-  font-family: var(--font-display);
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.82;
-}
 
-@utility mot-roses {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
 
 @utility rubrique {
   font-family: var(--font-titre);
