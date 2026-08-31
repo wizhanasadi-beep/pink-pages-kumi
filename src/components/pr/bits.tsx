@@ -1,12 +1,13 @@
 import { DEPLACEMENT_LABEL, initiales, type Deplacement } from "@/lib/pages-roses";
 import { cn } from "@/lib/utils";
+import { Glyphe } from "@/components/pr/Logo";
 
 export function Filet({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <span className="h-px flex-1 bg-encre" />
-      <span className="text-rose text-xs">✦ ✦ ✦</span>
-      <span className="h-px flex-1 bg-encre" />
+    <div className={cn("flex items-center gap-4", className)}>
+      <span className="h-px flex-1 bg-border" />
+      <Glyphe className="w-6 shrink-0 text-rose" />
+      <span className="h-px flex-1 bg-border" />
     </div>
   );
 }
@@ -23,11 +24,12 @@ export function Rubrique({
   className?: string | undefined;
 }) {
   return (
-    <header className={cn("mb-5", className)}>
-      {sur ? <p className="label-annonce text-bordeaux mb-1">{sur}</p> : null}
-      <h2 className="rubrique text-3xl sm:text-4xl">{titre}</h2>
-      {sous ? <p className="mt-2 max-w-xl text-sm text-muted-foreground">{sous}</p> : null}
-      <div className="filet mt-3" />
+    <header className={cn("mb-8", className)}>
+      {sur ? <p className="oeil mb-3 text-rose">{sur}</p> : null}
+      <h2 className="text-4xl leading-none sm:text-5xl">{titre}</h2>
+      {sous ? (
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">{sous}</p>
+      ) : null}
     </header>
   );
 }
@@ -39,21 +41,16 @@ export function BadgeDeplacement({
   mode: Deplacement;
   className?: string | undefined;
 }) {
-  const { emoji, texte } = DEPLACEMENT_LABEL[mode];
-  const styles: Record<Deplacement, string> = {
-    se_deplace: "bg-rose text-rose-foreground",
-    sur_place: "bg-poudre text-encre",
-    sur_demande: "bg-jaune text-jaune-foreground",
-  };
+  const { texte } = DEPLACEMENT_LABEL[mode];
   return (
     <span
       className={cn(
-        "label-annonce inline-flex items-center gap-1 border border-border px-2 py-1",
-        styles[mode],
+        "oeil inline-flex items-center gap-1.5 border border-border px-2.5 py-1 text-muted-foreground",
         className,
       )}
     >
-      <span aria-hidden>{emoji}</span> {texte}
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-rose" />
+      {texte}
     </span>
   );
 }
@@ -68,25 +65,21 @@ export function Etiquette({
   className?: string | undefined;
 }) {
   const tons = {
-    poudre: "bg-poudre text-encre",
-    jaune: "bg-jaune text-jaune-foreground",
-    rose: "bg-rose text-rose-foreground",
-    encre: "bg-encre text-background",
+    poudre: "bg-poudre text-encre border-transparent",
+    jaune: "bg-poudre text-encre border-transparent",
+    rose: "bg-rose text-rose-foreground border-transparent",
+    encre: "bg-encre text-background border-transparent",
   } as const;
   return (
     <span
-      className={cn(
-        "label-annonce inline-block border border-border px-2 py-0.5",
-        tons[ton],
-        className,
-      )}
+      className={cn("oeil inline-block border px-2.5 py-1", tons[ton], className)}
     >
       {children}
     </span>
   );
 }
 
-/** Photo de fiche : si pas d'image, on imprime les initiales façon vignette d'annuaire. */
+/** Photo de fiche : à défaut d'image, initiales sur aplat rose pâle. */
 export function PhotoFiche({
   nom,
   url,
@@ -99,13 +92,7 @@ export function PhotoFiche({
   ratio?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden border border-border bg-poudre",
-        ratio,
-        className,
-      )}
-    >
+    <div className={cn("relative overflow-hidden bg-poudre", ratio, className)}>
       {url ? (
         <img
           src={url}
@@ -114,23 +101,19 @@ export function PhotoFiche({
           className="h-full w-full object-cover"
         />
       ) : (
-        <div className="rayures-jaunes flex h-full w-full items-center justify-center">
-          <span className="logo-pages-roses flex h-16 w-16 items-center justify-center rounded-full border border-border bg-papier text-2xl">
-            {initiales(nom)}
-          </span>
+        <div className="flex h-full w-full items-center justify-center bg-poudre">
+          <span className="logo-pages-roses text-3xl text-bordeaux/70">{initiales(nom)}</span>
         </div>
       )}
     </div>
   );
 }
 
-export function NumeroDePage({ n, mention }: { n: number; mention?: string }) {
+export function NumeroDePage({ mention }: { n?: number; mention?: string }) {
   return (
-    <p className="label-annonce mt-10 flex items-center justify-between text-muted-foreground">
+    <p className="oeil mt-16 flex items-center justify-between border-t border-border pt-5 text-muted-foreground">
       <span>{mention ?? "Les Pages Roses"}</span>
-      <span className="flex items-center gap-2">
-        <span className="text-rose">✦</span> page {n}
-      </span>
+      <span>L'annuaire des Kumi</span>
     </p>
   );
 }
