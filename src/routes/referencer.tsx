@@ -74,7 +74,7 @@ function Referencer() {
           </p>
           <button
             onClick={() => setEnvoye(false)}
-            className="label-annonce mt-6 border border-border bg-jaune px-3 py-2"
+            className="label-annonce mt-6 border border-border bg-jaune px-3 py-2 rounded-full"
           >
             Envoyer une autre fiche
           </button>
@@ -194,7 +194,7 @@ function Referencer() {
         </fieldset>
 
         {mutation.isError ? (
-          <p className="label-annonce border border-border bg-destructive px-3 py-2 text-destructive-foreground">
+          <p className="label-annonce border border-border bg-destructive px-3 py-2 text-destructive-foreground rounded-full">
             Oups, l'envoi a échoué. Réessaie dans un instant.
           </p>
         ) : null}
@@ -202,7 +202,7 @@ function Referencer() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="rubrique w-full border border-border bg-rose px-4 py-3 text-xl text-rose-foreground shadow-sm disabled:opacity-60"
+          className="rubrique w-full border border-border bg-rose px-4 py-3 text-xl text-rose-foreground shadow-sm disabled:opacity-60 rounded-full"
         >
           {mutation.isPending ? "Envoi…" : "Envoyer ma fiche →"}
         </button>

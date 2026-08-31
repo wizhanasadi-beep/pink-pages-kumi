@@ -107,7 +107,7 @@ function Annuaire() {
               <select
                 value={search.cat}
                 onChange={(e) => set({ cat: e.target.value })}
-                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm rounded-full"
               >
                 <option value="">Toutes</option>
                 {categories.map((c) => (
@@ -122,7 +122,7 @@ function Annuaire() {
               <select
                 value={search.ville}
                 onChange={(e) => set({ ville: e.target.value })}
-                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm rounded-full"
               >
                 <option value="">Partout</option>
                 {villes.map((v) => (
@@ -137,7 +137,7 @@ function Annuaire() {
               <select
                 value={search.dep}
                 onChange={(e) => set({ dep: e.target.value })}
-                className="w-full border border-border bg-papier px-3 py-2.5 text-sm"
+                className="w-full border border-border bg-papier px-3 py-2.5 text-sm rounded-full"
               >
                 <option value="">Peu importe</option>
                 <option value="se_deplace">Se déplace</option>

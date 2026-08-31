@@ -90,7 +90,7 @@ function Accueil() {
                     value={besoin}
                     onChange={(e) => setBesoin(e.target.value)}
                     placeholder="MUA, coiffeuse, photographe…"
-                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose"
+                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose rounded-full"
                   />
                   <datalist id="suggestions">
                     {categories.map((c) => (
@@ -113,7 +113,7 @@ function Accueil() {
                     id="ville"
                     value={ville}
                     onChange={(e) => setVille(e.target.value)}
-                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose"
+                    className="w-full border border-border bg-papier px-3.5 py-3 text-base outline-none focus:border-rose rounded-full"
                   >
                     <option value="">Partout</option>
                     {villes.map((v) => (
@@ -125,7 +125,7 @@ function Accueil() {
                 </div>
                 <button
                   type="submit"
-                  className="oeil w-full bg-encre px-6 py-4 text-background transition-transform hover:-translate-y-0.5 sm:w-auto sm:py-3.5"
+                  className="oeil w-full bg-encre px-6 py-4 text-background transition-transform hover:-translate-y-0.5 sm:w-auto sm:py-3.5 rounded-full"
                 >
                   C'est parti
                 </button>
@@ -220,7 +220,7 @@ function Accueil() {
             <Link
               to="/annuaire"
               search={{ q: "", cat: "beaute", dep: "", ville: "" }}
-              className="oeil mt-10 inline-block bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5"
+              className="oeil mt-10 inline-block bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5 rounded-full"
             >
               Voir la rubrique Beauté
             </Link>
@@ -268,7 +268,7 @@ function Accueil() {
             </div>
             <Link
               to="/referencer"
-              className="oeil shrink-0 bg-rose px-6 py-3.5 text-rose-foreground transition-transform hover:-translate-y-0.5"
+              className="oeil shrink-0 bg-rose px-6 py-3.5 text-rose-foreground transition-transform hover:-translate-y-0.5 rounded-full"
             >
               Remplir ma fiche
             </Link>

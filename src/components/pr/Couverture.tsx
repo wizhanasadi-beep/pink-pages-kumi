@@ -48,7 +48,7 @@ export function Couverture({ onFin }: { onFin: () => void }) {
 
         <LogoVertical tailleImage="w-[46vw] max-w-[15rem] sm:w-56" />
 
-        <span className="oeil inline-block w-full max-w-xs bg-encre px-6 py-4 text-background transition-transform group-hover:-translate-y-0.5">
+        <span className="oeil inline-block w-full max-w-xs bg-encre px-6 py-4 text-background transition-transform group-hover:-translate-y-0.5 rounded-full">
           Ouvrir l'annuaire
         </span>
       </button>

@@ -76,7 +76,7 @@ function Admin() {
             qc.clear();
             navigate({ to: "/" });
           }}
-          className="label-annonce shrink-0 border border-border bg-papier px-3 py-2"
+          className="label-annonce shrink-0 border border-border bg-papier px-3 py-2 rounded-full"
         >
           Déconnexion
         </button>
@@ -132,7 +132,7 @@ function Admin() {
                   onChange={(e) =>
                     modifier.mutate({ id: f.id, patch: { categorie_slug: e.target.value } })
                   }
-                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case"
+                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case rounded-full"
                 >
                   {categories.map((c) => (
                     <option key={c.slug} value={c.slug}>
@@ -151,7 +151,7 @@ function Admin() {
                       patch: { deplacement: e.target.value as Prestataire["deplacement"] },
                     })
                   }
-                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case"
+                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case rounded-full"
                 >
                   <option value="se_deplace">Se déplace</option>
                   <option value="sur_place">Sur place</option>
@@ -164,14 +164,14 @@ function Admin() {
               {f.statut !== "publiee" ? (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "publiee" })}
-                  className="label-annonce border border-border bg-rose px-3 py-1.5 text-rose-foreground"
+                  className="label-annonce border border-border bg-rose px-3 py-1.5 text-rose-foreground rounded-full"
                 >
                   ✓ Publier
                 </button>
               ) : (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "en_attente" })}
-                  className="label-annonce border border-border bg-jaune px-3 py-1.5"
+                  className="label-annonce border border-border bg-jaune px-3 py-1.5 rounded-full"
                 >
                   ⏸ Dépublier
                 </button>
@@ -179,7 +179,7 @@ function Admin() {
               {f.statut !== "refusee" ? (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "refusee" })}
-                  className="label-annonce border border-border bg-papier px-3 py-1.5"
+                  className="label-annonce border border-border bg-papier px-3 py-1.5 rounded-full"
                 >
                   ✕ Refuser
                 </button>
@@ -190,7 +190,7 @@ function Admin() {
                     supprimer.mutate(f.id);
                   }
                 }}
-                className="label-annonce border border-border bg-destructive px-3 py-1.5 text-destructive-foreground"
+                className="label-annonce border border-border bg-destructive px-3 py-1.5 text-destructive-foreground rounded-full"
               >
                 Supprimer
               </button>
