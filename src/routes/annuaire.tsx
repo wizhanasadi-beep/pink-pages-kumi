@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
-import { categoriesQuery, normalise, prestatairesQuery } from "@/lib/pages-roses";
+import { categoriesQuery, normalise, prestatairesQuery, texteRecherchable } from "@/lib/pages-roses";
 
 type Recherche = { q?: string; cat?: string; dep?: string; ville?: string; type?: string };
 
@@ -59,15 +59,20 @@ function Annuaire() {
     .filter((f) => (search.type ? f.type_offre === search.type : true))
     .filter((f) => {
       if (!search.q) return true;
-      const hay = normalise(
-        [f.nom, f.prenom, f.activite, f.sous_categorie, f.description, f.ville, f.quartier].join(
-          " ",
-        ),
-      );
+      const hay = texteRecherchable([
+        f.nom,
+        f.prenom,
+        f.activite,
+        f.sous_categorie,
+        f.description,
+        f.ville,
+        f.quartier,
+      ]);
       return normalise(search.q)
         .split(/\s+/)
         .every((mot) => hay.includes(mot));
     });
+
 
   const nbFiltres = [search.cat, search.ville, search.dep, search.type].filter(Boolean).length;
   const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);

@@ -34,18 +34,21 @@ function Accueil() {
   const navigate = useNavigate();
   const [couverture, setCouverture] = useState(true);
   const [besoin, setBesoin] = useState("");
+  const [ville, setVille] = useState("");
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
+  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
   const compte = (slug: string) => fiches.filter((f) => f.categorie_slug === slug).length;
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
     navigate({
       to: "/annuaire",
-      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville: "" },
+      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
     });
   };
+
 
 
   return (
@@ -69,9 +72,9 @@ function Accueil() {
             </p>
 
 
-            {/* Barre de recherche simple */}
+            {/* Recherche épurée : quoi + où */}
             <form
-              className="mt-7 flex w-full max-w-md items-center gap-2 sm:mt-9"
+              className="mt-7 flex w-full max-w-xl flex-col gap-2 sm:mt-9 sm:flex-row sm:items-center"
               onSubmit={(e) => {
                 e.preventDefault();
                 lancer();
@@ -82,9 +85,9 @@ function Accueil() {
                 list="suggestions"
                 value={besoin}
                 onChange={(e) => setBesoin(e.target.value)}
-                placeholder="MUA, coiffeuse, photographe…"
-                aria-label="Rechercher une prestataire"
-                className="w-full rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none placeholder:text-muted-foreground focus:border-rose"
+                placeholder="Je cherche… MUA, coiffeuse, makeup"
+                aria-label="Que cherches-tu ?"
+                className="min-w-0 flex-1 rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none placeholder:text-muted-foreground focus:border-rose"
               />
               <datalist id="suggestions">
                 {categories.map((c) => (
@@ -98,17 +101,29 @@ function Accueil() {
                     <option key={s} value={s} />
                   ))}
               </datalist>
+
+              <select
+                value={ville}
+                onChange={(e) => setVille(e.target.value)}
+                aria-label="Où ?"
+                className="rounded-full border border-border bg-transparent px-5 py-3 text-base outline-none focus:border-rose sm:w-44"
+              >
+                <option value="">Partout</option>
+                {villes.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+
               <button
                 type="submit"
-                aria-label="Rechercher"
-                className="shrink-0 rounded-full bg-encre px-5 py-3 text-background transition-transform hover:-translate-y-0.5"
+                className="oeil shrink-0 rounded-full bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-                  <path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
+                Chercher
               </button>
             </form>
+
 
 
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
