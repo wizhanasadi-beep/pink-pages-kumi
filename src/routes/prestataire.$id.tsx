@@ -119,6 +119,30 @@ function Fiche() {
 
         <p className="font-display text-lg leading-relaxed">{fiche.description}</p>
 
+        {(fiche.photos ?? []).length > 1 ? (
+          <section className="mt-6">
+            <p className="label-annonce text-bordeaux">En images</p>
+            <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
+              {(fiche.photos ?? []).slice(1).map((url, i) => (
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block overflow-hidden rounded-2xl bg-poudre"
+                >
+                  <img
+                    src={url}
+                    alt={`${fiche.nom} — photo ${i + 2}`}
+                    loading="lazy"
+                    className="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </a>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="encart mt-6 p-4">
           <p className="label-annonce text-bordeaux">Informations pratiques</p>
           <ul className="mt-2 space-y-1.5 text-sm">

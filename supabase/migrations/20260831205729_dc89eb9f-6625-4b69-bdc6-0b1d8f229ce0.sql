@@ -1,0 +1,1 @@
+ALTER TABLE public.prestataires ADD COLUMN IF NOT EXISTS photos text[] NOT NULL DEFAULT '{}'::text[];

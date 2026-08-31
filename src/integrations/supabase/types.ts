@@ -93,6 +93,7 @@ export type Database = {
           longitude: number | null
           nom: string
           photo_url: string | null
+          photos: string[]
           prenom: string | null
           quartier: string | null
           site_web: string | null
@@ -117,6 +118,7 @@ export type Database = {
           longitude?: number | null
           nom: string
           photo_url?: string | null
+          photos?: string[]
           prenom?: string | null
           quartier?: string | null
           site_web?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           longitude?: number | null
           nom?: string
           photo_url?: string | null
+          photos?: string[]
           prenom?: string | null
           quartier?: string | null
           site_web?: string | null
