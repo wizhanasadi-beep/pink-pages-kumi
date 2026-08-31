@@ -56,7 +56,7 @@ function Accueil() {
       <PageAplats>
         {/* —— HERO —— */}
         <section className="aplat-rose relative overflow-hidden">
-          <Fleur className="pointer-events-none absolute -right-12 -top-10 w-56 text-rose-foreground/12" />
+          <Fleur className="pointer-events-none absolute -right-10 top-6 w-56 text-rose-foreground/12" />
           <div className="mx-auto max-w-6xl px-5 pb-16 pt-12 sm:pb-20 sm:pt-16">
             <div className="flex items-center justify-between">
               <p className="oeil">Édition n° 01</p>

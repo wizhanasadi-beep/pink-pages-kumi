@@ -115,7 +115,7 @@ export function LettrageHero({ className }: { className?: string }) {
   return (
     <div className={cn("select-none", className)}>
       <p className="titre-geant text-[15vw] sm:text-[11vw] lg:text-[8rem]">Les Pages</p>
-      <div className="-mt-[0.08em] flex items-end gap-[0.1em]">
+      <div className="-mt-[0.08em] flex items-end gap-[0.22em]">
         <p className="mot-roses text-papier text-[16vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">Roses</p>
         <CarnetLogo className="mb-[0.12em] w-[18vw] max-w-[9rem] shrink-0 sm:w-[13vw]" />
       </div>
