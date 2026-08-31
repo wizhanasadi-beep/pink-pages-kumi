@@ -105,7 +105,20 @@ function Annuaire() {
         </button>
 
         <div className={filtresOuverts ? "block" : "hidden sm:block"}>
-          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+          <div className="mt-3 grid gap-4 sm:mt-6 sm:grid-cols-4 sm:gap-5">
+            <div>
+              <label className="oeil mb-2 block text-muted-foreground">Offre</label>
+              <select
+                value={search.type}
+                onChange={(e) => set({ type: e.target.value })}
+                className="w-full rounded-full border border-border bg-papier px-3 py-2.5 text-sm"
+              >
+                <option value="">Tout</option>
+                <option value="service">Services</option>
+                <option value="produit">Produits</option>
+              </select>
+            </div>
+
 
             <div>
               <label className="oeil mb-2 block text-muted-foreground">Rubrique</label>
