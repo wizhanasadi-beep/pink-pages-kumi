@@ -5,17 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * LES PAGES ROSES — direction artistique
- * Editorial × modern feminine × creative branding.
- * Aplats francs : blanc cassé, rose signature, bordeaux profond.
+ * LES PAGES ROSES — direction artistique « Fraise écrasée »
+ * Crème beurre · rose bonbon · rose vif · fraise profonde.
+ * Typo : DM Serif Display (titres) + Fira Sans (interface).
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -41,53 +41,55 @@
   --color-rose: var(--rose);
   --color-rose-foreground: var(--rose-foreground);
   --color-poudre: var(--poudre);
-  --color-jaune: var(--poudre);
+  --color-jaune: var(--creme);
   --color-jaune-foreground: var(--encre);
+  --color-creme: var(--creme);
   --color-bordeaux: var(--bordeaux);
   --color-encre: var(--encre);
   --color-papier: var(--papier);
 
-  --font-display: "Abril Fatface", Georgia, serif;
-  --font-titre: "Cabin", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Cabin", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-titre: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
 
-
-  --shadow-encart: 0 1px 2px oklch(0.28 0.08 8 / 4%), 0 18px 40px -28px oklch(0.28 0.08 8 / 20%);
-  --shadow-encart-rose: 0 1px 2px oklch(0.28 0.08 8 / 5%), 0 22px 50px -30px oklch(0.28 0.08 8 / 26%);
+  --shadow-encart: 0 2px 4px oklch(0.45 0.16 12 / 5%), 0 22px 44px -30px oklch(0.45 0.16 12 / 24%);
+  --shadow-encart-rose:
+    0 2px 4px oklch(0.68 0.17 8 / 8%), 0 26px 54px -30px oklch(0.68 0.17 8 / 40%);
   --shadow-encart-jaune: var(--shadow-encart);
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 1.25rem;
 
-  /* blanc cassé · rose pâle · rose signature · bordeaux profond */
-  --background: oklch(0.987 0.006 30);
-  --foreground: oklch(0.28 0.08 8);
+  /* crème beurre · rose bonbon · rose vif · fraise profonde */
+  --background: oklch(0.972 0.028 82);
+  --foreground: oklch(0.44 0.16 12);
   --papier: oklch(1 0 0);
+  --creme: oklch(0.972 0.028 82);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.28 0.08 8);
+  --card-foreground: oklch(0.44 0.16 12);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.28 0.08 8);
+  --popover-foreground: oklch(0.44 0.16 12);
 
-  --rose: oklch(0.72 0.09 8);
-  --rose-foreground: oklch(0.24 0.07 8);
-  --poudre: oklch(0.898 0.028 12);
-  --bordeaux: oklch(0.28 0.08 8);
-  --encre: oklch(0.28 0.08 8);
+  --rose: oklch(0.7 0.16 8);
+  --rose-foreground: oklch(1 0 0);
+  --poudre: oklch(0.878 0.078 4);
+  --bordeaux: oklch(0.44 0.16 12);
+  --encre: oklch(0.44 0.16 12);
 
-  --primary: oklch(0.28 0.08 8);
-  --primary-foreground: oklch(0.987 0.006 30);
-  --secondary: oklch(0.898 0.028 12);
-  --secondary-foreground: oklch(0.28 0.08 8);
-  --muted: oklch(0.96 0.008 20);
-  --muted-foreground: oklch(0.5 0.04 10);
-  --accent: oklch(0.898 0.028 12);
-  --accent-foreground: oklch(0.28 0.08 8);
-  --destructive: oklch(0.5 0.19 22);
-  --destructive-foreground: oklch(0.987 0.006 30);
-  --border: oklch(0.28 0.08 8 / 12%);
-  --input: oklch(0.28 0.08 8 / 16%);
-  --ring: oklch(0.72 0.09 8);
+  --primary: oklch(0.44 0.16 12);
+  --primary-foreground: oklch(0.99 0.01 82);
+  --secondary: oklch(0.878 0.078 4);
+  --secondary-foreground: oklch(0.44 0.16 12);
+  --muted: oklch(0.955 0.024 40);
+  --muted-foreground: oklch(0.57 0.1 12);
+  --accent: oklch(0.878 0.078 4);
+  --accent-foreground: oklch(0.44 0.16 12);
+  --destructive: oklch(0.52 0.2 24);
+  --destructive-foreground: oklch(0.99 0.01 82);
+  --border: oklch(0.44 0.16 12 / 14%);
+  --input: oklch(0.44 0.16 12 / 18%);
+  --ring: oklch(0.7 0.16 8);
 }
 
 @layer base {
@@ -106,7 +108,11 @@
   select,
   textarea,
   button {
-    border-radius: var(--radius);
+    border-radius: 999px;
+  }
+
+  textarea {
+    border-radius: 1rem;
   }
 
   h1,
@@ -114,20 +120,17 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 }
 
 /* ——— Typographie de marque ——— */
 
-
-
-
 @utility rubrique {
   font-family: var(--font-titre);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   line-height: 1.15;
   font-size: 0.8em;
 }
@@ -135,7 +138,7 @@
 @utility label-annonce {
   font-family: var(--font-titre);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   font-weight: 600;
   font-size: 0.65rem;
 }
@@ -143,9 +146,9 @@
 @utility oeil {
   font-family: var(--font-titre);
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.16em;
   font-weight: 600;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
 }
 
 /* ——— Aplats & surfaces ——— */
@@ -162,7 +165,12 @@
 
 @utility aplat-encre {
   background-color: var(--encre);
-  color: var(--background);
+  color: var(--creme);
+}
+
+@utility aplat-creme {
+  background-color: var(--creme);
+  color: var(--encre);
 }
 
 /* Fiche : grande carte élégante et aérée */
@@ -182,7 +190,7 @@
 
 @utility encart-rose {
   background-color: var(--papier);
-  border: 1px solid oklch(0.72 0.09 8 / 45%);
+  border: 1px solid oklch(0.7 0.16 8 / 40%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
 }
@@ -209,31 +217,32 @@
 }
 
 @utility blob {
-  border-radius: var(--radius);
+  border-radius: 62% 38% 55% 45% / 48% 52% 44% 56%;
 }
 
 @utility arche {
   border-radius: 999px 999px var(--radius) var(--radius);
 }
 
-/* ——— Typographie : Abril Fatface est très lourde, on desserre ——— */
+/* ——— Titres ——— */
 
 @utility titre-geant {
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 0.86;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
 }
 
 @utility logo-pages-roses {
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 0.95;
+  letter-spacing: -0.015em;
+  line-height: 1;
 }
 
 @utility mot-roses {
   font-family: var(--font-display);
+  font-style: italic;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
@@ -243,7 +252,7 @@
 @utility pave {
   position: relative;
   overflow: hidden;
-  border-radius: 1.25rem;
+  border-radius: 1.5rem;
   transition:
     transform 0.28s ease,
     box-shadow 0.28s ease;
@@ -267,7 +276,31 @@
 
 @utility pave-encre {
   background-color: var(--encre);
-  color: var(--background);
+  color: var(--creme);
+}
+
+/* ——— Boutons pilule ——— */
+
+@utility pilule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.9rem 1.6rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+@utility pilule-encre {
+  background-color: var(--encre);
+  color: var(--creme);
+}
+
+@utility pilule-rose {
+  background-color: var(--rose);
+  color: var(--rose-foreground);
 }
 
 /* ——— Navigation mobile ——— */
