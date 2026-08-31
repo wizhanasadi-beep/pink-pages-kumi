@@ -64,7 +64,7 @@ function Annuaire() {
     });
 
   const nbFiltres = [search.cat, search.ville, search.dep].filter(Boolean).length;
-  const ouvertParDefaut = nbFiltres > 0;
+  const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);
 
 
   return (
