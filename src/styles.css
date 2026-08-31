@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * LES PAGES ROSES — design system
- * Magazine féminin rétro + Pages Jaunes 90's + girly contemporain.
- * Fond crème/ivoire, structures roses & jaunes, encre noire.
+ * LES PAGES ROSES — direction artistique
+ * Editorial × modern feminine × creative branding.
+ * Aplats francs : blanc cassé, rose signature, bordeaux profond.
  */
 
 @theme inline {
@@ -37,58 +37,56 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
 
-  /* tokens éditoriaux */
+  /* tokens de marque */
   --color-rose: var(--rose);
   --color-rose-foreground: var(--rose-foreground);
   --color-poudre: var(--poudre);
-  --color-jaune: var(--jaune);
-  --color-jaune-foreground: var(--jaune-foreground);
+  --color-jaune: var(--poudre);
+  --color-jaune-foreground: var(--encre);
   --color-bordeaux: var(--bordeaux);
   --color-encre: var(--encre);
   --color-papier: var(--papier);
 
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-titre: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-titre: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-encart: 0 1px 2px oklch(0.32 0.09 12 / 5%), 0 12px 32px -18px oklch(0.32 0.09 12 / 22%);
-  --shadow-encart-rose: 0 1px 2px oklch(0.32 0.09 12 / 6%), 0 16px 40px -22px oklch(0.32 0.09 12 / 28%);
-  --shadow-encart-jaune: 0 1px 2px oklch(0.32 0.09 12 / 5%), 0 12px 32px -18px oklch(0.32 0.09 12 / 18%);
+  --shadow-encart: 0 1px 2px oklch(0.28 0.08 8 / 4%), 0 18px 40px -28px oklch(0.28 0.08 8 / 20%);
+  --shadow-encart-rose: 0 1px 2px oklch(0.28 0.08 8 / 5%), 0 22px 50px -30px oklch(0.28 0.08 8 / 26%);
+  --shadow-encart-jaune: var(--shadow-encart);
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.25rem;
 
-  /* crème lumineuse, bordeaux profond, rose poudré : classe, frais, girly */
-  --background: oklch(0.985 0.008 40);
-  --foreground: oklch(0.32 0.09 12);
+  /* blanc cassé · rose pâle · rose signature · bordeaux profond */
+  --background: oklch(0.987 0.006 30);
+  --foreground: oklch(0.28 0.08 8);
   --papier: oklch(1 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.32 0.09 12);
+  --card-foreground: oklch(0.28 0.08 8);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.32 0.09 12);
+  --popover-foreground: oklch(0.28 0.08 8);
 
-  --rose: oklch(0.44 0.14 10);
-  --rose-foreground: oklch(0.985 0.008 40);
-  --poudre: oklch(0.925 0.045 6);
-  --jaune: oklch(0.955 0.03 60);
-  --jaune-foreground: oklch(0.32 0.09 12);
-  --bordeaux: oklch(0.32 0.09 12);
-  --encre: oklch(0.32 0.09 12);
+  --rose: oklch(0.72 0.09 8);
+  --rose-foreground: oklch(0.24 0.07 8);
+  --poudre: oklch(0.898 0.028 12);
+  --bordeaux: oklch(0.28 0.08 8);
+  --encre: oklch(0.28 0.08 8);
 
-  --primary: oklch(0.44 0.14 10);
-  --primary-foreground: oklch(0.985 0.008 40);
-  --secondary: oklch(0.94 0.038 6);
-  --secondary-foreground: oklch(0.32 0.09 12);
-  --muted: oklch(0.965 0.012 30);
-  --muted-foreground: oklch(0.5 0.05 14);
-  --accent: oklch(0.925 0.045 6);
-  --accent-foreground: oklch(0.32 0.09 12);
+  --primary: oklch(0.28 0.08 8);
+  --primary-foreground: oklch(0.987 0.006 30);
+  --secondary: oklch(0.898 0.028 12);
+  --secondary-foreground: oklch(0.28 0.08 8);
+  --muted: oklch(0.96 0.008 20);
+  --muted-foreground: oklch(0.5 0.04 10);
+  --accent: oklch(0.898 0.028 12);
+  --accent-foreground: oklch(0.28 0.08 8);
   --destructive: oklch(0.5 0.19 22);
-  --destructive-foreground: oklch(0.985 0.008 40);
-  --border: oklch(0.32 0.09 12 / 10%);
-  --input: oklch(0.32 0.09 12 / 12%);
-  --ring: oklch(0.44 0.14 10);
+  --destructive-foreground: oklch(0.987 0.006 30);
+  --border: oklch(0.28 0.08 8 / 12%);
+  --input: oklch(0.28 0.08 8 / 16%);
+  --ring: oklch(0.72 0.09 8);
 }
 
 @layer base {
@@ -100,13 +98,14 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
   input,
   select,
   textarea,
   button {
-    border-radius: calc(var(--radius) - 4px);
+    border-radius: var(--radius);
   }
 
   h1,
@@ -114,36 +113,84 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 }
 
-/* ——— Utilities éditoriales ——— */
+/* ——— Typographie de marque ——— */
 
 @utility logo-pages-roses {
   font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+}
+
+@utility titre-geant {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.82;
+}
+
+@utility mot-roses {
+  font-family: var(--font-display);
+  font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
+  letter-spacing: 0.01em;
 }
 
 @utility rubrique {
   font-family: var(--font-titre);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 1.05;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  font-size: 0.8em;
 }
 
 @utility label-annonce {
   font-family: var(--font-titre);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   font-weight: 600;
   font-size: 0.65rem;
 }
 
-/* Encart doux, façon carte imprimée arrondie */
+@utility oeil {
+  font-family: var(--font-titre);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-weight: 600;
+  font-size: 0.65rem;
+}
+
+/* ——— Aplats & surfaces ——— */
+
+@utility aplat-rose {
+  background-color: var(--rose);
+  color: var(--rose-foreground);
+}
+
+@utility aplat-poudre {
+  background-color: var(--poudre);
+  color: var(--encre);
+}
+
+@utility aplat-encre {
+  background-color: var(--encre);
+  color: var(--background);
+}
+
+/* Fiche : grande carte élégante et aérée */
+@utility fiche {
+  background-color: var(--papier);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-encart);
+}
+
 @utility encart {
   background-color: var(--papier);
   border: 1px solid var(--color-border);
@@ -153,42 +200,34 @@
 
 @utility encart-rose {
   background-color: var(--papier);
-  border: 1px solid oklch(0.53 0.185 12 / 18%);
+  border: 1px solid oklch(0.72 0.09 8 / 45%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
 }
 
 @utility encart-jaune {
-  background-color: var(--poudre);
+  background-color: var(--papier);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-encart-jaune);
-}
-
-/* Cadre double, façon annuaire papier */
-@utility cadre-double {
-  border: 1px solid var(--color-border);
-  border-radius: calc(var(--radius) + 6px);
   box-shadow: var(--shadow-encart);
 }
 
-/* Séparateur éditorial ✦ */
+@utility cadre-double {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
 @utility filet {
-  border-top: 1px solid oklch(0.53 0.185 12 / 22%);
+  border-top: 1px solid var(--color-border);
   height: 1px;
 }
 
 @utility rayures-jaunes {
-  background-image: linear-gradient(
-    135deg,
-    var(--poudre),
-    oklch(0.965 0.025 40)
-  );
+  background-color: var(--poudre);
 }
 
-/* Formes organiques rétro (photos en blob / arche) */
 @utility blob {
-  border-radius: calc(var(--radius) + 8px);
+  border-radius: var(--radius);
 }
 
 @utility arche {
