@@ -64,12 +64,12 @@ export function LettrageHero({ className }: { className?: string }) {
     <div className={cn("select-none", className)}>
       <p className="titre-geant text-[18vw] sm:text-[13vw] lg:text-[9.5rem]">Les</p>
       <p className="titre-geant -mt-[0.12em] text-[18vw] sm:text-[13vw] lg:text-[9.5rem]">Pages</p>
-      <div className="relative -mt-[0.12em]">
+      <div className="-mt-[0.12em] flex items-center gap-[0.12em]">
         <p className="mot-roses text-[19vw] leading-[0.85] sm:text-[14vw] lg:text-[10.5rem]">
           Roses
         </p>
         <Combine
-          className="pointer-events-none absolute left-[6%] top-[38%] w-[62%] text-rose mix-blend-multiply sm:w-[54%]"
+          className="w-[26vw] max-w-[15rem] shrink-0 opacity-80 sm:w-[19vw]"
           strokeWidth={4}
         />
       </div>
