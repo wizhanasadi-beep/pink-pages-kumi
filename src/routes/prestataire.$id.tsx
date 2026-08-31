@@ -84,7 +84,7 @@ function Fiche() {
         <PhotoFiche nom={fiche.nom} url={fiche.photo_url} ratio="aspect-[4/3]" />
 
         <p className="label-annonce mt-5 text-bordeaux">
-          Rubrique : {categorie ? `${categorie.icone} ${categorie.nom}` : "Annuaire"}
+          Rubrique : {categorie ? categorie.nom : "Annuaire"}
           {fiche.sous_categorie ? ` · ${fiche.sous_categorie}` : ""}
         </p>
         <h1 className="logo-pages-roses mt-1 text-4xl sm:text-5xl">{fiche.nom}</h1>
