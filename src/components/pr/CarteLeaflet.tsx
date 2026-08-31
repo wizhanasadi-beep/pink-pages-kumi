@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import type { Prestataire } from "@/lib/pages-roses";
-import { DEPLACEMENT_LABEL } from "@/lib/pages-roses";
+import { DEPLACEMENT_LABEL, TYPE_OFFRE_LABEL } from "@/lib/pages-roses";
 
 const marqueurRose = (initiales: string) =>
   L.divIcon({
