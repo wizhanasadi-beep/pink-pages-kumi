@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { BadgeDeplacement, Etiquette, Filet, NumeroDePage, PhotoFiche } from "@/components/pr/bits";
 import { categoriesQuery, DEPLACEMENT_LABEL, prestataireQuery } from "@/lib/pages-roses";
+import { NoteMoyenne, SectionAvis } from "@/components/pr/Avis";
 
 export const Route = createFileRoute("/prestataire/$id")({
   head: () => ({
