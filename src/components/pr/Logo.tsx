@@ -84,8 +84,8 @@ export function LogoVertical({
   return (
     <span className={cn("flex flex-col items-center gap-5 text-center", className)}>
       <AnnuaireImage className={cn("couverture-carnet", tailleImage)} priority />
-      <span className="logo-pages-roses whitespace-nowrap text-[8vw] leading-none text-papier sm:text-5xl">
-        Les Pages Roses
+      <span className="logo-pages-roses whitespace-nowrap text-[8vw] leading-none text-encre sm:text-5xl">
+        Les Pages <span className="mot-roses text-rose">Roses</span>
       </span>
     </span>
   );
