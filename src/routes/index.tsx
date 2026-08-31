@@ -55,7 +55,7 @@ function Accueil() {
 
       <PageAplats>
         {/* —— HERO —— */}
-        <section className="aplat-creme relative overflow-hidden">
+        <section className="aplat-rose relative overflow-hidden">
 
           <div className="mx-auto max-w-6xl px-5 pb-12 pt-8 sm:pb-20 sm:pt-16">
             <div className="flex items-center justify-between">
