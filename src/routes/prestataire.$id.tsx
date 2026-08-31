@@ -104,9 +104,13 @@ function Fiche() {
           {fiche.sous_categorie ? ` · ${fiche.sous_categorie}` : ""}
         </p>
         <h1 className="logo-pages-roses mt-1 text-4xl sm:text-5xl">{fiche.nom}</h1>
-        <p className="rubrique text-2xl text-rose">{fiche.activite}</p>
+        {fiche.prenom ? (
+          <p className="rubrique text-2xl text-rose">par {fiche.prenom}</p>
+        ) : null}
+        <p className="mt-1 font-display text-lg text-bordeaux">{fiche.activite}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <BadgeType type={fiche.type_offre} />
           <BadgeDeplacement mode={fiche.deplacement} className="text-sm" />
           <NoteMoyenne prestataireId={fiche.id} />
         </div>
