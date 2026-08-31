@@ -76,7 +76,7 @@ function Admin() {
             qc.clear();
             navigate({ to: "/" });
           }}
-          className="label-annonce shrink-0 border-2 border-encre bg-papier px-3 py-2"
+          className="label-annonce shrink-0 border border-border bg-papier px-3 py-2"
         >
           Déconnexion
         </button>
@@ -87,7 +87,7 @@ function Admin() {
           <button
             key={s.valeur}
             onClick={() => setOnglet(s.valeur)}
-            className={`rubrique border-2 border-encre px-3 py-2 ${
+            className={`rubrique border border-border px-3 py-2 ${
               onglet === s.valeur ? "bg-rose text-rose-foreground" : "bg-papier"
             }`}
           >
@@ -132,7 +132,7 @@ function Admin() {
                   onChange={(e) =>
                     modifier.mutate({ id: f.id, patch: { categorie_slug: e.target.value } })
                   }
-                  className="mt-1 w-full border-2 border-encre bg-papier px-2 py-1.5 text-sm normal-case"
+                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case"
                 >
                   {categories.map((c) => (
                     <option key={c.slug} value={c.slug}>
@@ -151,7 +151,7 @@ function Admin() {
                       patch: { deplacement: e.target.value as Prestataire["deplacement"] },
                     })
                   }
-                  className="mt-1 w-full border-2 border-encre bg-papier px-2 py-1.5 text-sm normal-case"
+                  className="mt-1 w-full border border-border bg-papier px-2 py-1.5 text-sm normal-case"
                 >
                   <option value="se_deplace">Se déplace</option>
                   <option value="sur_place">Sur place</option>
@@ -160,18 +160,18 @@ function Admin() {
               </label>
             </div>
 
-            <div className="mt-3 flex flex-wrap gap-2 border-t border-dashed border-encre pt-3">
+            <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
               {f.statut !== "publiee" ? (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "publiee" })}
-                  className="label-annonce border-2 border-encre bg-rose px-3 py-1.5 text-rose-foreground"
+                  className="label-annonce border border-border bg-rose px-3 py-1.5 text-rose-foreground"
                 >
                   ✓ Publier
                 </button>
               ) : (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "en_attente" })}
-                  className="label-annonce border-2 border-encre bg-jaune px-3 py-1.5"
+                  className="label-annonce border border-border bg-jaune px-3 py-1.5"
                 >
                   ⏸ Dépublier
                 </button>
@@ -179,7 +179,7 @@ function Admin() {
               {f.statut !== "refusee" ? (
                 <button
                   onClick={() => majStatut.mutate({ id: f.id, statut: "refusee" })}
-                  className="label-annonce border-2 border-encre bg-papier px-3 py-1.5"
+                  className="label-annonce border border-border bg-papier px-3 py-1.5"
                 >
                   ✕ Refuser
                 </button>
@@ -190,7 +190,7 @@ function Admin() {
                     supprimer.mutate(f.id);
                   }
                 }}
-                className="label-annonce border-2 border-encre bg-destructive px-3 py-1.5 text-destructive-foreground"
+                className="label-annonce border border-border bg-destructive px-3 py-1.5 text-destructive-foreground"
               >
                 Supprimer
               </button>

@@ -78,11 +78,11 @@ function Accueil() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="MUA, coiffeuse, photographe…"
-              className="flex-1 border-2 border-encre bg-background px-3 py-3 text-base outline-none placeholder:text-muted-foreground focus:shadow-[3px_3px_0_0_var(--rose)]"
+              className="flex-1 border border-border bg-background px-3 py-3 text-base outline-none placeholder:text-muted-foreground focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
             />
             <button
               type="submit"
-              className="rubrique border-2 border-encre bg-rose px-5 py-3 text-lg text-rose-foreground shadow-[4px_4px_0_0_var(--encre)]"
+              className="rubrique border border-border bg-rose px-5 py-3 text-lg text-rose-foreground shadow-sm"
             >
               Chercher
             </button>
@@ -93,13 +93,13 @@ function Accueil() {
           <Link
             to="/annuaire"
             search={{ q: "", cat: "", dep: "", ville: "" }}
-            className="rubrique border-2 border-encre bg-jaune px-4 py-4 text-center text-lg shadow-[4px_4px_0_0_var(--encre)]"
+            className="rubrique border border-border bg-jaune px-4 py-4 text-center text-lg shadow-sm"
           >
             📖 Feuilleter l'annuaire
           </Link>
           <Link
             to="/carte"
-            className="rubrique border-2 border-encre bg-poudre px-4 py-4 text-center text-lg shadow-[4px_4px_0_0_var(--encre)]"
+            className="rubrique border border-border bg-poudre px-4 py-4 text-center text-lg shadow-sm"
           >
             📍 Trouver près de moi
           </Link>
@@ -151,7 +151,7 @@ function Accueil() {
         <Link
           to="/annuaire"
           search={{ q: "", cat: "beaute", dep: "", ville: "" }}
-          className="rubrique mt-4 inline-block border-2 border-encre bg-papier px-4 py-2 text-lg shadow-[3px_3px_0_0_var(--encre)]"
+          className="rubrique mt-4 inline-block border border-border bg-papier px-4 py-2 text-lg shadow-sm"
         >
           Voir la rubrique Beauté
         </Link>
@@ -181,7 +181,7 @@ function Accueil() {
         </p>
         <Link
           to="/referencer"
-          className="rubrique mt-4 inline-block border-2 border-encre bg-rose px-4 py-2.5 text-lg text-rose-foreground shadow-[4px_4px_0_0_var(--encre)]"
+          className="rubrique mt-4 inline-block border border-border bg-rose px-4 py-2.5 text-lg text-rose-foreground shadow-sm"
         >
           Remplir ma fiche →
         </Link>

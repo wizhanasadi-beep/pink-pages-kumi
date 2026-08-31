@@ -14,7 +14,7 @@ export function FicheCard({
   return (
     <article className="encart relative flex flex-col p-3 transition-transform hover:-translate-y-0.5 sm:flex-row sm:gap-4 sm:p-4">
       {numero !== undefined ? (
-        <span className="label-annonce absolute -top-2.5 left-3 border border-encre bg-jaune px-1.5">
+        <span className="label-annonce absolute -top-2.5 left-3 border border-border bg-jaune px-1.5">
           n° {String(numero).padStart(2, "0")}
         </span>
       ) : null}
@@ -44,11 +44,11 @@ export function FicheCard({
           <BadgeDeplacement mode={fiche.deplacement} />
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2 border-t border-dashed border-encre pt-3">
+        <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-3">
           <Link
             to="/prestataire/$id"
             params={{ id: fiche.id }}
-            className="label-annonce border-2 border-encre bg-rose px-2.5 py-1.5 text-rose-foreground shadow-[3px_3px_0_0_var(--encre)]"
+            className="label-annonce border border-border bg-rose px-2.5 py-1.5 text-rose-foreground shadow-sm"
           >
             Voir la fiche
           </Link>
@@ -57,7 +57,7 @@ export function FicheCard({
               href={fiche.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border-2 border-encre bg-papier px-2.5 py-1.5"
+              className="label-annonce border border-border bg-papier px-2.5 py-1.5"
             >
               Instagram
             </a>
@@ -67,7 +67,7 @@ export function FicheCard({
               href={fiche.lien_reservation}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border-2 border-encre bg-jaune px-2.5 py-1.5"
+              className="label-annonce border border-border bg-jaune px-2.5 py-1.5"
             >
               Rendez-vous
             </a>
@@ -77,7 +77,7 @@ export function FicheCard({
               href={fiche.site_web}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-annonce border-2 border-encre bg-papier px-2.5 py-1.5"
+              className="label-annonce border border-border bg-papier px-2.5 py-1.5"
             >
               Site web
             </a>

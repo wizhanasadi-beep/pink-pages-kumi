@@ -51,26 +51,26 @@
   --font-titre: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-encart: 4px 4px 0 0 var(--encre);
-  --shadow-encart-rose: 5px 5px 0 0 var(--rose);
-  --shadow-encart-jaune: 5px 5px 0 0 var(--encre);
+  --shadow-encart: 0 1px 2px oklch(0.3 0.075 22 / 6%), 0 8px 24px -12px oklch(0.3 0.075 22 / 18%);
+  --shadow-encart-rose: 0 1px 2px oklch(0.53 0.185 12 / 8%), 0 10px 30px -14px oklch(0.53 0.185 12 / 30%);
+  --shadow-encart-jaune: 0 1px 2px oklch(0.3 0.075 22 / 6%), 0 8px 24px -12px oklch(0.3 0.075 22 / 16%);
 }
 
 :root {
-  --radius: 1.25rem;
+  --radius: 1rem;
 
   /* rose poudré comme fond, crème pour le papier, framboise pour l'encre forte */
-  --background: oklch(0.902 0.048 6);
+  --background: oklch(0.975 0.012 10);
   --foreground: oklch(0.3 0.075 22);
-  --papier: oklch(0.966 0.02 62);
-  --card: oklch(0.966 0.02 62);
+  --papier: oklch(1 0 0);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.3 0.075 22);
-  --popover: oklch(0.966 0.02 62);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.3 0.075 22);
 
   --rose: oklch(0.53 0.185 12);
   --rose-foreground: oklch(0.975 0.018 62);
-  --poudre: oklch(0.938 0.035 6);
+  --poudre: oklch(0.955 0.022 6);
   --jaune: oklch(0.93 0.055 72);
   --jaune-foreground: oklch(0.3 0.075 22);
   --bordeaux: oklch(0.33 0.105 20);
@@ -80,14 +80,14 @@
   --primary-foreground: oklch(0.975 0.018 62);
   --secondary: oklch(0.938 0.035 6);
   --secondary-foreground: oklch(0.3 0.075 22);
-  --muted: oklch(0.93 0.032 8);
+  --muted: oklch(0.958 0.014 8);
   --muted-foreground: oklch(0.46 0.06 20);
   --accent: oklch(0.93 0.055 72);
   --accent-foreground: oklch(0.3 0.075 22);
   --destructive: oklch(0.5 0.19 22);
   --destructive-foreground: oklch(0.975 0.018 62);
-  --border: oklch(0.3 0.075 22);
-  --input: oklch(0.3 0.075 22 / 35%);
+  --border: oklch(0.3 0.075 22 / 12%);
+  --input: oklch(0.3 0.075 22 / 14%);
   --ring: oklch(0.53 0.185 12);
 }
 
@@ -100,23 +100,21 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    /* grain papier très subtil */
-    background-image:
-      radial-gradient(oklch(0.3 0.075 22 / 4%) 0.5px, transparent 0.5px),
-      radial-gradient(oklch(0.53 0.185 12 / 3%) 0.5px, transparent 0.5px);
-    background-size:
-      3px 3px,
-      7px 7px;
-    background-position:
-      0 0,
-      2px 3px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    border-radius: calc(var(--radius) - 4px);
   }
 
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    font-variation-settings: "SOFT" 60, "WONK" 1;
+    font-variation-settings: "SOFT" 40, "WONK" 0;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -150,51 +148,49 @@
 /* Encart doux, façon carte imprimée arrondie */
 @utility encart {
   background-color: var(--papier);
-  border: 2px solid var(--encre);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  box-shadow: 4px 5px 0 0 var(--encre);
+  box-shadow: var(--shadow-encart);
 }
 
 @utility encart-rose {
   background-color: var(--papier);
-  border: 2px solid var(--rose);
+  border: 1px solid oklch(0.53 0.185 12 / 18%);
   border-radius: var(--radius);
-  box-shadow: 5px 6px 0 0 var(--rose);
+  box-shadow: var(--shadow-encart-rose);
 }
 
 @utility encart-jaune {
   background-color: var(--poudre);
-  border: 2px solid var(--encre);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  box-shadow: 5px 6px 0 0 var(--rose);
+  box-shadow: var(--shadow-encart-jaune);
 }
 
 /* Cadre double, façon annuaire papier */
 @utility cadre-double {
-  border: 2px solid var(--encre);
-  border-radius: var(--radius);
-  outline: 2px solid var(--rose);
-  outline-offset: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: var(--shadow-encart);
 }
 
 /* Séparateur éditorial ✦ */
 @utility filet {
-  border-top: 2px solid var(--rose);
-  border-bottom: 1px solid var(--rose);
-  height: 5px;
+  border-top: 1px solid oklch(0.53 0.185 12 / 22%);
+  height: 1px;
 }
 
 @utility rayures-jaunes {
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--poudre) 0 9px,
-    oklch(0.885 0.075 6) 9px 18px
+  background-image: linear-gradient(
+    135deg,
+    var(--poudre),
+    oklch(0.93 0.045 40)
   );
 }
 
 /* Formes organiques rétro (photos en blob / arche) */
 @utility blob {
-  border-radius: 46% 54% 52% 48% / 56% 44% 56% 44%;
+  border-radius: calc(var(--radius) + 8px);
 }
 
 @utility arche {

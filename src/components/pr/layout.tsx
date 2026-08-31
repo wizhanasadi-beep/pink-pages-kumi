@@ -10,7 +10,7 @@ const LIENS = [
 
 export function Masthead({ compact = false }: { compact?: boolean }) {
   return (
-    <header className="border-b-2 border-encre bg-papier">
+    <header className="border-b border-border bg-papier">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="group flex items-baseline gap-2">
           <span
@@ -37,7 +37,7 @@ export function Masthead({ compact = false }: { compact?: boolean }) {
           ))}
           <Link
             to="/referencer"
-            className="label-annonce border-2 border-encre bg-jaune px-3 py-1.5 shadow-[3px_3px_0_0_var(--encre)] transition-transform hover:-translate-y-0.5"
+            className="label-annonce border border-border bg-jaune px-3 py-1.5 shadow-sm transition-transform hover:-translate-y-0.5"
           >
             + Référencer
           </Link>
@@ -49,7 +49,7 @@ export function Masthead({ compact = false }: { compact?: boolean }) {
 
 export function BottomNav() {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-encre bg-papier sm:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-papier sm:hidden">
       <ul className="mx-auto flex max-w-lg items-stretch">
         {LIENS.map((l) => (
           <li key={l.to} className="flex-1">
@@ -75,7 +75,7 @@ export function FabReferencer() {
   return (
     <Link
       to="/referencer"
-      className="label-annonce fixed bottom-20 right-4 z-40 flex items-center gap-1 border-2 border-encre bg-rose px-3 py-2 text-rose-foreground shadow-[4px_4px_0_0_var(--encre)] sm:hidden"
+      className="label-annonce fixed bottom-20 right-4 z-40 flex items-center gap-1 border border-border bg-rose px-3 py-2 text-rose-foreground shadow-sm sm:hidden"
     >
       + Référencer
     </Link>
@@ -84,7 +84,7 @@ export function FabReferencer() {
 
 export function PiedDePage() {
   return (
-    <footer className="mt-14 border-t-2 border-encre bg-poudre">
+    <footer className="mt-14 border-t border-border bg-poudre">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <p className="logo-pages-roses text-xl text-bordeaux">Les Pages Roses</p>
         <p className="label-annonce mt-1">L'annuaire des Kumi · Édition {new Date().getFullYear()}</p>

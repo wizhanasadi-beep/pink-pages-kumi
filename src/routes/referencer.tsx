@@ -26,7 +26,7 @@ export const Route = createFileRoute("/referencer")({
 });
 
 const champ =
-  "w-full border-2 border-encre bg-papier px-3 py-2.5 text-base outline-none focus:shadow-[3px_3px_0_0_var(--rose)]";
+  "w-full border border-border bg-papier px-3 py-2.5 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]";
 
 function Referencer() {
   const { data: categories = [] } = useQuery(categoriesQuery);
@@ -74,7 +74,7 @@ function Referencer() {
           </p>
           <button
             onClick={() => setEnvoye(false)}
-            className="label-annonce mt-6 border-2 border-encre bg-jaune px-3 py-2"
+            className="label-annonce mt-6 border border-border bg-jaune px-3 py-2"
           >
             Envoyer une autre fiche
           </button>
@@ -194,7 +194,7 @@ function Referencer() {
         </fieldset>
 
         {mutation.isError ? (
-          <p className="label-annonce border-2 border-encre bg-destructive px-3 py-2 text-destructive-foreground">
+          <p className="label-annonce border border-border bg-destructive px-3 py-2 text-destructive-foreground">
             Oups, l'envoi a échoué. Réessaie dans un instant.
           </p>
         ) : null}
@@ -202,7 +202,7 @@ function Referencer() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="rubrique w-full border-2 border-encre bg-rose px-4 py-3 text-xl text-rose-foreground shadow-[4px_4px_0_0_var(--encre)] disabled:opacity-60"
+          className="rubrique w-full border border-border bg-rose px-4 py-3 text-xl text-rose-foreground shadow-sm disabled:opacity-60"
         >
           {mutation.isPending ? "Envoi…" : "Envoyer ma fiche →"}
         </button>

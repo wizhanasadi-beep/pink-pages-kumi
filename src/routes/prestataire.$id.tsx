@@ -45,7 +45,7 @@ function Fiche() {
           <Link
             to="/annuaire"
             search={{ q: "", cat: "", dep: "", ville: "" }}
-            className="rubrique mt-4 inline-block border-2 border-encre bg-rose px-4 py-2 text-rose-foreground shadow-[3px_3px_0_0_var(--encre)]"
+            className="rubrique mt-4 inline-block border border-border bg-rose px-4 py-2 text-rose-foreground shadow-sm"
           >
             Retour à l'annuaire
           </Link>
@@ -134,7 +134,7 @@ function Fiche() {
                 href={l.href}
                 target={l.href.startsWith("tel:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                className={`rubrique border-2 border-encre px-4 py-3 text-center text-lg shadow-[4px_4px_0_0_var(--encre)] ${tons[l.ton]}`}
+                className={`rubrique border border-border px-4 py-3 text-center text-lg shadow-sm ${tons[l.ton]}`}
               >
                 {l.label}
               </a>

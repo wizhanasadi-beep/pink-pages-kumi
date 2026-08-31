@@ -78,7 +78,7 @@ function Annuaire() {
           value={search.q}
           onChange={(e) => set({ q: e.target.value })}
           placeholder="MUA, coiffeuse, photographe…"
-          className="w-full border-2 border-encre bg-papier px-3 py-3 text-base outline-none focus:shadow-[3px_3px_0_0_var(--rose)]"
+          className="w-full border border-border bg-papier px-3 py-3 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.53_0.185_12_/_12%)]"
         />
 
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
@@ -87,7 +87,7 @@ function Annuaire() {
             <select
               value={search.cat}
               onChange={(e) => set({ cat: e.target.value })}
-              className="w-full border-2 border-encre bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm"
             >
               <option value="">Toutes</option>
               {categories.map((c) => (
@@ -102,7 +102,7 @@ function Annuaire() {
             <select
               value={search.ville}
               onChange={(e) => set({ ville: e.target.value })}
-              className="w-full border-2 border-encre bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm"
             >
               <option value="">Partout</option>
               {villes.map((v) => (
@@ -117,7 +117,7 @@ function Annuaire() {
             <select
               value={search.dep}
               onChange={(e) => set({ dep: e.target.value })}
-              className="w-full border-2 border-encre bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm"
             >
               <option value="">Peu importe</option>
               <option value="se_deplace">🩷 Se déplace</option>
@@ -130,7 +130,7 @@ function Annuaire() {
         {search.q || search.cat || search.ville || search.dep ? (
           <button
             onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
-            className="label-annonce mt-3 border-2 border-encre bg-papier px-3 py-1.5"
+            className="label-annonce mt-3 border border-border bg-papier px-3 py-1.5"
           >
             ✕ Effacer les filtres
           </button>

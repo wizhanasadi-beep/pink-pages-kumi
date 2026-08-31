@@ -73,7 +73,7 @@ function Carte() {
             <select
               value={cat}
               onChange={(e) => setCat(e.target.value)}
-              className="w-full border-2 border-encre bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm"
             >
               <option value="">Toutes</option>
               {categories.map((c) => (
@@ -88,7 +88,7 @@ function Carte() {
             <select
               value={dep}
               onChange={(e) => setDep(e.target.value)}
-              className="w-full border-2 border-encre bg-papier px-2 py-2 text-sm"
+              className="w-full border border-border bg-papier px-2 py-2 text-sm"
             >
               <option value="">Peu importe</option>
               <option value="se_deplace">🩷 Se déplace</option>
@@ -114,14 +114,14 @@ function Carte() {
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button
             onClick={autourDeMoi}
-            className="rubrique border-2 border-encre bg-rose px-3 py-2 text-rose-foreground shadow-[3px_3px_0_0_var(--encre)]"
+            className="rubrique border border-border bg-rose px-3 py-2 text-rose-foreground shadow-sm"
           >
             📍 Autour de moi
           </button>
           {position ? (
             <button
               onClick={() => setPosition(null)}
-              className="label-annonce border-2 border-encre bg-papier px-3 py-2"
+              className="label-annonce border border-border bg-papier px-3 py-2"
             >
               ✕ Toute la France
             </button>
@@ -137,7 +137,7 @@ function Carte() {
 
       <div className="mt-5">
         <ClientOnly
-          fallback={<div className="h-[60vh] min-h-80 w-full border-2 border-encre bg-poudre" />}
+          fallback={<div className="h-[60vh] min-h-80 w-full border border-border bg-poudre" />}
         >
           <CarteLeaflet fiches={resultats} centre={position} />
         </ClientOnly>

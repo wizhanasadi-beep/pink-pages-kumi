@@ -64,7 +64,7 @@ function Auth() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border-2 border-encre bg-papier px-3 py-2.5"
+            className="w-full border border-border bg-papier px-3 py-2.5"
           />
         </div>
         <div>
@@ -75,14 +75,14 @@ function Auth() {
             minLength={6}
             value={motDePasse}
             onChange={(e) => setMotDePasse(e.target.value)}
-            className="w-full border-2 border-encre bg-papier px-3 py-2.5"
+            className="w-full border border-border bg-papier px-3 py-2.5"
           />
         </div>
         {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
         <button
           type="submit"
           disabled={charge}
-          className="rubrique w-full border-2 border-encre bg-rose px-4 py-3 text-lg text-rose-foreground shadow-[4px_4px_0_0_var(--encre)] disabled:opacity-60"
+          className="rubrique w-full border border-border bg-rose px-4 py-3 text-lg text-rose-foreground shadow-sm disabled:opacity-60"
         >
           {mode === "connexion" ? "Se connecter" : "Créer mon compte"}
         </button>
