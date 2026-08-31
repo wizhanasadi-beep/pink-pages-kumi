@@ -63,6 +63,10 @@ function Annuaire() {
         .every((mot) => hay.includes(mot));
     });
 
+  const nbFiltres = [search.cat, search.ville, search.dep].filter(Boolean).length;
+  const ouvertParDefaut = nbFiltres > 0;
+
+
   return (
     <PageMagazine>
       <Rubrique
