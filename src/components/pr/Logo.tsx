@@ -91,17 +91,17 @@ export function LogoVertical({
   );
 }
 
-/** Lettrage éditorial du hero. */
+/** Lettrage éditorial du hero : une seule ligne. */
 export function LettrageHero({ className }: { className?: string }) {
   return (
     <div className={cn("select-none", className)}>
-      <p className="titre-geant text-[13.5vw] sm:text-[11vw] lg:text-[8rem]">Les Pages</p>
-      <div className="-mt-[0.06em] flex items-end gap-[0.15em]">
-        <p className="mot-roses text-papier text-[14vw] leading-[0.9] sm:text-[12vw] lg:text-[9rem]">
-          Roses
+      <div className="flex items-center gap-[0.12em]">
+        <p className="titre-geant whitespace-nowrap text-[8.6vw] leading-[0.95] lg:text-[6.5rem]">
+          Les Pages <span className="mot-roses text-papier">Roses</span>
         </p>
-        <AnnuaireImage className="mb-[0.1em] w-[17vw] max-w-[8rem] shrink-0 sm:w-[11vw]" priority />
+        <AnnuaireImage className="w-[11vw] max-w-[6rem] shrink-0" priority />
       </div>
     </div>
   );
 }
+

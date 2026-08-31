@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogoVertical } from "@/components/pr/Logo";
-import { Etoile, Fleur } from "@/components/pr/ornements";
+import { Etoile } from "@/components/pr/ornements";
 
 /**
  * Couverture plein écran affichée à l'arrivée sur l'accueil.
@@ -35,8 +35,8 @@ export function Couverture({ onFin }: { onFin: () => void }) {
         Passer
       </button>
 
-      <Fleur className="pointer-events-none absolute -left-14 -top-6 w-44 text-rose-foreground/12" />
       <Etoile className="pointer-events-none absolute -bottom-2 -right-4 w-24 text-rose-foreground/18" />
+
 
       <button
         type="button"
