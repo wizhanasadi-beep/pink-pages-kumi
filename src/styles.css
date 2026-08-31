@@ -106,9 +106,17 @@
 
   input,
   select,
-  textarea,
+  textarea {
+    border-radius: 999px;
+    color: var(--encre);
+  }
+
   button {
     border-radius: 999px;
+  }
+
+  ::placeholder {
+    color: oklch(0.57 0.1 12 / 70%);
   }
 
   textarea {
@@ -176,6 +184,7 @@
 /* Fiche : grande carte élégante et aérée */
 @utility fiche {
   background-color: var(--papier);
+  color: var(--encre);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart);
@@ -183,6 +192,7 @@
 
 @utility encart {
   background-color: var(--papier);
+  color: var(--encre);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart);
@@ -190,6 +200,7 @@
 
 @utility encart-rose {
   background-color: var(--papier);
+  color: var(--encre);
   border: 1px solid oklch(0.7 0.16 8 / 40%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
@@ -197,6 +208,7 @@
 
 @utility encart-jaune {
   background-color: var(--papier);
+  color: var(--encre);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart);
