@@ -18,6 +18,7 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ReferencerRouteImport } from './routes/referencer'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as DepartementsIndexRouteImport } from './routes/departements.index'
+import { Route as DepartementsCodeRouteImport } from './routes/departements.$code'
 import { Route as PrestataireIdRouteImport } from './routes/prestataire.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -64,6 +65,11 @@ const DepartementsIndexRoute = DepartementsIndexRouteImport.update({
   path: '/departements/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DepartementsCodeRoute = DepartementsCodeRouteImport.update({
+  id: '/departements/$code',
+  path: '/departements/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrestataireIdRoute = PrestataireIdRouteImport.update({
   id: '/prestataire/$id',
   path: '/prestataire/$id',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements/': typeof DepartementsIndexRoute
 }
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements': typeof DepartementsIndexRoute
 }
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements/': typeof DepartementsIndexRoute
 }
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/referencer'
     | '/admin'
+    | '/departements/$code'
     | '/prestataire/$id'
     | '/departements/'
   fileRoutesByTo: FileRoutesByTo
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/referencer'
     | '/admin'
+    | '/departements/$code'
     | '/prestataire/$id'
     | '/departements'
   id:
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/referencer'
     | '/_authenticated/admin'
+    | '/departements/$code'
     | '/prestataire/$id'
     | '/departements/'
   fileRoutesById: FileRoutesById
@@ -150,6 +162,7 @@ export interface RootRouteChildren {
   CarteRoute: typeof CarteRoute
   CategoriesRoute: typeof CategoriesRoute
   ReferencerRoute: typeof ReferencerRoute
+  DepartementsCodeRoute: typeof DepartementsCodeRoute
   PrestataireIdRoute: typeof PrestataireIdRoute
   DepartementsIndexRoute: typeof DepartementsIndexRoute
 }
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DepartementsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/departements/$code': {
+      id: '/departements/$code'
+      path: '/departements/$code'
+      fullPath: '/departements/$code'
+      preLoaderRoute: typeof DepartementsCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/prestataire/$id': {
       id: '/prestataire/$id'
       path: '/prestataire/$id'
@@ -248,6 +268,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarteRoute: CarteRoute,
   CategoriesRoute: CategoriesRoute,
   ReferencerRoute: ReferencerRoute,
+  DepartementsCodeRoute: DepartementsCodeRoute,
   PrestataireIdRoute: PrestataireIdRoute,
   DepartementsIndexRoute: DepartementsIndexRoute,
 }

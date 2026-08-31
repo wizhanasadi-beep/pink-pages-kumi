@@ -5,6 +5,7 @@ import { Glyphe, LogoHorizontal } from "@/components/pr/Logo";
 const LIENS = [
   { to: "/", label: "Accueil" },
   { to: "/annuaire", label: "Annuaire" },
+  { to: "/departements", label: "Départements" },
   { to: "/carte", label: "Carte" },
   { to: "/categories", label: "Rubriques" },
 ] as const;
@@ -97,6 +98,9 @@ export function PiedDePage() {
               className="oeil text-bordeaux"
             >
               Feuilleter l'annuaire
+            </Link>
+            <Link to="/departements" className="oeil text-bordeaux">
+              Annuaires par département
             </Link>
             <Link to="/referencer" className="oeil text-bordeaux">
               Référencer mon activité

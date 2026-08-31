@@ -12,10 +12,11 @@ import {
 import {
   categoriesQuery,
   DEPLACEMENT_LABEL,
-  poigneeOuDomaine,
+  libelleLien,
   prestataireQuery,
 } from "@/lib/pages-roses";
 import { NoteMoyenne, SectionAvis } from "@/components/pr/Avis";
+import { Partager } from "@/components/pr/Partager";
 
 export const Route = createFileRoute("/prestataire/$id")({
   head: () => ({
@@ -71,13 +72,13 @@ function Fiche() {
 
   const liens = [
     fiche.instagram
-      ? { label: poigneeOuDomaine(fiche.instagram), href: fiche.instagram, ton: "rose" }
+      ? { label: libelleLien(fiche.instagram), href: fiche.instagram, ton: "rose" }
       : null,
     fiche.site_web
-      ? { label: poigneeOuDomaine(fiche.site_web), href: fiche.site_web, ton: "papier" }
+      ? { label: libelleLien(fiche.site_web), href: fiche.site_web, ton: "papier" }
       : null,
     sansLien && fiche.telephone
-      ? { label: fiche.telephone, href: `tel:${fiche.telephone.replace(/\s/g, "")}`, ton: "rose" }
+      ? { label: `Téléphone · ${fiche.telephone}`, href: `tel:${fiche.telephone.replace(/\s/g, "")}`, ton: "rose" }
       : null,
     fiche.lien_reservation
       ? { label: "Prendre rendez-vous", href: fiche.lien_reservation, ton: "jaune" }
@@ -118,6 +119,10 @@ function Fiche() {
           <BadgeType type={fiche.type_offre} />
           <BadgeDeplacement mode={fiche.deplacement} className="text-sm" />
           <NoteMoyenne prestataireId={fiche.id} />
+          <Partager
+            titre={`${fiche.nom} — Les Pages Roses`}
+            texte={`${fiche.activite}${fiche.prenom ? ` — par ${fiche.prenom}` : ""} · ${fiche.ville}`}
+          />
         </div>
 
         <Filet className="my-6" />
