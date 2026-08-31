@@ -151,6 +151,10 @@ function Fiche() {
           <Etiquette ton="jaune">{DEPLACEMENT_LABEL[fiche.deplacement].texte}</Etiquette>
           <Etiquette>Fiche vérifiée par la rédaction</Etiquette>
         </div>
+
+        <Filet className="my-8" />
+
+        <SectionAvis prestataireId={fiche.id} />
       </article>
 
       <NumeroDePage n={24} mention={fiche.activite} />
