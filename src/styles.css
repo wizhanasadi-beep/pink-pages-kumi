@@ -102,8 +102,8 @@
     font-family: var(--font-sans);
     /* grain papier très subtil */
     background-image:
-      radial-gradient(oklch(0.18 0.012 40 / 4%) 0.5px, transparent 0.5px),
-      radial-gradient(oklch(0.645 0.207 3 / 3%) 0.5px, transparent 0.5px);
+      radial-gradient(oklch(0.3 0.075 22 / 4%) 0.5px, transparent 0.5px),
+      radial-gradient(oklch(0.53 0.185 12 / 3%) 0.5px, transparent 0.5px);
     background-size:
       3px 3px,
       7px 7px;
@@ -116,6 +116,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
   }
 }
 
@@ -124,63 +125,79 @@
 @utility logo-pages-roses {
   font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.86;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  letter-spacing: -0.015em;
+  line-height: 0.9;
   text-transform: uppercase;
 }
 
 @utility rubrique {
   font-family: var(--font-titre);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
 }
 
 @utility label-annonce {
-  font-family: var(--font-sans);
+  font-family: var(--font-titre);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-weight: 700;
   font-size: 0.65rem;
 }
 
-/* Encart type petite annonce, cadre encre + décalage imprimé */
+/* Encart doux, façon carte imprimée arrondie */
 @utility encart {
   background-color: var(--papier);
   border: 2px solid var(--encre);
-  box-shadow: 4px 4px 0 0 var(--encre);
+  border-radius: var(--radius);
+  box-shadow: 4px 5px 0 0 var(--encre);
 }
 
 @utility encart-rose {
   background-color: var(--papier);
-  border: 2px solid var(--encre);
-  box-shadow: 5px 5px 0 0 var(--rose);
+  border: 2px solid var(--rose);
+  border-radius: var(--radius);
+  box-shadow: 5px 6px 0 0 var(--rose);
 }
 
 @utility encart-jaune {
-  background-color: var(--jaune);
+  background-color: var(--poudre);
   border: 2px solid var(--encre);
-  box-shadow: 5px 5px 0 0 var(--encre);
+  border-radius: var(--radius);
+  box-shadow: 5px 6px 0 0 var(--rose);
 }
 
 /* Cadre double, façon annuaire papier */
 @utility cadre-double {
   border: 2px solid var(--encre);
-  outline: 2px solid var(--encre);
-  outline-offset: 4px;
+  border-radius: var(--radius);
+  outline: 2px solid var(--rose);
+  outline-offset: 5px;
 }
 
 /* Séparateur éditorial ✦ */
 @utility filet {
-  border-top: 2px solid var(--encre);
-  border-bottom: 1px solid var(--encre);
+  border-top: 2px solid var(--rose);
+  border-bottom: 1px solid var(--rose);
   height: 5px;
 }
 
 @utility rayures-jaunes {
   background-image: repeating-linear-gradient(
     45deg,
-    var(--jaune) 0 8px,
-    oklch(0.94 0.09 92) 8px 16px
+    var(--poudre) 0 9px,
+    oklch(0.885 0.075 6) 9px 18px
   );
+}
+
+/* Formes organiques rétro (photos en blob / arche) */
+@utility blob {
+  border-radius: 46% 54% 52% 48% / 56% 44% 56% 44%;
+}
+
+@utility arche {
+  border-radius: 999px 999px var(--radius) var(--radius);
+}
 }
