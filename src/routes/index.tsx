@@ -179,24 +179,24 @@ function Accueil() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-3">
             {categories.map((c, i) => (
               <Reveal key={c.id} delay={i * 60}>
                 <Link
                   to="/annuaire"
                   search={{ q: "", cat: c.slug, dep: "", ville: "" }}
-                  className={`pave ${TONS[i % TONS.length]} group flex h-full flex-col justify-between p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-encart-rose)]`}
+                  className={`pave ${TONS[i % TONS.length]} group flex h-full flex-col justify-between p-4 sm:p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-encart-rose)]`}
                 >
                   <PictoRubrique
                     slug={c.slug}
-                    className="w-12 opacity-80 transition-transform duration-300 group-hover:scale-110"
+                    className="w-9 opacity-80 transition-transform duration-300 group-hover:scale-110 sm:w-12"
                   />
-                  <div className="mt-8">
-                    <h3 className="text-3xl leading-none">{c.nom}</h3>
-                    <p className="oeil mt-3 opacity-70">
+                  <div className="mt-5 sm:mt-8">
+                    <h3 className="text-xl leading-none sm:text-3xl">{c.nom}</h3>
+                    <p className="oeil mt-2 opacity-70 sm:mt-3">
                       {compte(c.slug)} fiche{compte(c.slug) > 1 ? "s" : ""}
                     </p>
-                    <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-sm opacity-80">
+                    <ul className="mt-3 hidden flex-wrap gap-x-3 gap-y-1 text-sm opacity-80 sm:flex">
                       {(SOUS_RUBRIQUES[c.slug] ?? []).slice(0, 4).map((s) => (
                         <li key={s}>{s}</li>
                       ))}
@@ -206,6 +206,7 @@ function Accueil() {
               </Reveal>
             ))}
           </div>
+
         </section>
 
         {/* —— CITATION —— */}
