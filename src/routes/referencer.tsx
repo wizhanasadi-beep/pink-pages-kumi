@@ -172,10 +172,6 @@ function Referencer() {
               <label className="label-annonce mb-1 block">Lien de réservation</label>
               <input name="lien_reservation" type="url" className={champ} placeholder="https://…" />
             </div>
-            <div>
-              <label className="label-annonce mb-1 block">Téléphone</label>
-              <input name="telephone" className={champ} placeholder="+33 6 …" />
-            </div>
           </div>
         </fieldset>
 
