@@ -42,7 +42,7 @@ Aujourd'hui : un grand vide rose, le logo perdu au milieu, l'écran fait deux fo
 
 ## Détails techniques
 
-- `src/components/pr/Logo.tsx` : nouveau `Combine` (path plein + fil spiralé) et `CarnetLogo` reconstruit ; `public/favicon.svg` mis à jour en cohérence.
+- Génération de l'illustration d'annuaire dans `src/assets/` (PNG transparent), `src/components/pr/Logo.tsx` réécrit autour de cette image + wordmark sur une ligne, favicon régénéré depuis la même image.
 - `src/styles.css` : échelle typographique responsive pour `titre-geant` / `mot-roses`, tokens d'espacement mobile, `env(safe-area-inset-bottom)` sur la nav basse.
 - `src/components/pr/Couverture.tsx` : passage en `h-[100dvh]`, composition centrée.
 - `src/routes/index.tsx`, `src/routes/annuaire.tsx`, `src/components/pr/FicheCard.tsx`, `layout.tsx` : ajustements responsive uniquement, aucune logique de données touchée.
