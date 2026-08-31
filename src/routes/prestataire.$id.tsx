@@ -91,8 +91,9 @@ function Fiche() {
         <h1 className="logo-pages-roses mt-1 text-4xl sm:text-5xl">{fiche.nom}</h1>
         <p className="rubrique text-2xl text-rose">{fiche.activite}</p>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
           <BadgeDeplacement mode={fiche.deplacement} className="text-sm" />
+          <NoteMoyenne prestataireId={fiche.id} />
         </div>
 
         <Filet className="my-6" />
