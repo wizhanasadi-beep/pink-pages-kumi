@@ -11,13 +11,14 @@ export function FicheCard({
   numero?: number | undefined;
 }) {
   return (
-    <article className="fiche group grid gap-4 p-4 sm:gap-7 sm:grid-cols-[10rem_minmax(0,1fr)] sm:p-7">
+    <article className="fiche group grid grid-cols-[5.5rem_minmax(0,1fr)] gap-4 p-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-7 sm:p-7">
       <PhotoFiche
         nom={fiche.nom}
         url={fiche.photo_url}
-        ratio="aspect-[16/9] sm:aspect-[4/5]"
-        className="sm:w-40"
+        ratio="aspect-square sm:aspect-[4/5]"
+        className="w-[5.5rem] sm:w-40"
       />
+
 
       <div className="flex min-w-0 flex-col">
         <p className="oeil text-rose">
