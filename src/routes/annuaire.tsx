@@ -165,9 +165,11 @@ function Annuaire() {
             </div>
           </div>
 
-          {search.q || search.cat || search.ville || search.dep ? (
+          {search.q || search.cat || search.ville || search.dep || search.type ? (
             <button
-              onClick={() => navigate({ search: { q: "", cat: "", dep: "", ville: "" } })}
+              onClick={() =>
+                navigate({ search: { q: "", cat: "", dep: "", ville: "", type: "" } })
+              }
               className="oeil mt-4 border-b border-rose pb-0.5"
             >
               Effacer les filtres
