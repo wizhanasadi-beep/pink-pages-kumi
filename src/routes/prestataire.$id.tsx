@@ -67,12 +67,17 @@ function Fiche() {
     );
   }
 
+  const sansLien = !fiche.instagram && !fiche.site_web;
+
   const liens = [
     fiche.instagram
       ? { label: poigneeOuDomaine(fiche.instagram), href: fiche.instagram, ton: "rose" }
       : null,
     fiche.site_web
       ? { label: poigneeOuDomaine(fiche.site_web), href: fiche.site_web, ton: "papier" }
+      : null,
+    sansLien && fiche.telephone
+      ? { label: fiche.telephone, href: `tel:${fiche.telephone.replace(/\s/g, "")}`, ton: "rose" }
       : null,
     fiche.lien_reservation
       ? { label: "Prendre rendez-vous", href: fiche.lien_reservation, ton: "jaune" }
