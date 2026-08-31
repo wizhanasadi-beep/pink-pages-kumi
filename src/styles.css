@@ -47,48 +47,48 @@
   --color-encre: var(--encre);
   --color-papier: var(--papier);
 
-  --font-display: "Fraunces", "Bodoni Moda", Georgia, serif;
+  --font-display: "Instrument Serif", Georgia, serif;
   --font-titre: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-encart: 0 1px 2px oklch(0.3 0.075 22 / 6%), 0 8px 24px -12px oklch(0.3 0.075 22 / 18%);
-  --shadow-encart-rose: 0 1px 2px oklch(0.53 0.185 12 / 8%), 0 10px 30px -14px oklch(0.53 0.185 12 / 30%);
-  --shadow-encart-jaune: 0 1px 2px oklch(0.3 0.075 22 / 6%), 0 8px 24px -12px oklch(0.3 0.075 22 / 16%);
+  --shadow-encart: 0 1px 2px oklch(0.32 0.09 12 / 5%), 0 12px 32px -18px oklch(0.32 0.09 12 / 22%);
+  --shadow-encart-rose: 0 1px 2px oklch(0.32 0.09 12 / 6%), 0 16px 40px -22px oklch(0.32 0.09 12 / 28%);
+  --shadow-encart-jaune: 0 1px 2px oklch(0.32 0.09 12 / 5%), 0 12px 32px -18px oklch(0.32 0.09 12 / 18%);
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.875rem;
 
-  /* rose poudré comme fond, crème pour le papier, framboise pour l'encre forte */
-  --background: oklch(0.975 0.012 10);
-  --foreground: oklch(0.3 0.075 22);
+  /* crème lumineuse, bordeaux profond, rose poudré : classe, frais, girly */
+  --background: oklch(0.985 0.008 40);
+  --foreground: oklch(0.32 0.09 12);
   --papier: oklch(1 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.3 0.075 22);
+  --card-foreground: oklch(0.32 0.09 12);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3 0.075 22);
+  --popover-foreground: oklch(0.32 0.09 12);
 
-  --rose: oklch(0.53 0.185 12);
-  --rose-foreground: oklch(0.975 0.018 62);
-  --poudre: oklch(0.955 0.022 6);
-  --jaune: oklch(0.93 0.055 72);
-  --jaune-foreground: oklch(0.3 0.075 22);
-  --bordeaux: oklch(0.33 0.105 20);
-  --encre: oklch(0.3 0.075 22);
+  --rose: oklch(0.44 0.14 10);
+  --rose-foreground: oklch(0.985 0.008 40);
+  --poudre: oklch(0.925 0.045 6);
+  --jaune: oklch(0.955 0.03 60);
+  --jaune-foreground: oklch(0.32 0.09 12);
+  --bordeaux: oklch(0.32 0.09 12);
+  --encre: oklch(0.32 0.09 12);
 
-  --primary: oklch(0.53 0.185 12);
-  --primary-foreground: oklch(0.975 0.018 62);
-  --secondary: oklch(0.938 0.035 6);
-  --secondary-foreground: oklch(0.3 0.075 22);
-  --muted: oklch(0.958 0.014 8);
-  --muted-foreground: oklch(0.46 0.06 20);
-  --accent: oklch(0.93 0.055 72);
-  --accent-foreground: oklch(0.3 0.075 22);
+  --primary: oklch(0.44 0.14 10);
+  --primary-foreground: oklch(0.985 0.008 40);
+  --secondary: oklch(0.94 0.038 6);
+  --secondary-foreground: oklch(0.32 0.09 12);
+  --muted: oklch(0.965 0.012 30);
+  --muted-foreground: oklch(0.5 0.05 14);
+  --accent: oklch(0.925 0.045 6);
+  --accent-foreground: oklch(0.32 0.09 12);
   --destructive: oklch(0.5 0.19 22);
-  --destructive-foreground: oklch(0.975 0.018 62);
-  --border: oklch(0.3 0.075 22 / 12%);
-  --input: oklch(0.3 0.075 22 / 14%);
-  --ring: oklch(0.53 0.185 12);
+  --destructive-foreground: oklch(0.985 0.008 40);
+  --border: oklch(0.32 0.09 12 / 10%);
+  --input: oklch(0.32 0.09 12 / 12%);
+  --ring: oklch(0.44 0.14 10);
 }
 
 @layer base {
@@ -113,8 +113,8 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-variation-settings: "SOFT" 40, "WONK" 0;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: -0.015em;
   }
 }
 
@@ -122,26 +122,24 @@
 
 @utility logo-pages-roses {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  letter-spacing: -0.015em;
-  line-height: 0.9;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 
 @utility rubrique {
   font-family: var(--font-titre);
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   line-height: 1.05;
 }
 
 @utility label-annonce {
   font-family: var(--font-titre);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-weight: 600;
   font-size: 0.65rem;
 }
 
@@ -184,7 +182,7 @@
   background-image: linear-gradient(
     135deg,
     var(--poudre),
-    oklch(0.93 0.045 40)
+    oklch(0.965 0.025 40)
   );
 }
 
