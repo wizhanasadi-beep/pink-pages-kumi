@@ -234,3 +234,103 @@
 @utility arche {
   border-radius: 999px 999px var(--radius) var(--radius);
 }
+
+/* ——— Typographie : Abril Fatface est très lourde, on desserre ——— */
+
+@utility titre-geant {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.86;
+}
+
+@utility logo-pages-roses {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+@utility mot-roses {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--rose);
+  letter-spacing: -0.01em;
+}
+
+/* ——— Pavés de rubriques ——— */
+
+@utility pave {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+@utility pave-rose {
+  background-color: var(--rose);
+  color: var(--rose-foreground);
+}
+
+@utility pave-creme {
+  background-color: var(--papier);
+  color: var(--encre);
+  border: 1px solid var(--color-border);
+}
+
+@utility pave-poudre {
+  background-color: var(--poudre);
+  color: var(--encre);
+}
+
+@utility pave-encre {
+  background-color: var(--encre);
+  color: var(--background);
+}
+
+/* ——— Couverture animée ——— */
+
+.couverture {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform-origin: left center;
+  perspective: 1600px;
+  transition:
+    transform 0.72s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.72s ease;
+}
+
+.couverture-carnet {
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.couverture:hover .couverture-carnet {
+  transform: rotateY(-18deg);
+}
+
+.couverture-ouverte {
+  transform: perspective(1600px) rotateY(-105deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.couverture-ouverte .couverture-carnet {
+  transform: rotateY(-80deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .couverture,
+  .couverture-carnet {
+    transition: opacity 0.25s ease;
+  }
+  .couverture-ouverte {
+    transform: none;
+  }
+}
