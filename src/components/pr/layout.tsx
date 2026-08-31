@@ -123,14 +123,15 @@ export function PageMagazine({
   return (
     <div className="flex min-h-screen flex-col">
       <Masthead />
-      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-28 pt-10 sm:pb-16", className)}>
+      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-32 pt-8 sm:pb-16 sm:pt-10", className)}>
         {children}
       </main>
       <PiedDePage />
-      <div className="h-14 sm:hidden" />
+      <div className="h-16 sm:hidden" />
       <BottomNav />
       <FabReferencer />
     </div>
+
   );
 }
 
