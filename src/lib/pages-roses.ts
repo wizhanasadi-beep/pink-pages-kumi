@@ -48,6 +48,20 @@ export function poigneeOuDomaine(url: string) {
   }
 }
 
+/** Libellé explicite d'un lien : « Instagram @poignee », « TikTok @poignee » ou le domaine. */
+export function libelleLien(url: string) {
+  try {
+    const u = new URL(url);
+    if (/instagram\.com/.test(u.hostname)) return `Instagram ${poigneeOuDomaine(url)}`;
+    if (/tiktok\.com/.test(u.hostname)) return `TikTok ${poigneeOuDomaine(url)}`;
+    if (/facebook\.com/.test(u.hostname)) return "Facebook";
+    if (/wa\.me|whatsapp\.com/.test(u.hostname)) return "WhatsApp";
+    return poigneeOuDomaine(url);
+  } catch {
+    return url;
+  }
+}
+
 export type Categorie = {
   id: string;
   nom: string;
