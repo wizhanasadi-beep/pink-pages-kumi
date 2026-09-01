@@ -17,6 +17,8 @@ import {
 } from "@/lib/pages-roses";
 import { NoteMoyenne, SectionAvis } from "@/components/pr/Avis";
 import { Partager } from "@/components/pr/Partager";
+import { pister } from "@/lib/tracking";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/prestataire/$id")({
   head: () => ({
@@ -42,6 +44,10 @@ function Fiche() {
   const { data: fiche, isLoading } = useQuery(prestataireQuery(id));
   const { data: categories = [] } = useQuery(categoriesQuery);
   const categorie = categories.find((c) => c.slug === fiche?.categorie_slug);
+
+  useEffect(() => {
+    if (fiche?.id) pister({ type: "vue_fiche", prestataire_id: fiche.id });
+  }, [fiche?.id]);
 
   if (isLoading) {
     return (
@@ -189,6 +195,7 @@ function Fiche() {
                 href={l.href}
                 target={l.href.startsWith("tel:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
+                onClick={() => pister({ type: "clic_lien", prestataire_id: fiche.id, cible: l.href })}
                 className={`rubrique border border-border px-4 py-3 text-center text-lg shadow-sm ${tons[l.ton]}`}
               >
                 {l.label}
