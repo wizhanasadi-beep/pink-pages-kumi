@@ -75,3 +75,31 @@ export function grouperParDepartement<T extends Pick<Prestataire, "ville">>(fich
     .map(([code, items]) => ({ code, nom: nomDepartement(code), fiches: items }))
     .sort((a, b) => b.fiches.length - a.fiches.length || a.nom.localeCompare(b.nom));
 }
+
+/** Options du filtre « Département » (Île-de-France + en ligne). */
+export const OPTIONS_DEPARTEMENT: Departement[] = [
+  { code: "75", nom: "Paris (75)" },
+  { code: "77", nom: "Seine-et-Marne (77)" },
+  { code: "78", nom: "Yvelines (78)" },
+  { code: "91", nom: "Essonne (91)" },
+  { code: "92", nom: "Hauts-de-Seine (92)" },
+  { code: "93", nom: "Seine-Saint-Denis (93)" },
+  { code: "94", nom: "Val-de-Marne (94)" },
+  { code: "95", nom: "Val-d'Oise (95)" },
+  { code: "idf", nom: "Toute l'Île-de-France" },
+  { code: "en-ligne", nom: "En ligne" },
+  { code: "ailleurs", nom: "Ailleurs en France" },
+];
+
+/** Une fiche correspond-elle au département choisi ? */
+export function ficheDansDepartement(
+  fiche: Pick<Prestataire, "ville">,
+  code: string,
+): boolean {
+  if (!code) return true;
+  const dep = departementDeFiche(fiche);
+  if (code === "en-ligne") return dep === "en-ligne";
+  if (code === "idf") return dep === "idf" || /^(75|77|78|91|92|93|94|95)$/.test(dep);
+  // Les fiches « toute l'Île-de-France » ou « en ligne » restent visibles partout en IDF.
+  return dep === code || dep === "idf";
+}
