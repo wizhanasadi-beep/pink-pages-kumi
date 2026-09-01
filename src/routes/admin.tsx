@@ -569,3 +569,76 @@ function Demandes() {
     </div>
   );
 }
+
+const LIBELLES_ACCES = {
+  en_attente: "En attente",
+  acceptee: "Autorisée",
+  refusee: "Refusée",
+} as const;
+
+function Acces() {
+  const qc = useQueryClient();
+  const [message, setMessage] = useState<string | null>(null);
+  const { data: demandes = [], isLoading } = useQuery({
+    queryKey: ["redaction", "demandes-acces"],
+    queryFn: () => listerDemandesAcces(),
+  });
+
+  const decider = useMutation({
+    mutationFn: (v: { id: string; statut: "acceptee" | "refusee" }) =>
+      deciderDemandeAcces({ data: v }),
+    onSuccess: (res) => {
+      if (!res.ok) setMessage(res.message);
+      else setMessage(null);
+      qc.invalidateQueries({ queryKey: ["redaction", "demandes-acces"] });
+    },
+  });
+
+  return (
+    <div className="mt-5 space-y-4">
+      <p className="label-annonce text-muted-foreground">
+        Demandes d'accès à l'espace rédaction
+      </p>
+      {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
+      {isLoading ? <p className="label-annonce">Chargement…</p> : null}
+      {!isLoading && demandes.length === 0 ? (
+        <p className="encart p-4 text-sm">Aucune demande pour le moment.</p>
+      ) : null}
+
+      <div className="grid gap-3">
+        {demandes.map((d) => (
+          <article key={d.id} className="encart p-4">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <h3 className="text-lg font-bold">{d.nom || d.email}</h3>
+                <p className="text-sm text-muted-foreground">{d.email}</p>
+              </div>
+              <Etiquette>{LIBELLES_ACCES[d.statut]}</Etiquette>
+            </div>
+            {d.message ? <p className="mt-2 text-sm">{d.message}</p> : null}
+            <Filet />
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => decider.mutate({ id: d.id, statut: "acceptee" })}
+                disabled={decider.isPending || d.statut === "acceptee"}
+                className="label-annonce rounded-full border border-border bg-rose px-3 py-1.5 text-rose-foreground disabled:opacity-50"
+              >
+                Autoriser
+              </button>
+              <button
+                onClick={() => decider.mutate({ id: d.id, statut: "refusee" })}
+                disabled={decider.isPending || d.statut === "refusee"}
+                className="label-annonce rounded-full border border-border bg-papier px-3 py-1.5 disabled:opacity-50"
+              >
+                Refuser
+              </button>
+              <span className="label-annonce ml-auto self-center text-muted-foreground">
+                {new Date(d.created_at).toLocaleDateString("fr-FR")}
+              </span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
