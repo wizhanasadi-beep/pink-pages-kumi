@@ -1,5 +1,4 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeader, setResponseHeader } from "@tanstack/react-start/server";
 
 export type StatutFiche = "en_attente" | "publiee" | "refusee";
 
@@ -37,30 +36,29 @@ export type Statistiques = {
 };
 
 async function garde() {
-  const { lireCookieRedaction, jetonValide } = await import("./redaction.server");
-  const jeton = lireCookieRedaction(getRequestHeader("cookie"));
-  if (!jetonValide(jeton)) throw new Error("Accès rédaction requis");
+  const { sessionRedactionOuverte } = await import("./redaction.server");
+  if (!(await sessionRedactionOuverte())) throw new Error("Accès rédaction requis");
 }
 
 export const ouvrirRedaction = createServerFn({ method: "POST" })
-  .inputValidator((data: { code: string }) => ({ code: String(data?.code ?? "") }))
+  .validator((data: { code: string }) => ({ code: String(data?.code ?? "") }))
   .handler(async ({ data }) => {
-    const { codeCorrect, creerJeton, cookieOuvert } = await import("./redaction.server");
-    if (!data.code.trim() || !codeCorrect(data.code)) {
+    const { codeCorrect, ouvrirSessionRedaction } = await import("./redaction.server");
+    if (!/^\d+$/.test(data.code.trim()) || !codeCorrect(data.code)) {
       return { ok: false as const, message: "Code incorrect." };
     }
-    setResponseHeader("Set-Cookie", cookieOuvert(creerJeton()));
+    await ouvrirSessionRedaction();
     return { ok: true as const };
   });
 
 export const etatRedaction = createServerFn({ method: "GET" }).handler(async () => {
-  const { lireCookieRedaction, jetonValide } = await import("./redaction.server");
-  return { ouvert: jetonValide(lireCookieRedaction(getRequestHeader("cookie"))) };
+  const { sessionRedactionOuverte } = await import("./redaction.server");
+  return { ouvert: await sessionRedactionOuverte() };
 });
 
 export const fermerRedaction = createServerFn({ method: "POST" }).handler(async () => {
-  const { cookieFerme } = await import("./redaction.server");
-  setResponseHeader("Set-Cookie", cookieFerme());
+  const { fermerSessionRedaction } = await import("./redaction.server");
+  await fermerSessionRedaction();
   return { ok: true as const };
 });
 
@@ -78,7 +76,7 @@ export const fichesRedaction = createServerFn({ method: "GET" }).handler(async (
 });
 
 export const majStatutFiche = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: string; statut: StatutFiche }) => data)
+  .validator((data: { id: string; statut: StatutFiche }) => data)
   .handler(async ({ data }) => {
     await garde();
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -91,7 +89,7 @@ export const majStatutFiche = createServerFn({ method: "POST" })
   });
 
 export const supprimerFiche = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: string }) => data)
+  .validator((data: { id: string }) => data)
   .handler(async ({ data }) => {
     await garde();
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

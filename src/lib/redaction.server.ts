@@ -1,8 +1,9 @@
-// Accès à l'espace rédaction par simple code secret (REDACTION_ACCESS_CODE).
-import { createHash, createHmac, timingSafeEqual } from "node:crypto";
+// Accès à l'espace rédaction par code numérique et session chiffrée.
+import { createHash, timingSafeEqual } from "node:crypto";
+import { useSession } from "@tanstack/react-start/server";
 
-export const COOKIE_REDACTION = "pr_redaction";
-const DUREE_SECONDES = 60 * 60 * 12; // 12 h
+const DUREE_SECONDES = 60 * 60 * 12;
+type SessionRedaction = { ouverte?: boolean };
 
 function codeAttendu(): string {
   const code = process.env["REDACTION_ACCESS_CODE"];
@@ -10,8 +11,22 @@ function codeAttendu(): string {
   return code;
 }
 
-function normaliser(valeur: string) {
-  return valeur.trim().toLowerCase();
+function configurationSession() {
+  const password = process.env["REDACTION_SESSION_SECRET"];
+  if (!password || password.length < 32) {
+    throw new Error("Le secret de session rédaction n'est pas configuré.");
+  }
+  return {
+    password,
+    name: "pr-redaction",
+    maxAge: DUREE_SECONDES,
+    cookie: {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax" as const,
+      path: "/",
+    },
+  };
 }
 
 function empreinte(valeur: string) {
@@ -19,44 +34,22 @@ function empreinte(valeur: string) {
 }
 
 export function codeCorrect(saisie: string): boolean {
-  const a = empreinte(normaliser(saisie));
-  const b = empreinte(normaliser(codeAttendu()));
+  const a = empreinte(saisie.trim());
+  const b = empreinte(codeAttendu().trim());
   return timingSafeEqual(a, b);
 }
 
-function signer(expiration: number) {
-  return createHmac("sha256", codeAttendu()).update(`redaction:${expiration}`).digest("hex");
+export async function ouvrirSessionRedaction() {
+  const session = await useSession<SessionRedaction>(configurationSession());
+  await session.update({ ouverte: true });
 }
 
-export function creerJeton(): string {
-  const expiration = Math.floor(Date.now() / 1000) + DUREE_SECONDES;
-  return `${expiration}.${signer(expiration)}`;
+export async function sessionRedactionOuverte(): Promise<boolean> {
+  const session = await useSession<SessionRedaction>(configurationSession());
+  return session.data.ouverte === true;
 }
 
-export function jetonValide(jeton: string | null | undefined): boolean {
-  if (!jeton) return false;
-  const [brutExpiration, signature] = jeton.split(".");
-  if (!brutExpiration || !signature) return false;
-  const expiration = Number(brutExpiration);
-  if (!Number.isFinite(expiration) || expiration < Math.floor(Date.now() / 1000)) return false;
-  const attendue = signer(expiration);
-  if (attendue.length !== signature.length) return false;
-  return timingSafeEqual(Buffer.from(attendue), Buffer.from(signature));
-}
-
-export function lireCookieRedaction(entete: string | null | undefined): string | null {
-  if (!entete) return null;
-  for (const morceau of entete.split(";")) {
-    const [nom, ...reste] = morceau.trim().split("=");
-    if (nom === COOKIE_REDACTION) return decodeURIComponent(reste.join("="));
-  }
-  return null;
-}
-
-export function cookieOuvert(jeton: string) {
-  return `${COOKIE_REDACTION}=${encodeURIComponent(jeton)}; Path=/; HttpOnly; SameSite=Lax; Secure; Max-Age=${DUREE_SECONDES}`;
-}
-
-export function cookieFerme() {
-  return `${COOKIE_REDACTION}=; Path=/; HttpOnly; SameSite=Lax; Secure; Max-Age=0`;
+export async function fermerSessionRedaction() {
+  const session = await useSession<SessionRedaction>(configurationSession());
+  await session.clear();
 }

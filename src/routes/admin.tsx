@@ -77,12 +77,17 @@ function PorteCode({ onOuvert }: { onOuvert: () => void }) {
         <label className="label-annonce mb-1 block">Code rédaction</label>
         <input
           type="password"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          autoComplete="current-password"
+          aria-label="Code numérique rédaction"
           required
           autoFocus
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
           className="w-full border border-border bg-papier px-4 py-3 text-center text-lg tracking-widest rounded-full"
         />
+        <p className="text-center text-sm text-muted-foreground">Saisis uniquement les chiffres de ton code.</p>
         {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
         <button
           type="submit"
