@@ -122,6 +122,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    if (pathname.startsWith("/admin")) return;
+    pister({ type: "visite", chemin: pathname });
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
