@@ -103,13 +103,13 @@ export function PiedDePage() {
           <div className="flex flex-col gap-3">
             <Link
               to="/annuaire"
-              search={{ q: "", cat: "", dep: "", ville: "" }}
+              search={{ q: "", cat: "", dep: "", dept: "" }}
               className="oeil text-bordeaux"
             >
               Feuilleter l'annuaire
             </Link>
-            <Link to="/departements" className="oeil text-bordeaux">
-              Annuaires par département
+            <Link to="/carte" className="oeil text-bordeaux">
+              La carte des prestataires
             </Link>
             <Link to="/referencer" className="oeil text-bordeaux">
               Référencer mon activité
@@ -136,15 +136,11 @@ export function PageMagazine({
   return (
     <div className="flex min-h-screen flex-col">
       <Masthead />
-      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-32 pt-8 sm:pb-16 sm:pt-10", className)}>
+      <main className={cn("mx-auto w-full max-w-6xl flex-1 px-5 pb-16 pt-8 sm:pt-10", className)}>
         {children}
       </main>
       <PiedDePage />
-      <div className="h-16 sm:hidden" />
-      <BottomNav />
-      <FabReferencer />
     </div>
-
   );
 }
 
@@ -153,11 +149,8 @@ export function PageAplats({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <Masthead />
-      <main className="flex-1 pb-24 sm:pb-0">{children}</main>
+      <main className="flex-1">{children}</main>
       <PiedDePage />
-      <div className="h-16 sm:hidden" />
-      <BottomNav />
-      <FabReferencer />
     </div>
   );
 }
