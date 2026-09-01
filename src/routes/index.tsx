@@ -134,7 +134,7 @@ function Accueil() {
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
               <Link
                 to="/annuaire"
-                search={{ q: "", cat: "", dep: "", ville: "" }}
+                search={{ q: "", cat: "", dep: "", dept: "" }}
                 className="oeil border-b border-encre pb-0.5"
               >
                 Feuilleter l'annuaire
@@ -165,7 +165,7 @@ function Accueil() {
               <Reveal key={c.id} delay={i * 60}>
                 <Link
                   to="/annuaire"
-                  search={{ q: "", cat: c.slug, dep: "", ville: "" }}
+                  search={{ q: "", cat: c.slug, dep: "", dept: "" }}
                   className={`pave ${TONS[i % TONS.length]} group flex h-full flex-col justify-between p-4 sm:p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-encart-rose)]`}
                 >
                   <PictoRubrique
@@ -199,7 +199,7 @@ function Accueil() {
             </p>
             <Link
               to="/annuaire"
-              search={{ q: "", cat: "beaute", dep: "", ville: "" }}
+              search={{ q: "", cat: "beaute", dep: "", dept: "" }}
               className="oeil mt-10 inline-block bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5 rounded-full"
             >
               Voir la rubrique Beauté
@@ -216,7 +216,7 @@ function Accueil() {
             </div>
             <Link
               to="/annuaire"
-              search={{ q: "", cat: "", dep: "", ville: "" }}
+              search={{ q: "", cat: "", dep: "", dept: "" }}
               className="oeil hidden border-b border-rose pb-0.5 sm:block"
             >
               Tout voir
