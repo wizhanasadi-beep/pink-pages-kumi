@@ -117,7 +117,7 @@
   }
 
   ::placeholder {
-    color: oklch(0.57 0.1 12 / 70%);
+    color: oklch(0.5 0.035 358 / 70%);
   }
 
   textarea {
@@ -202,7 +202,7 @@
 @utility encart-rose {
   background-color: var(--papier);
   color: var(--encre);
-  border: 1px solid oklch(0.7 0.16 8 / 40%);
+  border: 1px solid oklch(0.721 0.094 8 / 40%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
 }
