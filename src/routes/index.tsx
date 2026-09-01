@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { pister } from "@/lib/tracking";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PageAplats } from "@/components/pr/layout";
