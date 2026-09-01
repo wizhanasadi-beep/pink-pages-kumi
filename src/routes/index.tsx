@@ -7,7 +7,8 @@ import { LettrageHero } from "@/components/pr/Logo";
 import { OPTIONS_DEPARTEMENT } from "@/lib/departements";
 import { Couverture } from "@/components/pr/Couverture";
 import { Reveal } from "@/components/pr/Reveal";
-import { Etoile, PictoRubrique, Vague } from "@/components/pr/ornements";
+import { Etoile, Vague } from "@/components/pr/ornements";
+import { VignetteRubrique } from "@/components/pr/VignetteRubrique";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, prestatairesQuery, SOUS_RUBRIQUES } from "@/lib/pages-roses";
 
