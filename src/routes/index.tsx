@@ -43,6 +43,7 @@ function Accueil() {
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
+    pister({ type: "recherche", cible: [besoin, ville].filter(Boolean).join(" · ") || "vide" });
     navigate({
       to: "/annuaire",
       search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
