@@ -76,7 +76,7 @@ function Accueil() {
 
 
             {/* Recherche épurée : quoi + où */}
-            <div className="mt-7 w-full max-w-2xl rounded-[2rem] bg-background p-3 shadow-[0_18px_50px_-20px_oklch(0.358_0.075_1/30%)] sm:mt-9 sm:p-4">
+            <div className="mt-7 w-full max-w-2xl rounded-[2rem] bg-background p-3 shadow-[0_18px_50px_-20px_oklch(0.145_0_90/16%)] sm:mt-9 sm:p-4">
               <p className="oeil px-2 pt-1 text-encre/70 sm:px-3">Trouver une prestataire</p>
               <form
                 className="mt-2 flex w-full flex-col gap-2 sm:flex-row sm:items-center"

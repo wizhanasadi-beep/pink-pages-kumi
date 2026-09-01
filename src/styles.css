@@ -5,10 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * LES PAGES ROSES — direction artistique « Fraise écrasée »
- * Crème beurre · rose bonbon · rose vif · fraise profonde.
- * Typo : DM Serif Display (titres) + Fira Sans (interface).
+ * LES PAGES ROSES — charte graphique Kumi
+ * Rose Kumi #F20098 · rose flash #F9459C · noir #0A0A0A · taupe #836964
+ * Accents : terracotta #DB4A2B · doré #FCB238
+ * Typo : Cormorant Garamond (titres) + Plus Jakarta Sans (interface).
  */
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 6px);
@@ -40,59 +42,70 @@
   /* tokens de marque */
   --color-rose: var(--rose);
   --color-rose-foreground: var(--rose-foreground);
+  --color-rose-flash: var(--rose-flash);
   --color-poudre: var(--poudre);
-  --color-jaune: var(--creme);
+  --color-jaune: var(--dore);
   --color-jaune-foreground: var(--encre);
+  --color-dore: var(--dore);
+  --color-terracotta: var(--terracotta);
+  --color-taupe: var(--taupe);
   --color-creme: var(--creme);
   --color-bordeaux: var(--bordeaux);
   --color-encre: var(--encre);
   --color-papier: var(--papier);
 
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-titre: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-titre: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --shadow-encart:
-    0 2px 4px oklch(0.269 0.011 359 / 5%), 0 22px 44px -30px oklch(0.269 0.011 359 / 24%);
+    0 1px 2px oklch(0.145 0 90 / 4%), 0 18px 40px -32px oklch(0.145 0 90 / 22%);
   --shadow-encart-rose:
-    0 2px 4px oklch(0.672 0.166 10 / 12%), 0 26px 54px -30px oklch(0.672 0.166 10 / 50%);
+    0 1px 2px oklch(0.631 0.261 352.5 / 10%), 0 22px 48px -34px oklch(0.631 0.261 352.5 / 42%);
 
   --shadow-encart-jaune: var(--shadow-encart);
+
 }
 
 :root {
-  --radius: 1.25rem;
+  --radius: 1rem;
 
-  /* rose poudré #D88C9A · bordeaux profond #5C2A3A · fond clair #FAF6F4 · texte #2B2426 */
-  --background: oklch(0.976 0.005 49);
-  --foreground: oklch(0.269 0.011 359);
+  /* charte Kumi : rose #F20098 · flash #F9459C · noir #0A0A0A · taupe #836964 */
+  --background: oklch(0.992 0.001 17);
+  --foreground: oklch(0.145 0 90);
   --papier: oklch(1 0 0);
-  --creme: oklch(0.976 0.005 49);
+  --creme: oklch(0.969 0.003 17);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.269 0.011 359);
+  --card-foreground: oklch(0.145 0 90);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.269 0.011 359);
+  --popover-foreground: oklch(0.145 0 90);
 
-  --rose: oklch(0.672 0.166 10);
-  --rose-foreground: oklch(0.99 0.005 40);
-  --poudre: oklch(0.888 0.055 6);
+  --rose: oklch(0.631 0.261 352.5);
+  --rose-foreground: oklch(1 0 0);
+  --rose-flash: oklch(0.675 0.226 355.6);
+  --poudre: oklch(0.948 0.028 342.3);
 
-  --bordeaux: oklch(0.358 0.075 1);
-  --encre: oklch(0.358 0.075 1);
+  --taupe: oklch(0.545 0.034 31);
+  --terracotta: oklch(0.607 0.187 34);
+  --dore: oklch(0.815 0.155 75);
 
-  --primary: oklch(0.358 0.075 1);
-  --primary-foreground: oklch(0.976 0.005 49);
-  --secondary: oklch(0.908 0.025 2);
-  --secondary-foreground: oklch(0.358 0.075 1);
-  --muted: oklch(0.949 0.008 30);
-  --muted-foreground: oklch(0.5 0.035 358);
-  --accent: oklch(0.908 0.025 2);
-  --accent-foreground: oklch(0.358 0.075 1);
-  --destructive: oklch(0.52 0.2 24);
-  --destructive-foreground: oklch(0.976 0.005 49);
-  --border: oklch(0.358 0.075 1 / 14%);
-  --input: oklch(0.358 0.075 1 / 18%);
-  --ring: oklch(0.672 0.166 10);
+  --bordeaux: oklch(0.145 0 90);
+  --encre: oklch(0.145 0 90);
+
+  --primary: oklch(0.145 0 90);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.948 0.028 342.3);
+  --secondary-foreground: oklch(0.145 0 90);
+  --muted: oklch(0.969 0.003 17);
+  --muted-foreground: oklch(0.545 0.034 31);
+  --accent: oklch(0.948 0.028 342.3);
+  --accent-foreground: oklch(0.145 0 90);
+  --destructive: oklch(0.607 0.187 34);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.545 0.034 31 / 20%);
+  --input: oklch(0.545 0.034 31 / 26%);
+  --ring: oklch(0.631 0.261 352.5);
+
 }
 
 @layer base {
@@ -119,7 +132,7 @@
   }
 
   ::placeholder {
-    color: oklch(0.5 0.035 358 / 70%);
+    color: oklch(0.545 0.034 31 / 70%);
   }
 
   textarea {
@@ -130,8 +143,8 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: -0.005em;
   }
 }
 
@@ -204,7 +217,7 @@
 @utility encart-rose {
   background-color: var(--papier);
   color: var(--encre);
-  border: 1px solid oklch(0.721 0.094 8 / 40%);
+  border: 1px solid oklch(0.631 0.261 352.5 / 28%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
 }
@@ -243,23 +256,23 @@
 
 @utility titre-geant {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 0.9;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
 }
 
 @utility logo-pages-roses {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1;
 }
 
 @utility mot-roses {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 /* ——— Pavés de rubriques ——— */

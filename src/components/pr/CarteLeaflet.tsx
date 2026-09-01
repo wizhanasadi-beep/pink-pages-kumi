@@ -7,7 +7,7 @@ import { DEPLACEMENT_LABEL, TYPE_OFFRE_LABEL } from "@/lib/pages-roses";
 const marqueurRose = (initiales: string) =>
   L.divIcon({
     className: "",
-    html: `<span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:2px solid #241a16;border-radius:999px;background:#F0468C;color:#fffdf5;font:600 11px/1 'Work Sans',sans-serif;box-shadow:3px 3px 0 0 #241a16">${initiales}</span>`,
+    html: `<span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:2px solid #0A0A0A;border-radius:999px;background:#F20098;color:#ffffff;font:600 11px/1 'Plus Jakarta Sans',sans-serif;box-shadow:3px 3px 0 0 #0A0A0A">${initiales}</span>`,
     iconSize: [32, 32],
     iconAnchor: [16, 16],
   });
@@ -67,9 +67,9 @@ export default function CarteLeaflet({
     if (centre) {
       L.circleMarker([centre.lat, centre.lon], {
         radius: 8,
-        color: "#241a16",
+        color: "#0A0A0A",
         weight: 2,
-        fillColor: "#FFD84F",
+        fillColor: "#FCB238",
         fillOpacity: 1,
       })
         .bindPopup("Tu es ici")
