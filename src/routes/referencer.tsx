@@ -26,7 +26,7 @@ export const Route = createFileRoute("/referencer")({
 });
 
 const champ =
-  "w-full border border-border bg-papier px-3 py-2.5 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.721_0.094_8_/_25%)]";
+  "w-full border border-border bg-papier px-3 py-2.5 text-base outline-none focus:shadow-[0_0_0_3px_oklch(0.631_0.261_352.5_/_25%)]";
 
 function Referencer() {
   const { data: categories = [] } = useQuery(categoriesQuery);
