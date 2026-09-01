@@ -64,7 +64,7 @@ function Fiche() {
           <p className="font-display text-2xl">Cette fiche n'est pas (encore) publiée.</p>
           <Link
             to="/annuaire"
-            search={{ q: "", cat: "", dep: "", ville: "" }}
+            search={{ q: "", cat: "", dep: "", dept: "" }}
             className="rubrique mt-4 inline-block border border-border bg-rose px-4 py-2 text-rose-foreground shadow-sm rounded-full"
           >
             Retour à l'annuaire
@@ -102,7 +102,7 @@ function Fiche() {
     <PageMagazine>
       <Link
         to="/annuaire"
-        search={{ q: "", cat: "", dep: "", ville: "" }}
+        search={{ q: "", cat: "", dep: "", dept: "" }}
         className="label-annonce inline-block"
       >
         ← Retour à l'annuaire
