@@ -291,11 +291,7 @@ function Tableau() {
       <div className="flex items-start justify-between gap-3">
         <Rubrique sur="Coulisses" titre="La rédaction" sous="Audience, demandes, export." />
         <button
-          onClick={async () => {
-            await fermerRedaction();
-            qc.clear();
-            location.reload();
-          }}
+          onClick={() => deconnexion(qc)}
           className="label-annonce shrink-0 border border-border bg-papier px-3 py-2 rounded-full"
         >
           Quitter
@@ -316,7 +312,7 @@ function Tableau() {
         ))}
       </div>
 
-      {onglet === "dashboard" ? <Dashboard /> : <Demandes />}
+      {onglet === "dashboard" ? <Dashboard /> : onglet === "demandes" ? <Demandes /> : <Acces />}
       <NumeroDePage n={99} mention="Rédaction" />
     </PageMagazine>
   );
