@@ -1,22 +1,26 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Glyphe, LogoHorizontal } from "@/components/pr/Logo";
 
 const LIENS = [
   { to: "/", label: "Accueil" },
   { to: "/annuaire", label: "Annuaire" },
-  { to: "/departements", label: "Départements" },
   { to: "/carte", label: "Carte" },
   { to: "/categories", label: "Rubriques" },
 ] as const;
 
 export function Masthead() {
+  const [ouvert, setOuvert] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-papier/95 backdrop-blur">
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 sm:flex sm:justify-between">
-        <Link to="/" className="min-w-0">
+        <Link to="/" className="min-w-0" onClick={() => setOuvert(false)}>
           <LogoHorizontal />
         </Link>
+
         <nav className="hidden items-center gap-7 sm:flex">
           {LIENS.map((l) => (
             <Link
@@ -31,45 +35,50 @@ export function Masthead() {
           ))}
           <Link
             to="/referencer"
-            className="oeil bg-encre px-4 py-2.5 text-background transition-opacity hover:opacity-85 rounded-full"
+            className="oeil rounded-full bg-encre px-4 py-2.5 text-background transition-opacity hover:opacity-85"
           >
             Référencer
           </Link>
         </nav>
+
+        <button
+          type="button"
+          onClick={() => setOuvert((v) => !v)}
+          aria-label={ouvert ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={ouvert}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-papier text-bordeaux sm:hidden"
+        >
+          {ouvert ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+
+      {ouvert ? (
+        <nav className="border-t border-border bg-papier px-5 pb-6 pt-2 sm:hidden">
+          <ul className="flex flex-col">
+            {LIENS.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  activeOptions={{ exact: l.to === "/" }}
+                  onClick={() => setOuvert(false)}
+                  className="block border-b border-border py-4 font-display text-2xl text-encre"
+                  activeProps={{ className: "text-rose" }}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/referencer"
+            onClick={() => setOuvert(false)}
+            className="oeil mt-5 block rounded-full bg-encre px-5 py-3.5 text-center text-background"
+          >
+            Référencer mon activité
+          </Link>
+        </nav>
+      ) : null}
     </header>
-  );
-}
-
-export function BottomNav() {
-  return (
-    <nav className="nav-safe fixed inset-x-0 bottom-0 z-40 border-t border-border bg-papier/97 backdrop-blur sm:hidden">
-      <ul className="mx-auto flex max-w-lg items-stretch">
-        {LIENS.map((l) => (
-          <li key={l.to} className="flex-1">
-            <Link
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              className="oeil flex min-h-[3rem] flex-col items-center justify-center gap-1 py-3 text-[0.6rem] text-muted-foreground"
-              activeProps={{ className: "text-bordeaux bg-poudre/70" }}
-            >
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
-export function FabReferencer() {
-  return (
-    <Link
-      to="/referencer"
-      className="oeil fixed bottom-[5.25rem] right-4 z-40 rounded-full bg-encre px-5 py-3.5 text-background shadow-[0_10px_24px_rgba(84,20,36,0.28)] sm:hidden"
-    >
-      Référencer
-    </Link>
   );
 }
 
