@@ -256,23 +256,23 @@
 
 @utility titre-geant {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 0.9;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
 }
 
 @utility logo-pages-roses {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1;
 }
 
 @utility mot-roses {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 /* ——— Pavés de rubriques ——— */
