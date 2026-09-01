@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageMagazine } from "@/components/pr/layout";
 import { Etiquette, NumeroDePage, Rubrique } from "@/components/pr/bits";
-import { PictoRubrique } from "@/components/pr/ornements";
+import { VignetteRubrique } from "@/components/pr/VignetteRubrique";
 import { categoriesQuery, prestatairesQuery, SOUS_RUBRIQUES } from "@/lib/pages-roses";
 
 export const Route = createFileRoute("/categories")({
@@ -45,7 +45,7 @@ function Categories() {
                 <div>
                   <p className="label-annonce text-bordeaux">Rubrique {i + 1}</p>
                   <h2 className="rubrique flex items-center gap-3 text-2xl sm:text-4xl">
-                    <PictoRubrique slug={c.slug} className="w-7 shrink-0 text-rose sm:w-9" />
+                    <VignetteRubrique slug={c.slug} className="w-11 sm:w-14" />
                     {c.nom}
                   </h2>
                   {c.description ? (
