@@ -4,11 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PageAplats } from "@/components/pr/layout";
 import { LettrageHero } from "@/components/pr/Logo";
-import { OPTIONS_DEPARTEMENT } from "@/lib/departements";
 import { Couverture } from "@/components/pr/Couverture";
 import { Reveal } from "@/components/pr/Reveal";
-import { Etoile, Vague } from "@/components/pr/ornements";
-import { VignetteRubrique } from "@/components/pr/VignetteRubrique";
+import { Etoile, PictoRubrique, Vague } from "@/components/pr/ornements";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, prestatairesQuery, SOUS_RUBRIQUES } from "@/lib/pages-roses";
 
@@ -37,18 +35,19 @@ function Accueil() {
   const navigate = useNavigate();
   const [couverture, setCouverture] = useState(true);
   const [besoin, setBesoin] = useState("");
-  const [dept, setDept] = useState("");
+  const [ville, setVille] = useState("");
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
+  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
   const compte = (slug: string) => fiches.filter((f) => f.categorie_slug === slug).length;
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
-    pister({ type: "recherche", cible: [besoin, dept].filter(Boolean).join(" · ") || "vide" });
+    pister({ type: "recherche", cible: [besoin, ville].filter(Boolean).join(" · ") || "vide" });
     navigate({
       to: "/annuaire",
-      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", dept },
+      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
     });
   };
 
@@ -76,7 +75,7 @@ function Accueil() {
 
 
             {/* Recherche épurée : quoi + où */}
-            <div className="mt-7 w-full max-w-2xl rounded-[2rem] bg-background p-3 shadow-[0_18px_50px_-20px_oklch(0.358_0.075_1/30%)] sm:mt-9 sm:p-4">
+            <div className="mt-7 w-full max-w-2xl rounded-[2rem] bg-background p-3 shadow-[0_18px_50px_-20px_oklch(0.44_0.16_12/35%)] sm:mt-9 sm:p-4">
               <p className="oeil px-2 pt-1 text-encre/70 sm:px-3">Trouver une prestataire</p>
               <form
                 className="mt-2 flex w-full flex-col gap-2 sm:flex-row sm:items-center"
@@ -108,15 +107,15 @@ function Accueil() {
                 </datalist>
 
                 <select
-                  value={dept}
-                  onChange={(e) => setDept(e.target.value)}
-                  aria-label="Département"
+                  value={ville}
+                  onChange={(e) => setVille(e.target.value)}
+                  aria-label="Où ?"
                   className="rounded-full border border-encre/20 bg-papier px-5 py-3.5 text-base outline-none focus:border-rose focus:ring-2 focus:ring-rose/20 sm:w-44"
                 >
                   <option value="">Partout</option>
-                  {OPTIONS_DEPARTEMENT.map((d) => (
-                    <option key={d.code} value={d.code}>
-                      {d.nom}
+                  {villes.map((v) => (
+                    <option key={v} value={v}>
+                      {v}
                     </option>
                   ))}
                 </select>
@@ -135,7 +134,7 @@ function Accueil() {
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
               <Link
                 to="/annuaire"
-                search={{ q: "", cat: "", dep: "", dept: "" }}
+                search={{ q: "", cat: "", dep: "", ville: "" }}
                 className="oeil border-b border-encre pb-0.5"
               >
                 Feuilleter l'annuaire
@@ -166,14 +165,13 @@ function Accueil() {
               <Reveal key={c.id} delay={i * 60}>
                 <Link
                   to="/annuaire"
-                  search={{ q: "", cat: c.slug, dep: "", dept: "" }}
+                  search={{ q: "", cat: c.slug, dep: "", ville: "" }}
                   className={`pave ${TONS[i % TONS.length]} group flex h-full flex-col justify-between p-4 sm:p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-encart-rose)]`}
                 >
-                  <VignetteRubrique
+                  <PictoRubrique
                     slug={c.slug}
-                    className="w-14 sm:w-16"
+                    className="w-9 opacity-80 transition-transform duration-300 group-hover:scale-110 sm:w-12"
                   />
-
                   <div className="mt-5 sm:mt-8">
                     <h3 className="text-xl leading-none sm:text-3xl">{c.nom}</h3>
                     <p className="oeil mt-2 opacity-70 sm:mt-3">
@@ -201,7 +199,7 @@ function Accueil() {
             </p>
             <Link
               to="/annuaire"
-              search={{ q: "", cat: "beaute", dep: "", dept: "" }}
+              search={{ q: "", cat: "beaute", dep: "", ville: "" }}
               className="oeil mt-10 inline-block bg-encre px-6 py-3.5 text-background transition-transform hover:-translate-y-0.5 rounded-full"
             >
               Voir la rubrique Beauté
@@ -218,7 +216,7 @@ function Accueil() {
             </div>
             <Link
               to="/annuaire"
-              search={{ q: "", cat: "", dep: "", dept: "" }}
+              search={{ q: "", cat: "", dep: "", ville: "" }}
               className="oeil hidden border-b border-rose pb-0.5 sm:block"
             >
               Tout voir
