@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export type StatutFiche = "en_attente" | "publiee" | "refusee";
 
@@ -35,35 +36,157 @@ export type Statistiques = {
   topLiens: { cible: string; clics: number }[];
 };
 
-async function garde() {
-  const { sessionRedactionOuverte } = await import("./redaction.server");
-  if (!(await sessionRedactionOuverte())) throw new Error("Accès rédaction requis");
+export type StatutDemandeAcces = "en_attente" | "acceptee" | "refusee";
+
+export type DemandeAcces = {
+  id: string;
+  user_id: string | null;
+  email: string;
+  nom: string;
+  message: string;
+  statut: StatutDemandeAcces;
+  created_at: string;
+};
+
+type ContexteAuth = { userId: string; claims: { email?: string } };
+
+/** Vérifie que l'appelante est administratrice. La toute première utilisatrice le devient. */
+async function garde(context: ContexteAuth) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: role } = await supabaseAdmin
+    .from("user_roles")
+    .select("id")
+    .eq("user_id", context.userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (role) return;
+
+  const { count } = await supabaseAdmin
+    .from("user_roles")
+    .select("id", { count: "exact", head: true })
+    .eq("role", "admin");
+  if ((count ?? 0) === 0) {
+    await supabaseAdmin.from("user_roles").insert({ user_id: context.userId, role: "admin" });
+    return;
+  }
+  throw new Error("Accès rédaction requis");
 }
 
-export const ouvrirRedaction = createServerFn({ method: "POST" })
-  .validator((data: { code: string }) => ({ code: String(data?.code ?? "") }))
-  .handler(async ({ data }) => {
-    const { codeCorrect, ouvrirSessionRedaction } = await import("./redaction.server");
-    if (!/^\d+$/.test(data.code.trim()) || !codeCorrect(data.code)) {
-      return { ok: false as const, message: "Code incorrect." };
+/** État d'accès de la personne connectée (rôle admin + demande éventuelle). */
+export const etatAcces = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    let admin = false;
+    try {
+      await garde(context as unknown as ContexteAuth);
+      admin = true;
+    } catch {
+      admin = false;
     }
-    await ouvrirSessionRedaction();
+    const email = String((context.claims as { email?: string })?.email ?? "");
+    const { data: demande } = await supabaseAdmin
+      .from("demandes_acces")
+      .select("statut")
+      .eq("user_id", context.userId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    return { admin, email, demande: (demande?.statut ?? null) as StatutDemandeAcces | null };
+  });
+
+/** Demande d'accès à l'espace rédaction (ouverte à tout le monde). */
+export const demanderAcces = createServerFn({ method: "POST" })
+  .validator((data: { email: string; nom?: string; message?: string }) => ({
+    email: String(data?.email ?? "").trim().slice(0, 200),
+    nom: String(data?.nom ?? "").trim().slice(0, 120),
+    message: String(data?.message ?? "").trim().slice(0, 1000),
+  }))
+  .handler(async ({ data }) => {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
+      return { ok: false as const, message: "Adresse e-mail invalide." };
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: utilisateurs } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
+    const compte = utilisateurs?.users.find(
+      (u) => (u.email ?? "").toLowerCase() === data.email.toLowerCase(),
+    );
+    const { error } = await supabaseAdmin.from("demandes_acces").insert({
+      email: data.email,
+      nom: data.nom,
+      message: data.message,
+      user_id: compte?.id ?? null,
+    });
+    if (error) throw new Error(error.message);
     return { ok: true as const };
   });
 
-export const etatRedaction = createServerFn({ method: "GET" }).handler(async () => {
-  const { sessionRedactionOuverte } = await import("./redaction.server");
-  return { ouvert: await sessionRedactionOuverte() };
-});
+export const listerDemandesAcces = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<DemandeAcces[]> => {
+    await garde(context as unknown as ContexteAuth);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("demandes_acces")
+      .select("id, user_id, email, nom, message, statut, created_at")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as DemandeAcces[];
+  });
 
-export const fermerRedaction = createServerFn({ method: "POST" }).handler(async () => {
-  const { fermerSessionRedaction } = await import("./redaction.server");
-  await fermerSessionRedaction();
-  return { ok: true as const };
-});
+/** Autorise ou refuse une demande d'accès. Autoriser donne le rôle admin au compte. */
+export const deciderDemandeAcces = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((data: { id: string; statut: "acceptee" | "refusee" }) => data)
+  .handler(async ({ data, context }) => {
+    await garde(context as unknown as ContexteAuth);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: demande, error: err1 } = await supabaseAdmin
+      .from("demandes_acces")
+      .select("id, email, user_id")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (err1) throw new Error(err1.message);
+    if (!demande) return { ok: false as const, message: "Demande introuvable." };
 
-export const fichesRedaction = createServerFn({ method: "GET" }).handler(async () => {
-  await garde();
+    if (data.statut === "acceptee") {
+      let userId = demande.user_id;
+      if (!userId) {
+        const { data: utilisateurs } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
+        userId =
+          utilisateurs?.users.find(
+            (u) => (u.email ?? "").toLowerCase() === demande.email.toLowerCase(),
+          )?.id ?? null;
+      }
+      if (!userId) {
+        return {
+          ok: false as const,
+          message: "Aucun compte avec cet e-mail : demande-lui de créer son compte d'abord.",
+        };
+      }
+      const { error } = await supabaseAdmin
+        .from("user_roles")
+        .upsert({ user_id: userId, role: "admin" }, { onConflict: "user_id,role" });
+      if (error) throw new Error(error.message);
+      await supabaseAdmin
+        .from("demandes_acces")
+        .update({ statut: "acceptee", user_id: userId })
+        .eq("id", data.id);
+      return { ok: true as const };
+    }
+
+    const { error } = await supabaseAdmin
+      .from("demandes_acces")
+      .update({ statut: "refusee" })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const fichesRedaction = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+  await garde(context as unknown as ContexteAuth);
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("prestataires")
@@ -76,9 +199,10 @@ export const fichesRedaction = createServerFn({ method: "GET" }).handler(async (
 });
 
 export const majStatutFiche = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .validator((data: { id: string; statut: StatutFiche }) => data)
-  .handler(async ({ data }) => {
-    await garde();
+  .handler(async ({ data, context }) => {
+    await garde(context as unknown as ContexteAuth);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("prestataires")
@@ -89,18 +213,21 @@ export const majStatutFiche = createServerFn({ method: "POST" })
   });
 
 export const supprimerFiche = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .validator((data: { id: string }) => data)
-  .handler(async ({ data }) => {
-    await garde();
+  .handler(async ({ data, context }) => {
+    await garde(context as unknown as ContexteAuth);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("prestataires").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true as const };
   });
 
-export const statistiquesSite = createServerFn({ method: "GET" }).handler(
-  async (): Promise<Statistiques> => {
-    await garde();
+export const statistiquesSite = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(
+  async ({ context }): Promise<Statistiques> => {
+    await garde(context as unknown as ContexteAuth);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const depuis = new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString();
 
@@ -199,8 +326,10 @@ function cellule(valeur: unknown) {
 }
 
 /** Renvoie un CSV (séparateur point-virgule, BOM UTF-8) directement ouvrable dans Excel. */
-export const exporterDemandes = createServerFn({ method: "GET" }).handler(async () => {
-  await garde();
+export const exporterDemandes = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+  await garde(context as unknown as ContexteAuth);
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("prestataires")

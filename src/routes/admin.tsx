@@ -1,19 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
+import { supabase } from "@/integrations/supabase/client";
 import { PageMagazine } from "@/components/pr/layout";
 import { Etiquette, Filet, NumeroDePage, Rubrique } from "@/components/pr/bits";
 import {
-  etatRedaction,
+  deciderDemandeAcces,
+  demanderAcces,
+  etatAcces,
   exporterDemandes,
-  fermerRedaction,
   fichesRedaction,
+  listerDemandesAcces,
   majStatutFiche,
-  ouvrirRedaction,
   statistiquesSite,
   supprimerFiche,
   type StatutFiche,
 } from "@/lib/redaction.functions";
+
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -34,12 +38,28 @@ export const Route = createFileRoute("/admin")({
 
 function Redaction() {
   const qc = useQueryClient();
-  const { data: etat, isLoading } = useQuery({
-    queryKey: ["redaction", "etat"],
-    queryFn: () => etatRedaction(),
+  const [session, setSession] = useState<Session | null>(null);
+  const [pretSession, setPretSession] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setPretSession(true);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      setSession(s);
+      qc.invalidateQueries({ queryKey: ["redaction"] });
+    });
+    return () => sub.subscription.unsubscribe();
+  }, [qc]);
+
+  const { data: acces, isLoading } = useQuery({
+    queryKey: ["redaction", "acces", session?.user.id ?? null],
+    queryFn: () => etatAcces(),
+    enabled: Boolean(session),
   });
 
-  if (isLoading) {
+  if (!pretSession || (session && isLoading)) {
     return (
       <PageMagazine>
         <p className="label-annonce">Chargement…</p>
@@ -47,56 +67,209 @@ function Redaction() {
     );
   }
 
-  if (!etat?.ouvert) return <PorteCode onOuvert={() => qc.invalidateQueries()} />;
+  if (!session) return <PorteConnexion />;
+  if (!acces?.admin) return <EnAttente email={acces?.email ?? session.user.email ?? ""} demande={acces?.demande ?? null} />;
   return <Tableau />;
 }
 
-function PorteCode({ onOuvert }: { onOuvert: () => void }) {
-  const [code, setCode] = useState("");
+async function deconnexion(qc: ReturnType<typeof useQueryClient>) {
+  await qc.cancelQueries();
+  qc.clear();
+  await supabase.auth.signOut();
+}
+
+const champ =
+  "w-full rounded-full border border-border bg-papier px-4 py-3 text-base";
+
+function PorteConnexion() {
+  const [mode, setMode] = useState<"connexion" | "inscription" | "demande">("connexion");
+  const [email, setEmail] = useState("");
+  const [motDePasse, setMotDePasse] = useState("");
+  const [nom, setNom] = useState("");
+  const [note, setNote] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  const entrer = useMutation({
-    mutationFn: (valeur: string) => ouvrirRedaction({ data: { code: valeur } }),
-    onSuccess: (res) => {
-      if (res.ok) onOuvert();
-      else setMessage(res.message);
-    },
-    onError: () => setMessage("Le code d'accès n'est pas configuré."),
+  const [succes, setSucces] = useState<string | null>(null);
+  const [envoi, setEnvoi] = useState(false);
+
+  const envoyer = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+    setSucces(null);
+    setEnvoi(true);
+    try {
+      if (mode === "connexion") {
+        const { error } = await supabase.auth.signInWithPassword({ email, password: motDePasse });
+        if (error) setMessage("E-mail ou mot de passe incorrect.");
+      } else if (mode === "inscription") {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password: motDePasse,
+          options: { emailRedirectTo: window.location.origin + "/admin", data: { nom } },
+        });
+        if (error) setMessage(error.message);
+        else setSucces("Compte créé. Tu peux te connecter.");
+      } else {
+        const res = await demanderAcces({ data: { email, nom, message: note } });
+        if (res.ok) setSucces("Demande envoyée ! La rédaction te répondra bientôt.");
+        else setMessage(res.message);
+      }
+    } catch {
+      setMessage("Une erreur est survenue, réessaie.");
+    } finally {
+      setEnvoi(false);
+    }
+  };
+
+  const titres = {
+    connexion: { titre: "Connexion", sous: "Espace réservé à la rédaction." },
+    inscription: { titre: "Créer un compte", sous: "Ton accès sera validé par la rédaction." },
+    demande: { titre: "Demander l'accès", sous: "Dis-nous qui tu es." },
+  }[mode];
+
+  return (
+    <PageMagazine>
+      <Rubrique sur="Coulisses" titre={titres.titre} sous={titres.sous} />
+      <form onSubmit={envoyer} className="encart mx-auto max-w-md space-y-4 p-5">
+        {mode !== "connexion" ? (
+          <div>
+            <label className="label-annonce mb-1 block">
+              {mode === "demande" ? "Ton nom" : "Prénom"}
+            </label>
+            <input
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              required={mode === "demande"}
+              className={champ}
+            />
+          </div>
+        ) : null}
+
+        <div>
+          <label className="label-annonce mb-1 block">Adresse e-mail</label>
+          <input
+            type="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={champ}
+          />
+        </div>
+
+        {mode !== "demande" ? (
+          <div>
+            <label className="label-annonce mb-1 block">Mot de passe</label>
+            <input
+              type="password"
+              autoComplete={mode === "connexion" ? "current-password" : "new-password"}
+              required
+              minLength={8}
+              value={motDePasse}
+              onChange={(e) => setMotDePasse(e.target.value)}
+              className={champ}
+            />
+          </div>
+        ) : (
+          <div>
+            <label className="label-annonce mb-1 block">Message (optionnel)</label>
+            <textarea
+              rows={3}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              className="w-full rounded-2xl border border-border bg-papier px-4 py-3 text-base"
+            />
+          </div>
+        )}
+
+        {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
+        {succes ? <p className="label-annonce text-rose">{succes}</p> : null}
+
+        <button
+          type="submit"
+          disabled={envoi}
+          className="rubrique w-full rounded-full border border-border bg-rose px-4 py-3 text-lg text-rose-foreground shadow-sm disabled:opacity-60"
+        >
+          {envoi
+            ? "Envoi…"
+            : mode === "connexion"
+              ? "Se connecter"
+              : mode === "inscription"
+                ? "Créer mon compte"
+                : "Envoyer ma demande"}
+        </button>
+
+        <div className="flex flex-wrap justify-center gap-3 pt-1 text-sm">
+          {mode !== "connexion" ? (
+            <button type="button" onClick={() => setMode("connexion")} className="underline">
+              J'ai déjà un compte
+            </button>
+          ) : null}
+          {mode !== "inscription" ? (
+            <button type="button" onClick={() => setMode("inscription")} className="underline">
+              Créer un compte
+            </button>
+          ) : null}
+          {mode !== "demande" ? (
+            <button type="button" onClick={() => setMode("demande")} className="underline">
+              Demander l'accès à la rédaction
+            </button>
+          ) : null}
+        </div>
+      </form>
+      <NumeroDePage n={99} mention="Rédaction" />
+    </PageMagazine>
+  );
+}
+
+function EnAttente({ email, demande }: { email: string; demande: string | null }) {
+  const qc = useQueryClient();
+  const [note, setNote] = useState("");
+  const [etat, setEtat] = useState<string | null>(
+    demande === "en_attente" ? "Ta demande est en cours d'examen." : null,
+  );
+  const envoyer = useMutation({
+    mutationFn: () => demanderAcces({ data: { email, nom: "", message: note } }),
+    onSuccess: () => setEtat("Demande envoyée ! La rédaction te répondra bientôt."),
   });
 
   return (
     <PageMagazine>
-      <Rubrique sur="Réservé à la rédaction" titre="Code d'accès" sous="Un simple code suffit." />
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setMessage(null);
-          entrer.mutate(code);
-        }}
-        className="encart mx-auto max-w-md space-y-4 p-5"
-      >
-        <label className="label-annonce mb-1 block">Code rédaction</label>
-        <input
-          type="password"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          autoComplete="current-password"
-          aria-label="Code numérique rédaction"
-          required
-          autoFocus
-          value={code}
-          onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
-          className="w-full border border-border bg-papier px-4 py-3 text-center text-lg tracking-widest rounded-full"
-        />
-        <p className="text-center text-sm text-muted-foreground">Saisis uniquement les chiffres de ton code.</p>
-        {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
+      <Rubrique
+        sur="Coulisses"
+        titre="Accès en attente"
+        sous="Ton compte existe, il doit encore être autorisé."
+      />
+      <div className="encart mx-auto max-w-md space-y-4 p-5">
+        <p className="text-sm">
+          Connectée avec <strong>{email}</strong>.
+          {demande === "refusee" ? " Ta précédente demande a été refusée." : ""}
+        </p>
+        {etat ? <p className="label-annonce text-rose">{etat}</p> : null}
+        {demande !== "en_attente" ? (
+          <>
+            <textarea
+              rows={3}
+              placeholder="Quelques mots sur toi (optionnel)"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              className="w-full rounded-2xl border border-border bg-papier px-4 py-3 text-base"
+            />
+            <button
+              onClick={() => envoyer.mutate()}
+              disabled={envoyer.isPending}
+              className="rubrique w-full rounded-full border border-border bg-rose px-4 py-3 text-rose-foreground disabled:opacity-60"
+            >
+              {envoyer.isPending ? "Envoi…" : "Demander l'accès"}
+            </button>
+          </>
+        ) : null}
         <button
-          type="submit"
-          disabled={entrer.isPending}
-          className="rubrique w-full border border-border bg-rose px-4 py-3 text-lg text-rose-foreground shadow-sm disabled:opacity-60 rounded-full"
+          onClick={() => deconnexion(qc)}
+          className="label-annonce w-full rounded-full border border-border bg-papier px-4 py-3"
         >
-          {entrer.isPending ? "Vérification…" : "Entrer"}
+          Se déconnecter
         </button>
-      </form>
+      </div>
       <NumeroDePage n={99} mention="Rédaction" />
     </PageMagazine>
   );
@@ -105,7 +278,9 @@ function PorteCode({ onOuvert }: { onOuvert: () => void }) {
 const ONGLETS = [
   { cle: "dashboard", label: "Tableau de bord" },
   { cle: "demandes", label: "Demandes" },
+  { cle: "acces", label: "Accès" },
 ] as const;
+
 
 function Tableau() {
   const qc = useQueryClient();
@@ -116,11 +291,7 @@ function Tableau() {
       <div className="flex items-start justify-between gap-3">
         <Rubrique sur="Coulisses" titre="La rédaction" sous="Audience, demandes, export." />
         <button
-          onClick={async () => {
-            await fermerRedaction();
-            qc.clear();
-            location.reload();
-          }}
+          onClick={() => deconnexion(qc)}
           className="label-annonce shrink-0 border border-border bg-papier px-3 py-2 rounded-full"
         >
           Quitter
@@ -141,7 +312,7 @@ function Tableau() {
         ))}
       </div>
 
-      {onglet === "dashboard" ? <Dashboard /> : <Demandes />}
+      {onglet === "dashboard" ? <Dashboard /> : onglet === "demandes" ? <Demandes /> : <Acces />}
       <NumeroDePage n={99} mention="Rédaction" />
     </PageMagazine>
   );
@@ -394,6 +565,79 @@ function Demandes() {
         {!isLoading && liste.length === 0 ? (
           <p className="encart p-4 text-sm text-muted-foreground">Aucune fiche ici.</p>
         ) : null}
+      </div>
+    </div>
+  );
+}
+
+const LIBELLES_ACCES = {
+  en_attente: "En attente",
+  acceptee: "Autorisée",
+  refusee: "Refusée",
+} as const;
+
+function Acces() {
+  const qc = useQueryClient();
+  const [message, setMessage] = useState<string | null>(null);
+  const { data: demandes = [], isLoading } = useQuery({
+    queryKey: ["redaction", "demandes-acces"],
+    queryFn: () => listerDemandesAcces(),
+  });
+
+  const decider = useMutation({
+    mutationFn: (v: { id: string; statut: "acceptee" | "refusee" }) =>
+      deciderDemandeAcces({ data: v }),
+    onSuccess: (res) => {
+      if (!res.ok) setMessage(res.message);
+      else setMessage(null);
+      qc.invalidateQueries({ queryKey: ["redaction", "demandes-acces"] });
+    },
+  });
+
+  return (
+    <div className="mt-5 space-y-4">
+      <p className="label-annonce text-muted-foreground">
+        Demandes d'accès à l'espace rédaction
+      </p>
+      {message ? <p className="label-annonce text-bordeaux">{message}</p> : null}
+      {isLoading ? <p className="label-annonce">Chargement…</p> : null}
+      {!isLoading && demandes.length === 0 ? (
+        <p className="encart p-4 text-sm">Aucune demande pour le moment.</p>
+      ) : null}
+
+      <div className="grid gap-3">
+        {demandes.map((d) => (
+          <article key={d.id} className="encart p-4">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <h3 className="text-lg font-bold">{d.nom || d.email}</h3>
+                <p className="text-sm text-muted-foreground">{d.email}</p>
+              </div>
+              <Etiquette>{LIBELLES_ACCES[d.statut]}</Etiquette>
+            </div>
+            {d.message ? <p className="mt-2 text-sm">{d.message}</p> : null}
+            <Filet />
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => decider.mutate({ id: d.id, statut: "acceptee" })}
+                disabled={decider.isPending || d.statut === "acceptee"}
+                className="label-annonce rounded-full border border-border bg-rose px-3 py-1.5 text-rose-foreground disabled:opacity-50"
+              >
+                Autoriser
+              </button>
+              <button
+                onClick={() => decider.mutate({ id: d.id, statut: "refusee" })}
+                disabled={decider.isPending || d.statut === "refusee"}
+                className="label-annonce rounded-full border border-border bg-papier px-3 py-1.5 disabled:opacity-50"
+              >
+                Refuser
+              </button>
+              <span className="label-annonce ml-auto self-center text-muted-foreground">
+                {new Date(d.created_at).toLocaleDateString("fr-FR")}
+              </span>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   );

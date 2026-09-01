@@ -79,6 +79,39 @@ export type Database = {
         }
         Relationships: []
       }
+      demandes_acces: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          nom: string
+          statut: Database["public"]["Enums"]["statut_demande_acces"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message?: string
+          nom?: string
+          statut?: Database["public"]["Enums"]["statut_demande_acces"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          nom?: string
+          statut?: Database["public"]["Enums"]["statut_demande_acces"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       evenements: {
         Row: {
           chemin: string
@@ -240,6 +273,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user"
       deplacement_mode: "se_deplace" | "sur_place" | "sur_demande"
+      statut_demande_acces: "en_attente" | "acceptee" | "refusee"
       statut_fiche: "en_attente" | "publiee" | "refusee"
     }
     CompositeTypes: {
@@ -370,6 +404,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user"],
       deplacement_mode: ["se_deplace", "sur_place", "sur_demande"],
+      statut_demande_acces: ["en_attente", "acceptee", "refusee"],
       statut_fiche: ["en_attente", "publiee", "refusee"],
     },
   },
