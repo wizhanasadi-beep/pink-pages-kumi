@@ -30,7 +30,7 @@ export function AnnuaireImage({
       width={1024}
       height={1024}
       {...(priority ? {} : { loading: "lazy" as const })}
-      className={cn("h-auto w-full select-none drop-shadow-[0_18px_30px_rgba(10,10,10,0.18)]", className)}
+      className={cn("h-auto w-full select-none drop-shadow-[0_18px_30px_rgba(84,20,36,0.22)]", className)}
     />
   );
 }

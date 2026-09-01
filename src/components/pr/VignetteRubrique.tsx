@@ -33,7 +33,7 @@ export function VignetteRubrique({
   return (
     <span
       className={cn(
-        "relative block aspect-square shrink-0 overflow-hidden rounded-[1.1rem] ring-1 ring-inset ring-rose/50 shadow-[0_10px_24px_-18px_oklch(0.631_0.261_352.5/55%)]",
+        "relative block aspect-square shrink-0 overflow-hidden rounded-[1.1rem] ring-1 ring-inset ring-rose/40 shadow-[0_10px_24px_-18px_oklch(0.672_0.166_10/60%)]",
         className,
       )}
     >
