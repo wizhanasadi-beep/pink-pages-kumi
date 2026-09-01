@@ -42,24 +42,29 @@
   /* tokens de marque */
   --color-rose: var(--rose);
   --color-rose-foreground: var(--rose-foreground);
+  --color-rose-flash: var(--rose-flash);
   --color-poudre: var(--poudre);
-  --color-jaune: var(--creme);
+  --color-jaune: var(--dore);
   --color-jaune-foreground: var(--encre);
+  --color-dore: var(--dore);
+  --color-terracotta: var(--terracotta);
+  --color-taupe: var(--taupe);
   --color-creme: var(--creme);
   --color-bordeaux: var(--bordeaux);
   --color-encre: var(--encre);
   --color-papier: var(--papier);
 
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-titre: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-titre: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --shadow-encart:
-    0 2px 4px oklch(0.269 0.011 359 / 5%), 0 22px 44px -30px oklch(0.269 0.011 359 / 24%);
+    0 1px 2px oklch(0.145 0 90 / 4%), 0 18px 40px -32px oklch(0.145 0 90 / 22%);
   --shadow-encart-rose:
-    0 2px 4px oklch(0.672 0.166 10 / 12%), 0 26px 54px -30px oklch(0.672 0.166 10 / 50%);
+    0 1px 2px oklch(0.631 0.261 352.5 / 10%), 0 22px 48px -34px oklch(0.631 0.261 352.5 / 42%);
 
   --shadow-encart-jaune: var(--shadow-encart);
+
 }
 
 :root {
