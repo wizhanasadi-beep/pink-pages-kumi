@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PageAplats } from "@/components/pr/layout";
 import { LettrageHero } from "@/components/pr/Logo";
+import { OPTIONS_DEPARTEMENT } from "@/lib/departements";
 import { Couverture } from "@/components/pr/Couverture";
 import { Reveal } from "@/components/pr/Reveal";
 import { Etoile, PictoRubrique, Vague } from "@/components/pr/ornements";
@@ -35,19 +36,18 @@ function Accueil() {
   const navigate = useNavigate();
   const [couverture, setCouverture] = useState(true);
   const [besoin, setBesoin] = useState("");
-  const [ville, setVille] = useState("");
+  const [dept, setDept] = useState("");
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
-  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
   const compte = (slug: string) => fiches.filter((f) => f.categorie_slug === slug).length;
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
-    pister({ type: "recherche", cible: [besoin, ville].filter(Boolean).join(" · ") || "vide" });
+    pister({ type: "recherche", cible: [besoin, dept].filter(Boolean).join(" · ") || "vide" });
     navigate({
       to: "/annuaire",
-      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },
+      search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", dept },
     });
   };
 
@@ -107,15 +107,15 @@ function Accueil() {
                 </datalist>
 
                 <select
-                  value={ville}
-                  onChange={(e) => setVille(e.target.value)}
-                  aria-label="Où ?"
+                  value={dept}
+                  onChange={(e) => setDept(e.target.value)}
+                  aria-label="Département"
                   className="rounded-full border border-encre/20 bg-papier px-5 py-3.5 text-base outline-none focus:border-rose focus:ring-2 focus:ring-rose/20 sm:w-44"
                 >
                   <option value="">Partout</option>
-                  {villes.map((v) => (
-                    <option key={v} value={v}>
-                      {v}
+                  {OPTIONS_DEPARTEMENT.map((d) => (
+                    <option key={d.code} value={d.code}>
+                      {d.nom}
                     </option>
                   ))}
                 </select>

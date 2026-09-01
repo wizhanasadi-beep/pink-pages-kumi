@@ -5,6 +5,7 @@ import { PageMagazine } from "@/components/pr/layout";
 import { Etiquette, NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, distanceKm, prestatairesQuery } from "@/lib/pages-roses";
+import { OPTIONS_DEPARTEMENT, ficheDansDepartement } from "@/lib/departements";
 
 const CarteLeaflet = lazy(() => import("@/components/pr/CarteLeaflet"));
 
@@ -32,6 +33,7 @@ function Carte() {
   const { data: categories = [] } = useQuery(categoriesQuery);
   const [cat, setCat] = useState("");
   const [dep, setDep] = useState("");
+  const [dept, setDept] = useState("");
   const [rayon, setRayon] = useState(50);
   const [position, setPosition] = useState<{ lat: number; lon: number } | null>(null);
   const [etatGeo, setEtatGeo] = useState<"idle" | "attente" | "refus">("idle");
@@ -40,11 +42,12 @@ function Carte() {
     return fiches
       .filter((f) => (cat ? f.categorie_slug === cat : true))
       .filter((f) => (dep ? f.deplacement === dep : true))
+      .filter((f) => ficheDansDepartement(f, dept))
       .filter((f) => {
         if (!position || f.latitude == null || f.longitude == null) return true;
         return distanceKm(position, { lat: f.latitude, lon: f.longitude }) <= rayon;
       });
-  }, [fiches, cat, dep, position, rayon]);
+  }, [fiches, cat, dep, dept, position, rayon]);
 
   const autourDeMoi = () => {
     if (!navigator.geolocation) return setEtatGeo("refus");
@@ -67,7 +70,7 @@ function Carte() {
       />
 
       <section className="encart-jaune p-4">
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-4">
           <div>
             <label className="label-annonce mb-1 block">Rubrique</label>
             <select
@@ -79,6 +82,21 @@ function Carte() {
               {categories.map((c) => (
                 <option key={c.slug} value={c.slug}>
                   {c.nom}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="label-annonce mb-1 block">Département</label>
+            <select
+              value={dept}
+              onChange={(e) => setDept(e.target.value)}
+              className="w-full rounded-full border border-border bg-papier px-2 py-2 text-sm"
+            >
+              <option value="">Partout</option>
+              {OPTIONS_DEPARTEMENT.map((d) => (
+                <option key={d.code} value={d.code}>
+                  {d.nom}
                 </option>
               ))}
             </select>
