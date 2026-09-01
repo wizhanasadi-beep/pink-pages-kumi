@@ -5,15 +5,16 @@ import { PageMagazine } from "@/components/pr/layout";
 import { NumeroDePage, Rubrique } from "@/components/pr/bits";
 import { FicheCard } from "@/components/pr/FicheCard";
 import { categoriesQuery, normalise, prestatairesQuery, texteRecherchable } from "@/lib/pages-roses";
+import { OPTIONS_DEPARTEMENT, ficheDansDepartement } from "@/lib/departements";
 
-type Recherche = { q?: string; cat?: string; dep?: string; ville?: string; type?: string };
+type Recherche = { q?: string; cat?: string; dep?: string; dept?: string; type?: string };
 
 export const Route = createFileRoute("/annuaire")({
   validateSearch: (s: Record<string, unknown>): Recherche => ({
     q: typeof s["q"] === "string" ? (s["q"] as string) : "",
     cat: typeof s["cat"] === "string" ? (s["cat"] as string) : "",
     dep: typeof s["dep"] === "string" ? (s["dep"] as string) : "",
-    ville: typeof s["ville"] === "string" ? (s["ville"] as string) : "",
+    dept: typeof s["dept"] === "string" ? (s["dept"] as string) : "",
     type: typeof s["type"] === "string" ? (s["type"] as string) : "",
   }),
   head: () => ({
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/annuaire")({
       {
         name: "description",
         content:
-          "Toutes les prestataires des Kumi réunies au même endroit : recherche, filtres par rubrique, ville et déplacement.",
+          "Toutes les prestataires des Kumi réunies au même endroit : recherche, filtres par rubrique, département et déplacement.",
       },
       { property: "og:title", content: "L'Annuaire — Les Pages Roses" },
       {
@@ -40,7 +41,7 @@ function Annuaire() {
     q: raw.q ?? "",
     cat: raw.cat ?? "",
     dep: raw.dep ?? "",
-    ville: raw.ville ?? "",
+    dept: raw.dept ?? "",
     type: raw.type ?? "",
   };
   const navigate = useNavigate({ from: Route.fullPath });
@@ -50,11 +51,9 @@ function Annuaire() {
   const set = (patch: Partial<Recherche>) =>
     navigate({ search: (prev) => ({ ...prev, ...patch }) });
 
-  const villes = Array.from(new Set(fiches.map((f) => f.ville))).sort();
-
   const resultats = fiches
     .filter((f) => (search.cat ? f.categorie_slug === search.cat : true))
-    .filter((f) => (search.ville ? f.ville === search.ville : true))
+    .filter((f) => ficheDansDepartement(f, search.dept))
     .filter((f) => (search.dep ? f.deplacement === search.dep : true))
     .filter((f) => (search.type ? f.type_offre === search.type : true))
     .filter((f) => {
@@ -74,7 +73,7 @@ function Annuaire() {
     });
 
 
-  const nbFiltres = [search.cat, search.ville, search.dep, search.type].filter(Boolean).length;
+  const nbFiltres = [search.cat, search.dept, search.dep, search.type].filter(Boolean).length;
   const [filtresOuverts, setFiltresOuverts] = useState(nbFiltres > 0);
 
 
@@ -83,7 +82,7 @@ function Annuaire() {
       <Rubrique
         sur="Annuaire"
         titre="Toutes les prestataires"
-        sous="Recherche par nom, activité, rubrique, ville ou zone de déplacement."
+        sous="Recherche par nom, activité, rubrique, département ou zone de déplacement."
       />
 
       {/* Barre de recherche & filtres */}
@@ -141,16 +140,16 @@ function Annuaire() {
               </select>
             </div>
             <div>
-              <label className="oeil mb-2 block text-muted-foreground">Localisation</label>
+              <label className="oeil mb-2 block text-muted-foreground">Département</label>
               <select
-                value={search.ville}
-                onChange={(e) => set({ ville: e.target.value })}
+                value={search.dept}
+                onChange={(e) => set({ dept: e.target.value })}
                 className="w-full border border-border bg-papier px-3 py-2.5 text-sm rounded-full"
               >
                 <option value="">Partout</option>
-                {villes.map((v) => (
-                  <option key={v} value={v}>
-                    {v}
+                {OPTIONS_DEPARTEMENT.map((d) => (
+                  <option key={d.code} value={d.code}>
+                    {d.nom}
                   </option>
                 ))}
               </select>
@@ -170,10 +169,10 @@ function Annuaire() {
             </div>
           </div>
 
-          {search.q || search.cat || search.ville || search.dep || search.type ? (
+          {search.q || search.cat || search.dept || search.dep || search.type ? (
             <button
               onClick={() =>
-                navigate({ search: { q: "", cat: "", dep: "", ville: "", type: "" } })
+                navigate({ search: { q: "", cat: "", dep: "", dept: "", type: "" } })
               }
               className="oeil mt-4 border-b border-rose pb-0.5"
             >
