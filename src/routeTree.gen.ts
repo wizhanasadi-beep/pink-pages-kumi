@@ -10,13 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AnnuaireRouteImport } from './routes/annuaire'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CarteRouteImport } from './routes/carte'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ReferencerRouteImport } from './routes/referencer'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as DepartementsIndexRouteImport } from './routes/departements.index'
 import { Route as DepartementsCodeRouteImport } from './routes/departements.$code'
 import { Route as PrestataireIdRouteImport } from './routes/prestataire.$id'
@@ -26,18 +24,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnnuaireRoute = AnnuaireRouteImport.update({
   id: '/annuaire',
   path: '/annuaire',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CarteRoute = CarteRouteImport.update({
@@ -54,11 +48,6 @@ const ReferencerRoute = ReferencerRouteImport.update({
   id: '/referencer',
   path: '/referencer',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const DepartementsIndexRoute = DepartementsIndexRouteImport.update({
   id: '/departements/',
@@ -78,24 +67,22 @@ const PrestataireIdRoute = PrestataireIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/annuaire': typeof AnnuaireRoute
-  '/auth': typeof AuthRoute
   '/carte': typeof CarteRoute
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements/': typeof DepartementsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/annuaire': typeof AnnuaireRoute
-  '/auth': typeof AuthRoute
   '/carte': typeof CarteRoute
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements': typeof DepartementsIndexRoute
@@ -103,13 +90,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/admin': typeof AdminRoute
   '/annuaire': typeof AnnuaireRoute
-  '/auth': typeof AuthRoute
   '/carte': typeof CarteRoute
   '/categories': typeof CategoriesRoute
   '/referencer': typeof ReferencerRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/departements/$code': typeof DepartementsCodeRoute
   '/prestataire/$id': typeof PrestataireIdRoute
   '/departements/': typeof DepartementsIndexRoute
@@ -118,37 +103,33 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/annuaire'
-    | '/auth'
     | '/carte'
     | '/categories'
     | '/referencer'
-    | '/admin'
     | '/departements/$code'
     | '/prestataire/$id'
     | '/departements/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/annuaire'
-    | '/auth'
     | '/carte'
     | '/categories'
     | '/referencer'
-    | '/admin'
     | '/departements/$code'
     | '/prestataire/$id'
     | '/departements'
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
+    | '/admin'
     | '/annuaire'
-    | '/auth'
     | '/carte'
     | '/categories'
     | '/referencer'
-    | '/_authenticated/admin'
     | '/departements/$code'
     | '/prestataire/$id'
     | '/departements/'
@@ -156,9 +137,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AdminRoute: typeof AdminRoute
   AnnuaireRoute: typeof AnnuaireRoute
-  AuthRoute: typeof AuthRoute
   CarteRoute: typeof CarteRoute
   CategoriesRoute: typeof CategoriesRoute
   ReferencerRoute: typeof ReferencerRoute
@@ -176,11 +156,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/annuaire': {
@@ -188,13 +168,6 @@ declare module '@tanstack/react-router' {
       path: '/annuaire'
       fullPath: '/annuaire'
       preLoaderRoute: typeof AnnuaireRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/carte': {
@@ -217,13 +190,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/referencer'
       preLoaderRoute: typeof ReferencerRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/departements/': {
       id: '/departements/'
@@ -249,22 +215,10 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AdminRoute: AdminRoute,
   AnnuaireRoute: AnnuaireRoute,
-  AuthRoute: AuthRoute,
   CarteRoute: CarteRoute,
   CategoriesRoute: CategoriesRoute,
   ReferencerRoute: ReferencerRoute,

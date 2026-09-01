@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { pister } from "@/lib/tracking";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { PageAplats } from "@/components/pr/layout";
@@ -43,6 +44,7 @@ function Accueil() {
 
   const lancer = () => {
     const cat = categories.find((c) => c.slug === besoin);
+    pister({ type: "recherche", cible: [besoin, ville].filter(Boolean).join(" · ") || "vide" });
     navigate({
       to: "/annuaire",
       search: { q: cat ? "" : besoin, cat: cat ? cat.slug : "", dep: "", ville },

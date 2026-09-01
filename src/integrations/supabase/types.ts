@@ -79,6 +79,44 @@ export type Database = {
         }
         Relationships: []
       }
+      evenements: {
+        Row: {
+          chemin: string
+          cible: string | null
+          created_at: string
+          id: string
+          prestataire_id: string | null
+          referent: string | null
+          type: string
+        }
+        Insert: {
+          chemin?: string
+          cible?: string | null
+          created_at?: string
+          id?: string
+          prestataire_id?: string | null
+          referent?: string | null
+          type: string
+        }
+        Update: {
+          chemin?: string
+          cible?: string | null
+          created_at?: string
+          id?: string
+          prestataire_id?: string | null
+          referent?: string | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evenements_prestataire_id_fkey"
+            columns: ["prestataire_id"]
+            isOneToOne: false
+            referencedRelation: "prestataires"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       prestataires: {
         Row: {
           activite: string
