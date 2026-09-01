@@ -1,19 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
+import { supabase } from "@/integrations/supabase/client";
 import { PageMagazine } from "@/components/pr/layout";
 import { Etiquette, Filet, NumeroDePage, Rubrique } from "@/components/pr/bits";
 import {
-  etatRedaction,
+  deciderDemandeAcces,
+  demanderAcces,
+  etatAcces,
   exporterDemandes,
-  fermerRedaction,
   fichesRedaction,
+  listerDemandesAcces,
   majStatutFiche,
-  ouvrirRedaction,
   statistiquesSite,
   supprimerFiche,
   type StatutFiche,
 } from "@/lib/redaction.functions";
+
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
