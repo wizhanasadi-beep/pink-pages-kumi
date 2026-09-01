@@ -168,10 +168,11 @@ function Accueil() {
                   search={{ q: "", cat: c.slug, dep: "", dept: "" }}
                   className={`pave ${TONS[i % TONS.length]} group flex h-full flex-col justify-between p-4 sm:p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-encart-rose)]`}
                 >
-                  <PictoRubrique
+                  <VignetteRubrique
                     slug={c.slug}
-                    className="w-9 opacity-80 transition-transform duration-300 group-hover:scale-110 sm:w-12"
+                    className="w-14 sm:w-16"
                   />
+
                   <div className="mt-5 sm:mt-8">
                     <h3 className="text-xl leading-none sm:text-3xl">{c.nom}</h3>
                     <p className="oeil mt-2 opacity-70 sm:mt-3">
