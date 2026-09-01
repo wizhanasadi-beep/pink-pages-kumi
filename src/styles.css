@@ -5,10 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * LES PAGES ROSES — direction artistique « Fraise écrasée »
- * Crème beurre · rose bonbon · rose vif · fraise profonde.
- * Typo : DM Serif Display (titres) + Fira Sans (interface).
+ * LES PAGES ROSES — charte graphique Kumi
+ * Rose Kumi #F20098 · rose flash #F9459C · noir #0A0A0A · taupe #836964
+ * Accents : terracotta #DB4A2B · doré #FCB238
+ * Typo : Cormorant Garamond (titres) + Plus Jakarta Sans (interface).
  */
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 6px);
