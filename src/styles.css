@@ -132,7 +132,7 @@
   }
 
   ::placeholder {
-    color: oklch(0.5 0.035 358 / 70%);
+    color: oklch(0.545 0.034 31 / 70%);
   }
 
   textarea {
