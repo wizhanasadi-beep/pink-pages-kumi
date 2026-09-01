@@ -217,7 +217,7 @@
 @utility encart-rose {
   background-color: var(--papier);
   color: var(--encre);
-  border: 1px solid oklch(0.721 0.094 8 / 40%);
+  border: 1px solid oklch(0.631 0.261 352.5 / 28%);
   border-radius: var(--radius);
   box-shadow: var(--shadow-encart-rose);
 }
