@@ -33,11 +33,31 @@ export const Route = createFileRoute("/")({
 
 const TONS = ["pave-rose", "pave-creme", "pave-poudre", "pave-encre", "pave-creme", "pave-rose"];
 
+const CLE_COUVERTURE = "pr-couverture-vue";
+
 function Accueil() {
   const navigate = useNavigate();
-  const [couverture, setCouverture] = useState(true);
+  const [couverture, setCouverture] = useState(false);
   const [besoin, setBesoin] = useState("");
   const [dept, setDept] = useState("");
+
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem(CLE_COUVERTURE)) setCouverture(true);
+    } catch {
+      /* stockage indisponible : pas de couverture */
+    }
+  }, []);
+
+  const fermerCouverture = () => {
+    try {
+      localStorage.setItem(CLE_COUVERTURE, "1");
+    } catch {
+      /* ignore */
+    }
+    setCouverture(false);
+  };
+
   const { data: categories = [] } = useQuery(categoriesQuery);
   const { data: fiches = [] } = useQuery(prestatairesQuery);
   const aLaUne = fiches.slice(0, 3);
