@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { pister } from "@/lib/tracking";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PageAplats } from "@/components/pr/layout";
 import { LettrageHero } from "@/components/pr/Logo";
 import { OPTIONS_DEPARTEMENT } from "@/lib/departements";
@@ -76,7 +76,7 @@ function Accueil() {
 
   return (
     <>
-      {couverture ? <Couverture onFin={() => setCouverture(false)} /> : null}
+      {couverture ? <Couverture onFin={fermerCouverture} /> : null}
 
       <PageAplats>
         {/* —— HERO —— */}
