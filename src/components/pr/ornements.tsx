@@ -51,7 +51,7 @@ export function Vague({ className }: { className?: string | undefined }) {
       aria-hidden
     >
       <path
-        d="M0 20c60-24 120-24 180 0s120 24 180 0 120-24 180 0 120 24 180 0 120-24 180 0 120 24 180 0v20H0Z"
+        d="M0 20c50-24 150-24 200 0s150 24 200 0 150-24 200 0 150 24 200 0 150-24 200 0 150 24 200 0v20H0Z"
         fill="currentColor"
       />
     </svg>
